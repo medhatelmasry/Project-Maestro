@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@master
 
-    - name: 'Deploy to Azure WebApp'
+    - name: 'Deploy PHP to Azure WebApp'
       uses: azure/webapps-deploy@v2
       with: 
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
