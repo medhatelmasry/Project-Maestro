@@ -20,15 +20,18 @@ jobs:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
+      working-directory: front-end
       with:
         node-version: ${{ env.NODE_VERSION }}
     - name: npm install, build, and test
+      working-directory: front-end
       run: |
         # Build and test the project, then
         # deploy to Azure Web App.
         npm install
         CI=false npm run-script build --if-present
     - name: 'Deploy React to Azure WebApp'
+      working-directory: front-end
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
