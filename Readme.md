@@ -20,3 +20,9 @@ Remember to make frequent pushes & pulls if you happen to be in a team
 - SQLite database will be used
 - Back-end will be (among other things) the instructor portal
 - Front-end will cater to student interaction
+
+### Azure Sites
+Github Action Workflows deploy to the following azure sites
+- https://projectmaestro.azurewebsites.net/
+- https://maestroreact.azurewebsites.net/
+- 
