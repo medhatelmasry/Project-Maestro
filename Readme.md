@@ -16,7 +16,7 @@ Every time that a developer makes changes, he/she needs to follow the following 
 
 Remember to make frequent pushes & pulls if you happen to be in a team
 
-# Architecture
+### Architecture
 - SQLite database will be used
 - Back-end will be (among other things) the instructor portal
 - Front-end will cater to student interaction
