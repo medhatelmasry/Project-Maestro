@@ -24,4 +24,4 @@ Remember to make frequent pushes & pulls if you happen to be in a team
 ### Azure Sites
 Github Action Workflows deploy to the following azure sites
 - https://projectmaestro.azurewebsites.net/
-- https://maestroreact.azurewebsites.net/
+- https://maestroreact.azurewebsites.net/ (under construction)
