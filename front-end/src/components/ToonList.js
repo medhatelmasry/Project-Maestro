@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 const ToonList = (param) => {
     var others = toons;
-    if (param != undefined) {
-      others = toons.filter(p => p.id != param.exceptId);
+    if (param !== undefined) {
+      others = toons.filter(p => p.id !== param.exceptId);
     } 
     
     return (
