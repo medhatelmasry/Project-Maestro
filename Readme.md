@@ -15,3 +15,5 @@ Every time that a developer makes changes, he/she needs to follow the following 
 - issue a pull request to main and Jakob or Medhat will approve or reject
 
 Remember to make frequent pushes & pulls if you happen to be in a team
+
+# Architect
