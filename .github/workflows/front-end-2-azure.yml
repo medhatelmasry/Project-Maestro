@@ -30,7 +30,6 @@ jobs:
         npm install
         CI=false npm run-script build --if-present
     - name: 'Deploy React to Azure WebApp'
-      working-directory: front-end
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ env.AZURE_WEBAPP_NAME }}
