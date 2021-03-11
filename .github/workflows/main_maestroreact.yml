@@ -33,4 +33,4 @@ jobs:
         app-name: 'maestroreact'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_9500c4ed4f1141e6a0b57c72c12b6fe0 }}
-        package: ./front-end
+        package: ./front-end/.
