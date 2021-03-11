@@ -32,7 +32,5 @@ jobs:
       with:
         enabled-static-website: 'true'
         folder: './front-end/build'
-        index-document: 'index.html'
-        error-document: '404.html' 
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}        
 
