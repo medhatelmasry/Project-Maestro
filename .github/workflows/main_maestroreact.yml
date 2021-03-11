@@ -28,9 +28,11 @@ jobs:
         # npm run test --if-present
 
     - name: 'Deploy to Azure Web App'
-      uses: azure/webapps-deploy@v2
+      uses: lauchacarro/Azure-Storage-Action@v1.0
       with:
-        app-name: 'maestroreact'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_9500c4ed4f1141e6a0b57c72c12b6fe0 }}
-        package: ./front-end/.
+        enabled-static-website: 'true'
+        folder: './front-end/build'
+        index-document: 'index.html'
+        error-document: '404.html' 
+        connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}        
+
