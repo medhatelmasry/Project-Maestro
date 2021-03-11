@@ -31,6 +31,6 @@ jobs:
       uses: lauchacarro/Azure-Storage-Action@v1.0
       with:
         enabled-static-website: 'true'
-        folder: './front-end/build'
+        folder: './front-end/build/.'
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}        
 
