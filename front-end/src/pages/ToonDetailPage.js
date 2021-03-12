@@ -8,7 +8,7 @@ const ToonDetailPage = ({ match }) => {
     const id = match.params.id;
 
     const person = toons.find(
-        item => item.id == id
+        item => item.id === Number(id)
     );
     if (!person) return <NotFoundPage />
 
