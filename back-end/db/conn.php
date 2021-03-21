@@ -1,11 +1,11 @@
 <?php
 	//check if the database file exists and create a new if not
-	$userdbPath = 'users.db';
+	$userdbPath = '../db/users.db';
 	if(!is_file($userdbPath)){
 		file_put_contents($userdbPath, null);
 	}
 	// connecting the database
-	$conn = new PDO('sqlite:users.db');
+	$conn = new PDO('sqlite:' . $userdbPath);
 	//Setting connection attributes
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	//Query for creating users table in the database if not exist yet.

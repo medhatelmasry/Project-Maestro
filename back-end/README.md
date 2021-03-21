@@ -9,4 +9,4 @@
 
 #REGISTRATION
  - will register user by inserting them into users table
- - currently NO restriction on repeating username 
+ - currently NO restriction on repeating username
