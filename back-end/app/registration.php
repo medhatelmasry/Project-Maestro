@@ -3,6 +3,7 @@
 include('../db/conn.php');
 //starting the session
 session_start();
+$_SESSION["valid"] = 0;
 ?>
 <html lang="en">
 	<head>

@@ -16,6 +16,11 @@
 		$count = $row['count'];
 		
 		if($count > 0){
+			// temp session var to check if user has logged on
+			// Reset when landing on login/registration page
+			// Currently user can access home directly, thus they can technically
+			// Trigger the variable by hoping direclty to home without logging in otherwise. 
+			$_SESSION["valid"] = 1;
 			header('location:home.php');
 		}else{
 			$_SESSION['error'] = "Invalid username or password";
