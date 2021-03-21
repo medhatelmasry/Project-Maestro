@@ -27,8 +27,8 @@
 			//setting a 'success' session to save our insertion success message.
 			$_SESSION['success'] = "Successfully created an account";
 
-			//redirecting to the home.php 
-			header('location: home.php');
+			//redirecting to the login.php 
+			header('location: login.php');
 		}
 
 	}

@@ -1,6 +1,6 @@
 <?php
 	//check if the database file exists and create a new if not
-	$userdbPath = '../db/users.db';
+	$userdbPath = '../db/projectmaestro.db';
 	if(!is_file($userdbPath)){
 		file_put_contents($userdbPath, null);
 	}

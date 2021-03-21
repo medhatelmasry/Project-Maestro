@@ -49,17 +49,7 @@ $_SESSION["valid"] = 0;
 					<label>Role</label>
 					<input type="text" name="userrole" class="form-control" required="required"/>
 				</div>
-				<?php
-					//checking if the session 'success' is set. Success session is the message that the credetials are successfully saved.
-					if(ISSET($_SESSION['success'])){
-				?>
-				<!-- Display registration success message -->
-				<div class="alert alert-success"><?php echo $_SESSION['success']?></div>
-				<?php
-					//Unsetting the 'success' session after displaying the message. 
-					unset($_SESSION['success']);
-					}
-				?>
+
 				<button class="btn btn-primary btn-block" name="register">Register</button>
 			</form>	
 			<!-- Registration Form end -->

@@ -36,6 +36,19 @@ $_SESSION["valid"] = 0;
 					<label>Password</label>
 					<input type="password" name="password" class="form-control" required="required"/>
 				</div>
+				
+				<?php
+					//checking if the session 'success' is set. Success session is the message that the credetials are successfully saved.
+					if(isset($_SESSION['success'])){
+				?>
+				<!-- Display registration success message -->
+				<div class="alert alert-success"><?php echo $_SESSION['success']?></div>
+				<?php
+					//Unsetting the 'success' session after displaying the message. 
+					unset($_SESSION['success']);
+					}
+				?>
+
 				<?php
 					//checking if the session 'error' is set. Error session is the message if the 'Username' and 'Password' is not valid.
 					if(ISSET($_SESSION['error'])){
