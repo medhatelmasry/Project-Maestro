@@ -26,7 +26,7 @@ if($_SESSION["valid"] == 1) {
   $input = json_decode(file_get_contents('php://input'),true);
 } else {
   // redirect if no session is running
-  header('location: ../app/login.php');
+  header('location: ../../app/login.php');
 }
 
  
