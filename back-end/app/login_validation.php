@@ -1,7 +1,7 @@
 <?php
 
 include_once '../config/database.php';
-require "../vendor/autoload.php";
+require "../../vendor/autoload.php";
 
 use \Firebase\JWT\JWT;
 

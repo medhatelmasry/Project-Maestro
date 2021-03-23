@@ -15,21 +15,8 @@ define("DEBUG", 0);
 #===============================================
 $method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
+$input = json_decode(file_get_contents('php://input'),true);
 
-session_start();
-// Checking if session variable has been triggered. 
-if (DEBUG === 1) {
-  $_SESSION["valid"] = 1;
-}
-
-if($_SESSION["valid"] == 1) {
-  $input = json_decode(file_get_contents('php://input'),true);
-} else {
-  // redirect if no session is running
-  header('location: ../../app/login.php');
-}
-
- 
 #===============================================
 # Create database or open if it already exists
 #===============================================
