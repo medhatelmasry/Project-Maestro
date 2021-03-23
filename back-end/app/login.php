@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-include('../db/conn.php');
+// include('../db/conn.php');
 //starting the session
 session_start();
 $_SESSION["valid"] = 0;
@@ -29,8 +29,8 @@ $_SESSION["valid"] = 0;
 			<form method="POST" action="login_validation.php">	
 				<div class="alert alert-info">Login</div>
 				<div class="form-group">
-					<label>Username</label>
-					<input type="text" name="username" class="form-control" required="required"/>
+					<label>Email</label>
+					<input type="text" name="email" class="form-control" required="required"/>
 				</div>
 				<div class="form-group">
 					<label>Password</label>
@@ -58,7 +58,6 @@ $_SESSION["valid"] = 0;
 				<?php
                     //Unsetting the 'error' session after displaying the message.
                     unset($_SESSION['error']);
-					// session_unset($_SESSION['error']);
 					}
 				?>
 				<button class="btn btn-primary btn-block" name="login">Login</button>

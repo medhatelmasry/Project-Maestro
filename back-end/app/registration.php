@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php
-include('../db/conn.php');
+// include('../db/conn.php');
 //starting the session
 session_start();
 $_SESSION["valid"] = 0;
@@ -27,27 +27,23 @@ $_SESSION["valid"] = 0;
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
 			<!-- Registration Form start -->
-			<form method="POST" action="register_user.php">	
+			<form method="POST" action="registration_validation.php">	
 				<div class="alert alert-info">Registration</div>
 				<div class="form-group">
 					<label>Firstname</label>
-					<input type="text" name="firstname" class="form-control" required="required"/>
+					<input type="text" name="firstName" class="form-control" required="required"/>
 				</div>
 				<div class="form-group">
 					<label>Lastname</label>
-					<input type="text" name="lastname" class="form-control" required="required"/>
+					<input type="text" name="lastName" class="form-control" required="required"/>
 				</div>
 				<div class="form-group">
-					<label>Username</label>
-					<input type="text" name="username" class="form-control" required="required"/>
+					<label>Email</label>
+					<input type="text" name="email" class="form-control" required="required"/>
 				</div>
 				<div class="form-group">
 					<label>Password</label>
 					<input type="password" name="password" class="form-control" required="required"/>
-				</div>
-				<div class="form-group">
-					<label>Role</label>
-					<input type="text" name="userrole" class="form-control" required="required"/>
 				</div>
 
 				<button class="btn btn-primary btn-block" name="register">Register</button>
