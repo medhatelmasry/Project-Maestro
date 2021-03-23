@@ -1,3 +1,6 @@
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ToonListPage from './pages/ToonListPage';
@@ -22,7 +25,10 @@ function App() {
       <NavBar />
       <div className="container">
         <Switch>
-          <Route path="/" component={HomePage} exact />
+          {/* <Route path="/" component={HomePage} exact /> */}
+          <Route path="/" component={LandingPage} exact />
+          <Route path="/login" component={LoginPage} exact />
+          <Route path="/register" component={RegisterPage} exact />
           <Route path="/about" component={AboutPage} exact />
           <Route path="/list" component={ToonListPage} exact />
           <Route path="/detail/:id" component={ToonDetailPage} exact />
