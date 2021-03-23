@@ -30,7 +30,7 @@ $SQL_create_table = [
   FOREIGN KEY (UserId) REFERENCES User(UserId)
 );",
 "CREATE TABLE IF NOT EXISTS Course (
-  CourseId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  CourseId VARCHAR(80) NOT NULL PRIMARY KEY,
   CourseName VARCHAR(80),
   CourseTerm INTEGER,
   InstructorId INTEGER,
@@ -38,7 +38,7 @@ $SQL_create_table = [
 );",
 "CREATE TABLE IF NOT EXISTS CourseList (
   CourseListId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  CourseId INTEGER,
+  CourseId VARCHAR(80),
   UserId INTEGER,
   FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
   FOREIGN KEY (UserId) REFERENCES User(UserId)
@@ -46,7 +46,7 @@ $SQL_create_table = [
   "CREATE TABLE IF NOT EXISTS Project (
   ProjectId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   ProjectName VARCHAR(80),
-  CourseId INTEGER,
+  CourseId VARCHAR(80),
   FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
 );",
 "CREATE TABLE IF NOT EXISTS ProjectList (
@@ -71,7 +71,7 @@ $SQL_create_table = [
   FOREIGN KEY (TeamId) REFERENCES Team(TeamId)
 );",
 "CREATE TABLE IF NOT EXISTS Student (
-  StudentId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  StudentId VARCHAR(80) NOT NULL PRIMARY KEY,
   UserId INTEGER,
   StudentSet VARCHAR(80),
   FOREIGN KEY (UserId) REFERENCES User(UserId)
@@ -114,8 +114,8 @@ $numRows = $row['count'];
 if ($row['count'] === 0) {
     $SQL_insert_data = "INSERT INTO Project (ProjectName, CourseId)
     VALUES 
-    ('Project Maestro', '1'),
-    ('Hello Fresh', '2')
+    ('Project Maestro', 'COMP3975'),
+    ('Hello Fresh', 'COMP3522')
     ";
     $conn->exec($SQL_insert_data);
 }
@@ -148,10 +148,10 @@ $rows = $conn->query("SELECT COUNT(*) as count FROM Student");
 $row = $rows->fetchArray();
 $numRows = $row['count'];
 if ($row['count'] === 0) {
-    $SQL_insert_data = "INSERT INTO Student (UserId, StudentSet)
+    $SQL_insert_data = "INSERT INTO Student (StudentId, UserId, StudentSet)
     VALUES 
-    ('1', 'S'),
-    ('2', 'M')
+    ('A011293','1', 'S'),
+    ('A011111','2', 'M')
     ";
     $conn->exec($SQL_insert_data);
 }
@@ -160,10 +160,10 @@ $rows = $conn->query("SELECT COUNT(*) as count FROM Course");
 $row = $rows->fetchArray();
 $numRows = $row['count'];
 if ($row['count'] === 0) {
-    $SQL_insert_data = "INSERT INTO Course (CourseName, CourseTerm, InstructorId)
+    $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, InstructorId)
     VALUES 
-    ('COMP3975', '3', '4'),
-    ('COMP3522', '3', '3')
+    ('COMP3975', 'Web/Mobile', '3', '4'),
+    ('COMP3522', 'Python', '3', '3')
     ";
     $conn->exec($SQL_insert_data);
 }
@@ -174,8 +174,8 @@ $numRows = $row['count'];
 if ($row['count'] === 0) {
     $SQL_insert_data = "INSERT INTO CourseList (CourseId, UserId)
     VALUES 
-    ('1', '1'),
-    ('2', '2')
+    ('COMP3975', '1'),
+    ('COMP3522', '2')
     ";
     $conn->exec($SQL_insert_data);
 }
