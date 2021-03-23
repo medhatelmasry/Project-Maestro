@@ -9,6 +9,7 @@
 <body>
     <h1> Welcome to Project Maestro </h1>
   
-    <a href="./back-end/index.php"> Click to go to Back End Page </a>
+    <h3> <a href="./back-end/app/registration.php"> Register </h3>
+    <h3> <a href="./back-end/app/login.php"> Login </h3>
 </body>
 </html>
