@@ -25,7 +25,7 @@ $SQL_create_table = [
   UserLName VARCHAR(80)
 );",
 "CREATE TABLE IF NOT EXISTS Instructor (
-  InstructorId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  InstructorId VARCHAR(80) NOT NULL PRIMARY KEY,
   UserId INTEGER,
   FOREIGN KEY (UserId) REFERENCES User(UserId)
 );",
@@ -33,7 +33,7 @@ $SQL_create_table = [
   CourseId VARCHAR(80) NOT NULL PRIMARY KEY,
   CourseName VARCHAR(80),
   CourseTerm INTEGER,
-  InstructorId INTEGER,
+  InstructorId VARCHAR(80),
   FOREIGN KEY (InstructorId) REFERENCES Instructor(InstructorId)
 );",
 "CREATE TABLE IF NOT EXISTS CourseList (
@@ -136,10 +136,10 @@ $rows = $conn->query("SELECT COUNT(*) as count FROM Instructor");
 $row = $rows->fetchArray();
 $numRows = $row['count'];
 if ($row['count'] === 0) {
-    $SQL_insert_data = "INSERT INTO Instructor (UserId)
+    $SQL_insert_data = "INSERT INTO Instructor (InstructorId, UserId)
     VALUES 
-    ('3'),
-    ('4')
+    ('A08888', '3'),
+    ('A07777', '4')
     ";
     $conn->exec($SQL_insert_data);
 }
@@ -162,8 +162,8 @@ $numRows = $row['count'];
 if ($row['count'] === 0) {
     $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, InstructorId)
     VALUES 
-    ('COMP3975', 'Web/Mobile', '3', '4'),
-    ('COMP3522', 'Python', '3', '3')
+    ('COMP3975', 'Web/Mobile', '3', 'A08888'),
+    ('COMP3522', 'Python', '3', 'A07777')
     ";
     $conn->exec($SQL_insert_data);
 }
