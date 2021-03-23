@@ -73,7 +73,7 @@ if ($num > 0) {
                 "expireAt" => $expire_claim
             )
 		);
-		header('Location: home.php');
+		//header('Location: home.php');
     } else {
 
         http_response_code(401);
