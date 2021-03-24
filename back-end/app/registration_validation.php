@@ -45,7 +45,7 @@ if($stmt->execute()) {
     http_response_code(200);
     echo json_encode(array("message" => "User was successfully registered."));
     session_start();
-    header('Location: home.php');
+    header('Location: login.php');
 }
 else{
     http_response_code(400);

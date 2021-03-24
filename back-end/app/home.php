@@ -15,7 +15,7 @@
 	<div class="col-md-6 well">
 		<h3 class="text-primary">Project Maestro</h3>
 		<hr style="border-top:1px dotted #ccc;"/>
-		<a href="../db/api.php/users">Access Rest Test</a>
+		<!-- <a href="../db/api.php/users">Access Rest Test</a> -->
 		<br>
 		<a href="login.php">Logout</a>
 		<h1>Welcome!</h1>
