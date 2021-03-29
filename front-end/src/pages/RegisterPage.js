@@ -1,38 +1,35 @@
 import React from 'react';
 
+import "./styles/RegisterPage.css"
+
 const RegisterPage = () => (
     <React.Fragment>
-    <form className='RegisterPage'>
-        <label>
-            <p>Username</p>
-            <input type="text" id="usernameInput"/>
-        </label>
-        <label>
-            <p>Password</p>
-            <input type="text" id="passwordInput"/>
-        </label>
-        <label>
-            <p>First Name</p>
-            <input type="text" id="firstNameInput"/>
-        </label>
-        <label>
-            <p>Last Name</p>
-            <input type="text" id="lastNameInput"/>
-        </label>
-        <div>
-            <p>User Type</p>
-        
-            <p>
-                <input type="radio" name="usertype" id="userTypeInput" value="student"/> Student
-            </p>
-            <p>
-                <input type="radio" name="usertype" id="userTypeInput" value="instructor"/> Instructor
-            </p>
-        </div>
-        <div>
-            <button type="submit">Register</button>
-        </div>
-    </form>
+    <div className="panel panel-default position-register">
+        <form className='RegisterPage'>
+            <div className="form-group">
+                <label>Username:</label>
+                <input type="text" className="form-control" id="usernameInput"/>
+            </div>
+            <div className="form-group">
+                <label>Password:</label>
+                <input type="password" className="form-control" id="passwordInput"/>
+            </div>
+            <div className="form-group">
+                <label>First Name:</label>
+                <input type="text" className="form-control" id="firstNameInput"/>
+            </div>
+            <div className="form-group">
+                <label>Last Name:</label>
+                <input type="text" className="form-control" id="lastNameInput"/>
+                <a href="/login">Already have an account? Register</a>
+            </div>
+            <div>
+                <button onClick={() => ""} className="btn btn-success" id="register-btn">Register</button>
+            </div>
+            <div>
+            </div>
+        </form>
+    </div>
     </React.Fragment>
 )
 
