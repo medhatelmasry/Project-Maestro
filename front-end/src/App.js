@@ -1,11 +1,9 @@
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import HomePage from './pages/HomePage';
-import AboutPage from './pages/AboutPage';
-import ToonListPage from './pages/ToonListPage';
-import ToonDetailPage from './pages/ToonDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
+import DashboardPage from './pages/DashboardPage';
+import OutlinesPage from './pages/OutlinesPage';
 import NavBar from './NavBar';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -29,9 +27,8 @@ function App() {
           <Route path="/" component={LandingPage} exact />
           <Route path="/login" component={LoginPage} exact />
           <Route path="/register" component={RegisterPage} exact />
-          <Route path="/about" component={AboutPage} exact />
-          <Route path="/list" component={ToonListPage} exact />
-          <Route path="/detail/:id" component={ToonDetailPage} exact />
+          <Route path="/dashboard" component={DashboardPage} exact />
+          <Route path="/outlines/:id" component={OutlinesPage} exact />
           <Route component={NotFoundPage} />
         </Switch>
       </div>

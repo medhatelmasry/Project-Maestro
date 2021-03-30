@@ -21,7 +21,7 @@ const RegisterPage = () => (
             <div className="form-group">
                 <label>Last Name:</label>
                 <input type="text" className="form-control" id="lastNameInput"/>
-                <a href="/login">Already have an account? Register</a>
+                <a href="/login">Already have an account? Login</a>
             </div>
             <div>
                 <button onClick={() => ""} className="btn btn-success" id="register-btn">Register</button>
