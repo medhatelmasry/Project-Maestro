@@ -1,15 +1,12 @@
 import React from 'react';
-import OutlineList from './../components/OutlineList'
+import Outline from './../components/Outline'
 
-var name = "Project Outline #"
-
-const OutlinesPage = (id) => (
+const OutlinePage = ({match}) => (
     <React.Fragment>
-    <div className='DashboardPage'>
-        <h2>{name}</h2>
-        <OutlineList/>
+    <div className='OutlinePage'>
+        <Outline id={match.params.id}/>
     </div>
     </React.Fragment>
 )
 
-export default OutlinesPage;
+export default OutlinePage;

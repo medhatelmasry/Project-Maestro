@@ -13,20 +13,20 @@ const OutlineList = (param) => {
 
     return (
         <> 
+            <React.Fragment>
             <h2>{course[0].name}</h2>
             <h3>Project Outlines</h3>
             <table>
                 <tbody>
                 {outlines.map((outline, key) => (
-                <React.Fragment key={key}>
                     <tr>
                         <td id="names">{outline.name}</td>
-                        <td><Link to={`/outlines/${outline.id}`}>View</Link></td>
+                        <td><Link key={key} to={`/outlines/outline/${outline.id}`}>View</Link></td>
                     </tr>
-                </React.Fragment>
                 ))}
                 </tbody>
             </table>
+            </React.Fragment>
         </>
     )
 }
