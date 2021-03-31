@@ -10,7 +10,7 @@ if ($jwt) {
       $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
 
       $databaseService = new DatabaseService();
-      $conn = $databaseService->getConnection();
+      $conn = $databaseService->getConnection('');
 
       define("DEBUG", 0);
 

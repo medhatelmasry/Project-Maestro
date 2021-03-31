@@ -8,7 +8,7 @@ use \Firebase\JWT\JWT;
 include_once 'cors.php';
 
 $databaseService = new DatabaseService();
-$conn = $databaseService->getConnection();
+$conn = $databaseService->getConnection('../db/');
 
 if(ISSET($_POST['login'])){
 

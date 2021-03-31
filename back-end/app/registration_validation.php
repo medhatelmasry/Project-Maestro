@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once '../config/database.php';
 include_once 'cors.php';
 
@@ -6,7 +7,7 @@ $conn = null;
 $table_name = 'Users';
 
 $databaseService = new DatabaseService();
-$conn = $databaseService->getConnection();
+$conn = $databaseService->getConnection('../db/');
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $SQL_create_table = "CREATE TABLE IF NOT EXISTS $table_name (
@@ -44,7 +45,7 @@ $stmt->bindParam(':password', $password_hash);
 if($stmt->execute()) {
     http_response_code(200);
     echo json_encode(array("message" => "User was successfully registered."));
-    session_start();
+    $_SESSION['success'] = 'Successfully registered a user';
     header('Location: login.php');
 }
 else{

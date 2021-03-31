@@ -3,10 +3,10 @@
 class DatabaseService {
   private $connection;
 
-  public function getConnection() {
+  public function getConnection($path) {
     $app_config = '../appconfig.ini';
     $ini = parse_ini_file($app_config);
-    $db_name = $_SERVER['DOCUMENT_ROOT'] . "\\back-end\\db\\" . $ini['db_name'];  // create jwt-userdb.db in db folder
+    $db_name = $path . $ini['db_name'];  // create jwt-userdb.db in db folder
 
     $this->connection = null;
 
