@@ -9,7 +9,7 @@ const CourseList = (param) => {
         <>  
             <React.Fragment>
             <h3>Courses</h3>
-            <table>
+            <table class="table">
                 <tbody>
                 {courses.map((course, key) => (
                     <tr>

@@ -17,8 +17,8 @@ const Project = (param) => {
                 <h2>Your Project</h2>
                 <p>You don't have a project</p>
                 <div>
-                    <button>Create a Project</button> Or <Link to={`/outlines/outline/${id}/project/join`}>
-                        <button>Join a Team</button></Link>
+                    <button class="btn btn-success">Create a Project</button> or <Link to={`/outlines/outline/${id}/project/join`}>
+                        <button class="btn btn-success">Join a Team</button></Link>
                 </div>
             </>
         )
@@ -29,7 +29,7 @@ const Project = (param) => {
         for (var i = 0; i < students.length; i++) {
             for (var j = 0; j < team.members.length; j++) {
                 if (students[i].id == team.members[j]) {
-                    memberNames.push(students[i].name)
+                    memberNames.push({"name": students[i].name, "id": students[i].id})
                 }
             }
         }
@@ -37,24 +37,25 @@ const Project = (param) => {
             <> 
                 <h2>Your Project</h2>
                 <div>
-                <Link to={`/outlines/outline/${id}/project/${project.id}/goals`}>
-                    <button>
-                        Project Goals
-                    </button>
-                </Link>
                     <h4>Team ID: {team.id}</h4>
                     <h3>Members:</h3>
-                    <table>
+                    <table class="table">
                         <tbody>
                             {
                                 memberNames.map((member) => (
                                     <tr>
-                                        {member}
+                                        <td>{member.name}</td>
+                                        <td>{member.id}</td>
                                     </tr>
                                 ))
                             }
                         </tbody>
                     </table>
+                    <Link to={`/outlines/outline/${id}/project/${project.id}/goals`}>
+                    <button class="btn btn-success">
+                        Project Goals
+                    </button>
+                </Link>
                 </div>
             </>
         )

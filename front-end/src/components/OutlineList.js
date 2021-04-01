@@ -16,7 +16,7 @@ const OutlineList = (param) => {
             <React.Fragment>
             <h2>{course[0].name}</h2>
             <h3>Project Outlines</h3>
-            <table>
+            <table class="table">
                 <tbody>
                 {outlines.map((outline, key) => (
                     <tr>
