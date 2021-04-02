@@ -4,18 +4,18 @@ include_once '../config/database.php';
 include_once 'cors.php';
 
 $conn = null;
-$table_name = 'Users';
+$table_name = 'User';
 
 $databaseService = new DatabaseService();
 $conn = $databaseService->getConnection('../db/');
 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $SQL_create_table = "CREATE TABLE IF NOT EXISTS $table_name (
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    firstName VARCHAR(150) NOT NULL,
-    lastName VARCHAR(150) NOT NULL,
-    email VARCHAR(255),
-    password VARCHAR(255)
+    UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    UserEmail VARCHAR(80),
+    UserFName VARCHAR(80),
+    UserLName VARCHAR(80),
+    UserPassword VARCHAR(255)
 );";
 
 $conn->exec($SQL_create_table);
@@ -28,9 +28,9 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 
 $query = "INSERT INTO $table_name";
-$query .= " (firstName,lastName,email,password)";
+$query .= " (UserEmail,UserFName,UserLName,UserPassword)";
 $query .= " VALUES";
-$query .= " (:firstName,:lastName,:email,:password)";
+$query .= " (:email,:firstName,:lastName,:password)";
 
 $stmt = $conn->prepare($query);
 

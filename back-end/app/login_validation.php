@@ -14,9 +14,9 @@ if(ISSET($_POST['login'])){
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-$table_name = 'Users';
+$table_name = 'User';
 
-$query = "SELECT id, firstName, lastName, email, password FROM " . $table_name . " WHERE email = ? LIMIT 0,1";
+$query = "SELECT UserId, UserEmail, UserFName, UserLName, UserPassword FROM " . $table_name . " WHERE UserEmail = ? LIMIT 0,1";
 
 $stmt = $conn->prepare($query);
 $stmt->bindParam(1, $email);
@@ -30,10 +30,10 @@ $lastName = '';
 $password2 = '';
 
 foreach ($data as $row) {
-    $id = $row['id'];
-    $firstName =  $row['firstName'];
-    $lastName = $row['lastName'];
-    $password2 = $row['password'];
+    $id = $row['UserId'];
+    $firstName =  $row['UserFName'];
+    $lastName = $row['UserLName'];
+    $password2 = $row['UserPassword'];
 }
 
 if ($num > 0) {
