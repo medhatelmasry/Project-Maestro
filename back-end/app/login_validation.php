@@ -1,7 +1,7 @@
 <?php
 
 include_once '../config/database.php';
-require "../../vendor/autoload.php";
+require "../vendor/autoload.php";
 
 use \Firebase\JWT\JWT;
 
@@ -73,7 +73,7 @@ if ($num > 0) {
                 "expireAt" => $expire_claim
             )
 		);
-		//header('Location: home.php');
+		header('Location: home.php'); //comment this line out if you would like to see JWT encoded array
     } else {
 
         http_response_code(401);

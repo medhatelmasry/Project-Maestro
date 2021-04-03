@@ -1605,7 +1605,7 @@ pre code {
 .container-fluid {
   padding-right: 15px;
   padding-left: 15px;
-  margin-right: auto;
+  margin-right: 2%;
   margin-left: auto;
 }
 .row {
@@ -3113,21 +3113,9 @@ fieldset[disabled] .btn-default.focus {
   color: #fff;
   background-color: #333;
 }
-.btn-primary {
-  color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
-}
-.btn-primary:focus,
-.btn-primary.focus {
-  color: #fff;
-  background-color: #286090;
-  border-color: #122b40;
-}
+
 .btn-primary:hover {
-  color: #fff;
-  background-color: #286090;
-  border-color: #204d74;
+  background-color: #616161;
 }
 .btn-primary:active,
 .btn-primary.active,
@@ -4843,20 +4831,22 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   background-color: #fff;
 }
 .label {
-  display: inline;
+  display: inline-block;
+  vertical-align: center;
   padding: .2em .6em .3em;
-  font-size: 75%;
   font-weight: bold;
   line-height: 1;
-  color: #fff;
   text-align: center;
   white-space: nowrap;
-  vertical-align: baseline;
+  /* vertical-align: baseline; */
   border-radius: .25em;
+  /* text-align: right;
+  clear: both;
+  float:left; */
+  margin-right:15px;
 }
 a.label:hover,
 a.label:focus {
-  color: #fff;
   text-decoration: none;
   cursor: pointer;
 }
