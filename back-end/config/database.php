@@ -12,7 +12,7 @@ class DatabaseService {
 
     try {
       $this->connection = new PDO("sqlite:$db_name");
-    } catch (PDOExecption $Execption) {
+    } catch (PDOExecption $exception) {
       echo "Connection failed: " . $exception->getMessage();
     }
 
