@@ -73,7 +73,9 @@ if ($num > 0) {
                 "expireAt" => $expire_claim
             )
 		);
-		header('Location: home.php'); //comment this line out if you would like to see JWT encoded array
+        // Change header location to student's homepage
+        // comment this line out if you would like to see JWT encoded array
+		// header('Location: home.php'); 
     } else {
 
         http_response_code(401);
