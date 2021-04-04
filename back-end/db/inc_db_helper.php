@@ -249,5 +249,55 @@
             return $this->conn;
         }
 
+        /**
+         * Get data from the database.
+         * @param $table insert to which table
+         * @param $key
+         */
+        public function getData($table, $key){
+            $sql = "SELECT * FROM `$table`".($key? " WHERE $pk='$key'":''); 
+            $this->conn->exec($sql);
+        }
+
+        /**
+         * Delete data in the database.
+         * @param $table insert to which table
+         * @param $key
+         */
+        public function deleteData($table, $key){
+            $sql = "DELETE FROM `$table` WHERE $pk='$key'"; 
+            $this->conn->exec($sql);
+        }
+
+        /**
+         * Inserts data into the database.
+         * @param $table insert to which table
+         * @param $insertSet 
+         * @param $insertVal inserting values
+         */
+        public function insertData($table, $insertSet, $insertVal){
+            $sql = "INSERT INTO `$table` ($insertSet) VALUES ($insertVal)"; 
+            $this->conn->exec($sql);
+        }
+
+        /**
+         * Update data in the database.
+         * @param $table insert to which table
+         * @param $updateSet 
+         * @param $key
+         */
+        public function updateData($table, $updateSet, $key){
+            $sql = "UPDATE `$table` SET $updateSet WHERE $pk='$key'"; 
+            $this->conn->exec($sql);
+        }
+        
+        /**
+         * Create table into database if not exist 
+         * @param $table insert to which table
+         */
+        public function createTable($table, $insertSet){
+            $sql = "CREATE TABLE IF NOT EXISTS `$table` ($insertSet);"; 
+            $this->conn->exec($sql);
+        }
     }
 ?>
