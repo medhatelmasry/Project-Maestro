@@ -1,4 +1,9 @@
+
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/backend_style.css"/>
 <?php
+
+
 
 //Created my own database and table just for testinng reasons as i couldnt find a functuional databse for our project
 $db = new SQLite3("school.db");
@@ -59,6 +64,7 @@ if ($res1->fetchArray(SQLITE3_NUM)) {
     <div class="col-md-4">
         <form action="processCreate.php" method="post">
             <div class="form-group">
+</br></br></br>
                 <label for="CourseID" class="control-label">Course ID</label>
                 <input for="CourseID" class="form-control" name="CourseID" id="CourseID" />
             </div>
@@ -76,15 +82,24 @@ if ($res1->fetchArray(SQLITE3_NUM)) {
             <div class="form-group">
                 <label for="InstructorID" class="control-label">Instructor ID</label>
                 <input for="InstructorID" class="form-control" name="InstructorID" id="InstructorID" />
+                </br></br></br></br></br></br></br></br></br></br></br></br>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Create" name="create" class="btn btn-success" />
+                <input type="submit" value="Create" name="create" class="btn btn-small btn-success" />
+                </br></br>
             </div>
+
+          
+            <a href="../viewCourse.php" class="btn btn-small btn-success">View Courses</a>
+                </br></br>
+        
         </form>
+        
+        
     </div>
 
-    <a href="../viewCourse.php" class="btn btn-small btn-primary">View Courses</a>
+   
 
 </div>
 
