@@ -58,6 +58,11 @@ if ($res1->fetchArray(SQLITE3_NUM)) {
     } 
 ?>
 
+<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="./">Project Maestro</a>
+		</div>
+</nav>
 <h1>Create Course</h1>
 
 <div class="row">
@@ -96,7 +101,7 @@ if ($res1->fetchArray(SQLITE3_NUM)) {
         
         </form>
         
-        
+        <a href="../home.php" class="btn btn-small btn-success">&lt;&lt; BACK</a>
     </div>
 
    

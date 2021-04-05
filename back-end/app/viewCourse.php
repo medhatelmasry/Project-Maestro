@@ -1,9 +1,12 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 <link rel="stylesheet" type="text/css" href="css/backend_style.css"/>
 
+<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="./">Project Maestro</a>
+		</div>
+</nav>
 <h2>Courses</h2>
-
-
 <?php
 $db = new SQLite3("createCourses/school.db");
         $res = $db->query('SELECT * FROM Course');
