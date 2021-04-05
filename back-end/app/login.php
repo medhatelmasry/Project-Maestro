@@ -18,7 +18,7 @@ session_start();
 	</nav>
 	<div class="content">
 		<!-- Login Form Starts -->
-		<form method="POST" action="login_validation.php">	
+		<form method="POST" action="instructor_login_validation.php">	
 			<div class="label-input-wrapper">
 				<div class="label-input, form-inline">
 					<div class="col-sm-2">

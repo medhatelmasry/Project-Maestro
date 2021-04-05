@@ -62,4 +62,27 @@ input {
     margin-bottom: 10%;
 }
 
+.mb-4 {
+  margin-bottom: 1.5%;
+}
+
+
 /* ---------------------------------------- */
+/* ---------------------------------------- */
+
+/* Team views */
+
+#view {
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 10%;
+}
+
+#addbtn {
+  margin-left: 1%;
+  border: 1px solid black;
+}
+
+#viewbtn {
+  border: 1px solid black;
+}
