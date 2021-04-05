@@ -254,7 +254,7 @@
          * @param $table insert to which table
          * @param $key
          */
-        public function getData($table, $key){
+        public function getData($table, $pk, $key){
             $sql = "SELECT * FROM `$table`".($key? " WHERE $pk='$key'":''); 
             $this->conn->exec($sql);
         }
@@ -264,7 +264,7 @@
          * @param $table insert to which table
          * @param $key
          */
-        public function deleteData($table, $key){
+        public function deleteData($table, $pk, $key){
             $sql = "DELETE FROM `$table` WHERE $pk='$key'"; 
             $this->conn->exec($sql);
         }
@@ -286,7 +286,7 @@
          * @param $updateSet 
          * @param $key
          */
-        public function updateData($table, $updateSet, $key){
+        public function updateData($table, $updateSet, $pk, $key){
             $sql = "UPDATE `$table` SET $updateSet WHERE $pk='$key'"; 
             $this->conn->exec($sql);
         }
