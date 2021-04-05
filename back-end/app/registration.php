@@ -19,10 +19,10 @@
 				<div class="label-input-wrapper">
 					<div class="label-input, form-inline">
 						<div class="col-sm-2">
-							<label>Username</label>
+							<label>Email</label>
 						</div>
 						<div class="col-sm-8, input">
-							<input type="text" name="email" class="form-control" required="required" placeholder="username or email"/>
+							<input type="text" name="email" class="form-control" required="required" placeholder="email"/>
 						</div>
 					</div><br><br>
 					<div class="label-input, form-inline">
