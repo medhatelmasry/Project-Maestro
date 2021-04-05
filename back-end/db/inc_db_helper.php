@@ -254,7 +254,7 @@
          * @param $table insert to which table
          * @param $key
          */
-        public function getData($table, $pk, $key){
+        public function getData($table, $pk, $key) {
             $sql = "SELECT * FROM `$table`".($key? " WHERE $pk='$key'":''); 
             $this->conn->exec($sql);
         }
@@ -264,7 +264,7 @@
          * @param $table insert to which table
          * @param $key
          */
-        public function deleteData($table, $pk, $key){
+        public function deleteData($table, $pk, $key) {
             $sql = "DELETE FROM `$table` WHERE $pk='$key'"; 
             $this->conn->exec($sql);
         }
@@ -275,7 +275,7 @@
          * @param $insertSet 
          * @param $insertVal inserting values
          */
-        public function insertData($table, $insertSet, $insertVal){
+        public function insertData($table, $insertSet, $insertVal) {
             $sql = "INSERT INTO `$table` ($insertSet) VALUES ($insertVal)"; 
             $this->conn->exec($sql);
         }
@@ -286,7 +286,7 @@
          * @param $updateSet 
          * @param $key
          */
-        public function updateData($table, $updateSet, $pk, $key){
+        public function updateData($table, $updateSet, $pk, $key) {
             $sql = "UPDATE `$table` SET $updateSet WHERE $pk='$key'"; 
             $this->conn->exec($sql);
         }
@@ -295,9 +295,16 @@
          * Create table into database if not exist 
          * @param $table insert to which table
          */
-        public function createTable($table, $insertSet){
+        public function createTable($table, $insertSet) {
             $sql = "CREATE TABLE IF NOT EXISTS `$table` ($insertSet);"; 
             $this->conn->exec($sql);
+        }
+        
+        /**
+         * Explicitely close the SQLite3 database connection.
+         */
+        public function close() {
+            $this->conn->close();
         }
     }
 ?>
