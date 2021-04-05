@@ -16,6 +16,13 @@
 .button:hover {
     background-color: #616161;
   }
+
+.btn-back{
+  margin-left: 1%;
+}
+.btn-back:hover{
+  background-color: #616161;
+}
 .content {
     text-align: center;
     width: 50%;
