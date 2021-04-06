@@ -11,11 +11,16 @@ const OutlineList = (param) => {
 
     var outlines = outlinesData.filter(c => c.course == id)
 
+    function back() {
+        window.history.back();
+    }
+
     return (
         <> 
             <React.Fragment>
             <h2>{course[0].name}</h2>
             <h3>Project Outlines</h3>
+            <button onClick={back}>&lt; Courses</button>
             <table class="table">
                 <tbody>
                 {outlines.map((outline, key) => (

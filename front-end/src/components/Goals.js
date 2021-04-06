@@ -9,10 +9,15 @@ const Goals = (param) => {
 
     var goals = (goalsData.filter(g => g.projectId == id))
 
+    function back() {
+        window.history.back();
+    }
+
     return (
         <> 
             <React.Fragment>
             <h3>Goals</h3>
+            <button onClick={back}>&lt; Project</button>
             <table>
                 <tbody>
                 {goals.map((goal, key) => (

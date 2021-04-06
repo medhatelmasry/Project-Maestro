@@ -9,9 +9,14 @@ const Outline = (param) => {
 
     var outline = (outlinesData.filter(c => c.id == id))[0]
 
+    function back() {
+        window.history.back();
+    }
+
     return (
         <> 
             <h2>{outline.name}</h2>
+            <button onClick={back}>&lt; All Outlines</button>
             <p>Due Date: {outline.dueDate}</p>
             <div>
                 <label>
