@@ -1,5 +1,6 @@
 <?php
 session_start();
+ini_set('display_errors',1);
 include_once '../config/database.php';
 include_once 'cors.php';
 
