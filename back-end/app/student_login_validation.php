@@ -1,5 +1,9 @@
 <?php
-
+include_once '../db/inc_db_helper.php';
+$db_helper = new DatabaseHelper('../db/projectmaestro.db');
+$db_helper->close();
+?>
+<?php
 include_once '../config/database.php';
 require "../vendor/autoload.php";
 
@@ -35,6 +39,7 @@ foreach ($data as $row) {
     $lastName = $row['UserLName'];
     $password2 = $row['UserPassword'];
 }
+$data = NULL;
 
 if ($num > 0) {
     if (password_verify($password, $password2)) {

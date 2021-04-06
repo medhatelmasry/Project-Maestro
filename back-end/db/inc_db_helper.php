@@ -20,7 +20,8 @@
                     UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     UserEmail VARCHAR(80),
                     UserFName VARCHAR(80),
-                    UserLName VARCHAR(80)
+                    UserLName VARCHAR(80),
+                    UserPassword VARCHAR(255)
                 );",
                 "CREATE TABLE IF NOT EXISTS Instructor (
                     InstructorId VARCHAR(80) NOT NULL PRIMARY KEY,
