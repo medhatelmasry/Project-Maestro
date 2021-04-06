@@ -1,5 +1,6 @@
 <?php
 session_start();
+ini_set('display_errors',1);
 include_once '../config/database.php';
 include_once 'cors.php';
 
@@ -46,6 +47,7 @@ if($stmt->execute()) {
     http_response_code(200);
     echo json_encode(array("message" => "User was successfully registered."));
     $_SESSION['success'] = 'Successfully registered a user';
+    conn->close();
     header('Location: login.php');
 }
 else{
