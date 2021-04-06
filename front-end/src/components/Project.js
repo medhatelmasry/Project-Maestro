@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import teamsData from '../data/teams';
 import studentsData from '../data/students';
 import projectsData from '../data/projects';
+import "../pages/styles/BackButton.css";
 
 const Project = (param) => {
 
@@ -20,7 +21,7 @@ const Project = (param) => {
         return (
             <> 
                 <h2>Your Project</h2>
-                <button onClick={back}>&lt; Outline</button>
+                <button className="back" onClick={back}>&lt; Outline</button>
                 <p>You don't have a project</p>
                 <div>
                     <button class="btn btn-success">Create a Project</button> or <Link to={`/outlines/outline/${id}/project/join`}>
@@ -42,7 +43,7 @@ const Project = (param) => {
         return (
             <> 
                 <h2>Your Project</h2>
-                <button onClick={back}>&lt; Outline</button>
+                <button className="back" onClick={back}>&lt; Outline</button>
                 <div>
                     <h4>Team ID: {team.id}</h4>
                     <h3>Members:</h3>

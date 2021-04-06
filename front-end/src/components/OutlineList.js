@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import outlinesData from '../data/outlines';
 import coursesData from '../data/courses';
+import "../pages/styles/BackButton.css";
 
 const OutlineList = (param) => {
 
@@ -20,7 +21,7 @@ const OutlineList = (param) => {
             <React.Fragment>
             <h2>{course[0].name}</h2>
             <h3>Project Outlines</h3>
-            <button onClick={back}>&lt; Courses</button>
+            <button className="back" onClick={back}>&lt; Courses</button>
             <table class="table">
                 <tbody>
                 {outlines.map((outline, key) => (

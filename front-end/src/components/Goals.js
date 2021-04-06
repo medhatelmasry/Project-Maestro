@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import goalsData from '../data/goals';
+import "../pages/styles/BackButton.css";
 
 
 const Goals = (param) => {
@@ -17,7 +18,7 @@ const Goals = (param) => {
         <> 
             <React.Fragment>
             <h3>Goals</h3>
-            <button onClick={back}>&lt; Project</button>
+            <button className="back" onClick={back}>&lt; Project</button>
             <table>
                 <tbody>
                 {goals.map((goal, key) => (

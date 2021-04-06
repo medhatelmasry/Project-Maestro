@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import outlinesData from '../data/outlines';
 import coursesData from '../data/courses';
+import "../pages/styles/BackButton.css";
 
 const Outline = (param) => {
 
@@ -16,7 +17,7 @@ const Outline = (param) => {
     return (
         <> 
             <h2>{outline.name}</h2>
-            <button onClick={back}>&lt; All Outlines</button>
+            <button className="back" onClick={back}>&lt; All Outlines</button>
             <p>Due Date: {outline.dueDate}</p>
             <div>
                 <label>
