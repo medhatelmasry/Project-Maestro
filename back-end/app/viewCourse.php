@@ -3,7 +3,7 @@
 
 <nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="./">Project Maestro</a>
+			<a class="navbar-brand" href="./home.php">Project Maestro</a>
 		</div>
 </nav>
 <h2>Courses</h2>
