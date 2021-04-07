@@ -1,0 +1,8 @@
+# https://www.youtube.com/watch?v=5YQkNKuygpU
+FROM php:7.3-apache
+COPY ./back-end /var/www/html/
+RUN touch /var/www/html/db/projectmaestro.db
+RUN chmod 777 /var/www/html/db/
+RUN chmod 777 /var/www/html/db/projectmaestro.db
+EXPOSE 80/tcp
+EXPOSE 443/tcp

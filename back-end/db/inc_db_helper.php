@@ -12,6 +12,11 @@
          */
         public function __construct($dbPath) {
             $this->conn = new SQLite3($dbPath);
+
+            $this->conn->busyTimeout(5000);
+            // WAL mode has better control over concurrency.
+            // Source: https://www.sqlite.org/wal.html
+            $this->conn->exec('PRAGMA journal_mode = wal');
             
             // Array of SQL commands to create the tables if they do not exist 
             // already
@@ -20,7 +25,8 @@
                     UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     UserEmail VARCHAR(80),
                     UserFName VARCHAR(80),
-                    UserLName VARCHAR(80)
+                    UserLName VARCHAR(80),
+                    UserPassword VARCHAR(255)
                 );",
                 "CREATE TABLE IF NOT EXISTS Instructor (
                     InstructorId VARCHAR(80) NOT NULL PRIMARY KEY,
