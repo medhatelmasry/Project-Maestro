@@ -1,15 +1,19 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-<link rel="stylesheet" type="text/css" href="css/backend_style.css"/>
 
 <nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="./">Project Maestro</a>
+			<a class="navbar-brand" href="home.php">Project Maestro</a>
 		</div>
 </nav>
+
 <h2>Courses</h2>
 <?php
-$db = new SQLite3("createCourses/school.db");
-        $res = $db->query('SELECT * FROM Course');
+include ('../db/inc_db_helper.php');
+
+$db = new DatabaseHelper('../db/projectmaestro.db');
+$connection = $db->getConn();
+
+$res = $connection->query('SELECT * FROM Course');
         echo "<table width='100%' class='table table-striped'>\n";
         echo "<tr><th>Course ID</th>".
              "<th>Course Name</th>".
@@ -28,16 +32,14 @@ $db = new SQLite3("createCourses/school.db");
             //Add hrefs here for view projects page
             echo "<a class='btn btn-small btn-warning' href=''>View Projects</a>";
             echo "&nbsp;";
-            //Add hrefs here for add Delete page
-            echo "<a class='btn btn-small btn-danger' href=''>Delete</a>";
+            echo "<a class='btn btn-small btn-danger' href='delete.php?id={$row[0]}'>Delete</a>";
             echo "</td></tr>\n" ;
 
         };
 
-        echo "</table>\n"
-
-        
- 
+        echo "</table>\n";
 
 ?>
-<a href="createCourses/createCourse.php" class="btn btn-small btn-success">&lt;&lt; BACK</a>
+<a href="home.php" class="btn btn-small btn-success">Back</a>
+
+<a href="createCourse.php" class="btn btn-small btn-success">Add Course</a>
