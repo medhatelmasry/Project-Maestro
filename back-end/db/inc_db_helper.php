@@ -20,7 +20,8 @@
                     UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     UserEmail VARCHAR(80),
                     UserFName VARCHAR(80),
-                    UserLName VARCHAR(80)
+                    UserLName VARCHAR(80),
+                    UserPassword VARCHAR(255)
                 );",
                 "CREATE TABLE IF NOT EXISTS Instructor (
                     InstructorId VARCHAR(80) NOT NULL PRIMARY KEY,
@@ -98,12 +99,12 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName)
+                $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName, UserPassword)
                 VALUES 
-                    ('BobBuilder@gmail.com', 'Bob', 'Builder'),
-                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein'),
-                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT'),
-                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry')
+                    ('BobBuilder@gmail.com', 'Bob', 'Builder', 'password'),
+                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein', 'abcd1234'),
+                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', 'itsdababyletsgooo'),
+                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', 'cisforcookie')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
