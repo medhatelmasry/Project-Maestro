@@ -40,4 +40,4 @@ $db = new SQLite3("createCourses/school.db");
  
 
 ?>
-<a href="createCourses/createCourse.php" class="btn btn-small btn-success">&lt;&lt; BACK</a>
+<a href="./home.php" class="btn btn-small btn-success">&lt;&lt; BACK</a>
