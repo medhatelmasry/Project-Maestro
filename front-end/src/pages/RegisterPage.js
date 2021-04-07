@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import userValidate from '../js/UserValidate';
 import "./styles/RegisterPage.css"
 
+<<<<<<< HEAD
 
 const RegisterPage = () => {
     let errors = {};
@@ -104,6 +105,33 @@ const RegisterPage = () => {
                     <div>
                     </div>
                 </form>
+=======
+const RegisterPage = () => (
+    <React.Fragment>
+    <div className="panel panel-default position-register">
+        <form className='RegisterPage'>
+            <div className="form-group">
+                <label>Email:</label>
+                <input type="text" className="form-control" id="usernameInput"/>
+            </div>
+            <div className="form-group">
+                <label>Password:</label>
+                <input type="password" className="form-control" id="passwordInput"/>
+            </div>
+            <div className="form-group">
+                <label>First Name:</label>
+                <input type="text" className="form-control" id="firstNameInput"/>
+            </div>
+            <div className="form-group">
+                <label>Last Name:</label>
+                <input type="text" className="form-control" id="lastNameInput"/>
+                <a href="/login">Already have an account? Login</a>
+            </div>
+            <div>
+                <button onClick={() => ""} className="btn btn-success" id="register-btn">Register</button>
+            </div>
+            <div>
+>>>>>>> aa9021ebb5ac7befda8e64fdbdf1507cb3e7c90c
             </div>
         </React.Fragment>
     )

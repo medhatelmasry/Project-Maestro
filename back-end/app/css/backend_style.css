@@ -1,0 +1,88 @@
+/* index, login, registration, home */
+.button {
+    border: 1px solid;
+    padding: 25px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;    
+    justify-content: center;
+    font-size: 16px;
+    display: flex;
+    margin: auto;
+    margin-top: 5%;
+    height:100%;
+    width: 70%;
+}
+.button:hover {
+    background-color: #616161;
+  }
+.content {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+}
+.title {
+    margin-bottom:5%;
+}
+label {
+    display: inline-block;
+    padding: .2em .6em .3em;
+    font-weight: bold;
+    line-height: 1;
+    white-space: nowrap;
+    border-radius: .25em;
+    clear: both;
+    float: left;
+    margin-left: 10%;
+  }
+  label:hover,
+  label:focus {
+    text-decoration: none;
+    cursor: pointer;
+  }
+  label:empty {
+    display: none;
+  }
+  .btn label {
+    position: relative;
+  }
+
+  .label-input {
+    margin-bottom: 5%;
+  }
+input {
+    margin-left: 5%;
+    display: inline-block;
+    float: left;
+}
+
+.label-input-wrapper {
+    margin-left: 10%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.mb-4 {
+  margin-bottom: 1.5%;
+}
+
+
+/* ---------------------------------------- */
+/* ---------------------------------------- */
+
+/* Team views */
+
+#view {
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 10%;
+}
+
+#addbtn {
+  margin-left: 1%;
+  border: 1px solid black;
+}
+
+#viewbtn {
+  border: 1px solid black;
+}
