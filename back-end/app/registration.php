@@ -12,7 +12,7 @@
 			<a class="navbar-brand" href="../index.php">Project Maestro</a>
 		</div>
 	</nav>
-	<button class="btn-back" onclick="history.go(-1);">Back</button>
+	<a href="../index.php"><button class="btn-back">Back</button></a>
 	<div class="content">
 		<!-- Login Form Starts -->
 			<!-- Registration Form start -->

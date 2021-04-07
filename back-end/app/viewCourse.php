@@ -41,5 +41,4 @@ $res = $connection->query('SELECT * FROM Course');
 
 ?>
 <a href="home.php" class="btn btn-small btn-success">Back</a>
-
 <a href="createCourse.php" class="btn btn-small btn-success">Add Course</a>

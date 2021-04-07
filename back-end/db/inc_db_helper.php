@@ -12,6 +12,11 @@
          */
         public function __construct($dbPath) {
             $this->conn = new SQLite3($dbPath);
+
+            $this->conn->busyTimeout(5000);
+            // WAL mode has better control over concurrency.
+            // Source: https://www.sqlite.org/wal.html
+            $this->conn->exec('PRAGMA journal_mode = wal');
             
             // Array of SQL commands to create the tables if they do not exist 
             // already
@@ -20,7 +25,8 @@
                     UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     UserEmail VARCHAR(80),
                     UserFName VARCHAR(80),
-                    UserLName VARCHAR(80)
+                    UserLName VARCHAR(80),
+                    UserPassword VARCHAR(255)
                 );",
                 "CREATE TABLE IF NOT EXISTS Instructor (
                     InstructorId VARCHAR(80) NOT NULL PRIMARY KEY,
@@ -88,6 +94,31 @@
                 // For each command in the array
                 $this->conn->exec($command);
             }
+
+            $this->addUserPasswordColumn();
+        }
+
+        /**
+         * Adds the UserPassword column to the User table if it does not 
+         * already exist.
+         */
+        private function addUserPasswordColumn() {
+            $colExists = FALSE;
+
+            $res = $this->conn->query("PRAGMA table_info(User);");
+
+            while ($col = $res->fetchArray(SQLITE3_ASSOC)) {
+                if (strcmp($col['name'], "UserPassword") == 0) {
+                    // If the column 'UserPassword' exists
+                    $colExists = TRUE;
+                }
+            }
+
+            if (!$colExists) {
+                $sql = "ALTER TABLE User ADD COLUMN UserPassword VARCHAR(255);";
+
+                $this->conn->exec($sql);
+            }
         }
 
         /**
@@ -98,12 +129,12 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName)
+                $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName, UserPassword)
                 VALUES 
-                    ('BobBuilder@gmail.com', 'Bob', 'Builder'),
-                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein'),
-                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT'),
-                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry')
+                    ('BobBuilder@gmail.com', 'Bob', 'Builder', 'password'),
+                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein', 'abcd1234'),
+                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', 'itsdababyletsgooo'),
+                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', 'cisforcookie')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
