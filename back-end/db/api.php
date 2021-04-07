@@ -9,15 +9,6 @@ if ($jwt) {
   try {
 
       $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
-<<<<<<< Updated upstream
-
-      $databaseService = new DatabaseService();
-      $conn = $databaseService->getConnection('');
-=======
-      
-      // $databaseService = new DatabaseService();
-      // $conn = $databaseService->getConnection();
->>>>>>> Stashed changes
 
       define("DEBUG", 0);
 
