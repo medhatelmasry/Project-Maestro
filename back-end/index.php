@@ -22,8 +22,8 @@ $db_helper->close();
 	</nav>
     <div class="content">
         <h1 class="title">Project Maestro</h1>
-        <button class="button"; onclick="window.location.href='./app/login.php'">Login</button>
-        <button class="button"; onclick="window.location.href='./app/registration.php'">Sign Up</button>
+        <button class="button" onclick="window.location.href='./app/login.php'">Login</button>
+        <button class="button" onclick="window.location.href='./app/registration.php'">Sign Up</button>
     </div>
 </body>
 </html>

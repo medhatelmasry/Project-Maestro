@@ -52,7 +52,7 @@ if (isset($_POST['register'])) {
     if ($query_results) {
         $query_results = NULL;  // closes connection
         http_response_code(200);
-        echo json_encode(array("message" => "User was successfully registered."));
+        //echo json_encode(array("message" => "User was successfully registered."));
         $_SESSION['success'] = 'Successfully registered a user';
         header('Location: login.php');
     } else {
