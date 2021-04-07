@@ -2,15 +2,22 @@
 #JWT implementation---------------------------------------------------------------------
 include_once '../config/jwt_secure.php';
 include_once '../config/database.php';
+include_once 'inc_db_helper.php';
 use \Firebase\JWT\JWT;
 if ($jwt) {
 
   try {
 
       $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
+<<<<<<< Updated upstream
 
       $databaseService = new DatabaseService();
       $conn = $databaseService->getConnection('');
+=======
+      
+      // $databaseService = new DatabaseService();
+      // $conn = $databaseService->getConnection();
+>>>>>>> Stashed changes
 
       define("DEBUG", 0);
 
@@ -21,217 +28,19 @@ if ($jwt) {
       $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
       $input = json_decode(file_get_contents('php://input'),true);
 
+
+      
       #===============================================
       # Create database or open if it already exists
       #===============================================
-      $conn = new SQLite3('projectmaestro.db');
-
-      #===============================================
-      # Create tables IF NO EXIST
-      #===============================================
-
-      $SQL_create_table = [
-        "CREATE TABLE IF NOT EXISTS User (
-        UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        UserEmail VARCHAR(80),
-        UserFName VARCHAR(80),
-        UserLName VARCHAR(80)
-      );",
-      "CREATE TABLE IF NOT EXISTS Instructor (
-        InstructorId VARCHAR(80) NOT NULL PRIMARY KEY,
-        UserId INTEGER,
-        FOREIGN KEY (UserId) REFERENCES User(UserId)
-      );",
-      "CREATE TABLE IF NOT EXISTS Course (
-        CourseId VARCHAR(80) NOT NULL PRIMARY KEY,
-        CourseName VARCHAR(80),
-        CourseTerm INTEGER,
-        InstructorId VARCHAR(80),
-        FOREIGN KEY (InstructorId) REFERENCES Instructor(InstructorId)
-      );",
-      "CREATE TABLE IF NOT EXISTS CourseList (
-        CourseListId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        CourseId VARCHAR(80),
-        UserId INTEGER,
-        FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
-        FOREIGN KEY (UserId) REFERENCES User(UserId)
-      );",
-        "CREATE TABLE IF NOT EXISTS Project (
-        ProjectId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        ProjectName VARCHAR(80),
-        CourseId VARCHAR(80),
-        FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
-      );",
-      "CREATE TABLE IF NOT EXISTS ProjectList (
-        ProjectListId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        ProjectId INTEGER,
-        UserId INTEGER,
-        FOREIGN KEY (ProjectId) REFERENCES Project(Project),
-        FOREIGN KEY (UserId) REFERENCES User(UserId)
-      );",
-      "CREATE TABLE IF NOT EXISTS Team (
-        TeamId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        TeamName VARCHAR(80),
-        ProjectId INTEGER,
-        FOREIGN KEY (ProjectId) REFERENCES Project(Project)
-      );",
-      "CREATE TABLE IF NOT EXISTS Goal (
-        GoalId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        TeamId VARCHAR(80),
-        GoalDesc VARCHAR(80),
-        GoalStart VARCHAR(80),
-        GoalEnd VARCHAR(80),
-        FOREIGN KEY (TeamId) REFERENCES Team(TeamId)
-      );",
-      "CREATE TABLE IF NOT EXISTS Student (
-        StudentId VARCHAR(80) NOT NULL PRIMARY KEY,
-        UserId INTEGER,
-        StudentSet VARCHAR(80),
-        FOREIGN KEY (UserId) REFERENCES User(UserId)
-      );",
-      "CREATE TABLE IF NOT EXISTS TeamMember (
-        TeamMemberId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        ProjectId INTEGER,
-        UserId INTEGER,
-        TeamMemberRole VARCHAR(80),
-        FOREIGN KEY (UserId) REFERENCES User(UserId)
-        FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
-      );",
-      ];
-
-      foreach ($SQL_create_table as $command) {
-        $conn->exec($command);
-      }
+      $databaseHelper = new DatabaseHelper('projectmaestro.db');
+      $conn = $databaseHelper -> getConn();
 
       #===============================================
       # Insert dummy data
       #===============================================
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM User");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName)
-          VALUES 
-          ('BobBuilder@gmail.com', 'Bob', 'Builder'),
-          ('GalvinKlein@hotmail.com', 'Galvin', 'Klein'),
-          ('jeff@my.bcit.ca', 'Jeff', 'BCIT'),
-          ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM Project");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO Project (ProjectName, CourseId)
-          VALUES 
-          ('Project Maestro', 'COMP3975'),
-          ('Hello Fresh', 'COMP3522')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM ProjectList");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO ProjectList (ProjectId, UserId)
-          VALUES 
-          ('1', '1'),
-          ('2', '2')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM Instructor");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO Instructor (InstructorId, UserId)
-          VALUES 
-          ('A08888', '3'),
-          ('A07777', '4')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM Student");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO Student (StudentId, UserId, StudentSet)
-          VALUES 
-          ('A011293','1', 'S'),
-          ('A011111','2', 'M')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM Course");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, InstructorId)
-          VALUES 
-          ('COMP3975', 'Web/Mobile', '3', 'A08888'),
-          ('COMP3522', 'Python', '3', 'A07777')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM CourseList");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO CourseList (CourseId, UserId)
-          VALUES 
-          ('COMP3975', '1'),
-          ('COMP3522', '2')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM Team");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO Team (TeamName, ProjectId)
-          VALUES 
-          ('Team Maestro', '1'),
-          ('Team Alpha', '2')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM TeamMember");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO TeamMember (ProjectId, UserId, TeamMemberRole)
-          VALUES 
-          ('1', '1', 'Coder'),
-          ('1', '2', 'Admin')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-
-      $rows = $conn->query("SELECT COUNT(*) as count FROM Goal");
-      $row = $rows->fetchArray();
-      $numRows = $row['count'];
-      if ($row['count'] === 0) {
-          $SQL_insert_data = "INSERT INTO Goal (TeamId, GoalDesc, GoalStart, GoalEnd)
-          VALUES 
-          ('1', 'Code Rest API backend for front end team', '2021-03-20', '2021-03-22'),
-          ('2', 'Code UI for Hello Fresh', '2019-12-23', '2020-01-03')
-          ";
-          $conn->exec($SQL_insert_data);
-      }
-      if (DEBUG === 1) {
-          echo "<h3>request</h3>";
-          var_dump($request);
-      }
+      $databaseHelper -> insertDummyData();
+      
 
       #===============================================
       # retrieve the table from the path
@@ -310,21 +119,8 @@ if ($jwt) {
       #===============================================
       # create SQL based on HTTP method
       #===============================================
-      switch ($method) {
-        case 'GET':
-          $sql = "SELECT * FROM `$table`".($key? " WHERE $pk='$key'":''); 
-          break;
-        case 'PUT':
-          $sql = "UPDATE `$table` SET $updateSet WHERE $pk='$key'"; 
-          break;
-        case 'POST':
-          $sql = "INSERT INTO `$table` ($insertSet) VALUES ($insertVal)"; 
-          break;
-        case 'DELETE':
-          $sql = "DELETE FROM `$table` WHERE $pk='$key'"; 
-          break;
-      }
-
+      
+      $sql = $databaseHelper -> getCommandByMethod($method);
       if (DEBUG === 1) {
         echo "<h3>SQL</h3>";
         echo $sql;
@@ -375,7 +171,7 @@ if ($jwt) {
       #===============================================
       # close SQLite connection
       #===============================================
-      $conn->close();
+      $databaseHelper -> close();
 
       
   } catch (Exception $e) {
