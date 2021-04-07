@@ -24,6 +24,12 @@ jobs:
       - uses: actions/checkout@v2
 
       # Runs a single command using the runners shell
-      - name: Build Docker image
-        run: docker build . --file Dockerfile.backend --tag melmasry/maestro:$(date +%s)
+      - name: Build & deploy image to docker hub
+        uses: docker/build-push-action@v1
+        with:
+          path: .
+          username: ${{ secrets.DOCKER_USERNAME}}
+          password: ${{ secrets.DOCKER_PASSWORD}}
+          repository: melmasry/maestro
+          tags: 1.0.0
 
