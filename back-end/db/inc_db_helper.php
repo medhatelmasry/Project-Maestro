@@ -12,6 +12,11 @@
          */
         public function __construct($dbPath) {
             $this->conn = new SQLite3($dbPath);
+
+            $this->conn->busyTimeout(5000);
+            // WAL mode has better control over concurrency.
+            // Source: https://www.sqlite.org/wal.html
+            $this->conn->exec('PRAGMA journal_mode = wal');
             
             // Array of SQL commands to create the tables if they do not exist 
             // already
