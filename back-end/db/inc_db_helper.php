@@ -89,6 +89,31 @@
                 // For each command in the array
                 $this->conn->exec($command);
             }
+
+            $this->addUserPasswordColumn();
+        }
+
+        /**
+         * Adds the UserPassword column to the User table if it does not 
+         * already exist.
+         */
+        private function addUserPasswordColumn() {
+            $colExists = FALSE;
+
+            $res = $this->conn->query("PRAGMA table_info(User);");
+
+            while ($col = $res->fetchArray(SQLITE3_ASSOC)) {
+                if (strcmp($col['name'], "UserPassword") == 0) {
+                    // If the column 'UserPassword' exists
+                    $colExists = TRUE;
+                }
+            }
+
+            if (!$colExists) {
+                $sql = "ALTER TABLE User ADD COLUMN UserPassword VARCHAR(255);";
+
+                $this->conn->exec($sql);
+            }
         }
 
         /**
