@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import outlinesData from '../data/outlines';
 import coursesData from '../data/courses';
+import "../pages/styles/BackButton.css";
 
 const OutlineList = (param) => {
 
@@ -11,11 +12,16 @@ const OutlineList = (param) => {
 
     var outlines = outlinesData.filter(c => c.course == id)
 
+    function back() {
+        window.history.back();
+    }
+
     return (
         <> 
             <React.Fragment>
             <h2>{course[0].name}</h2>
             <h3>Project Outlines</h3>
+            <button className="back" onClick={back}>&lt; Courses</button>
             <table class="table">
                 <tbody>
                 {outlines.map((outline, key) => (

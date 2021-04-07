@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import goalsData from '../data/goals';
+import "../pages/styles/BackButton.css";
 
 
 const Goals = (param) => {
@@ -9,10 +10,15 @@ const Goals = (param) => {
 
     var goals = (goalsData.filter(g => g.projectId == id))
 
+    function back() {
+        window.history.back();
+    }
+
     return (
         <> 
             <React.Fragment>
             <h3>Goals</h3>
+            <button className="back" onClick={back}>&lt; Project</button>
             <table>
                 <tbody>
                 {goals.map((goal, key) => (

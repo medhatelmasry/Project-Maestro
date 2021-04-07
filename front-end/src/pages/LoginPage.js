@@ -7,7 +7,7 @@ const LoginPage = () => (
     <div className="panel panel-default position-login">
         <form className='LoginPage'>
             <div className="form-group">
-                <label>Username:</label>
+                <label>Email:</label>
                 <input type="text" className="form-control" id="usernameInput"/>
             </div>
             <div className="form-group">
