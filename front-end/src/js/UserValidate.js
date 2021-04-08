@@ -1,10 +1,6 @@
 function userValidate(values) {
     let errors = {}
 
-    if (!values.userName.trim()) {
-        errors.userName = "Username cannot be empty.";
-    }
-
     let emailRegex = /\S+@\S+\.\S+/;
     if (!values.email.trim()) {
         errors.email = "Email cannot be empty.";
