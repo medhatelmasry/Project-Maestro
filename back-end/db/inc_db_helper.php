@@ -94,6 +94,31 @@
                 // For each command in the array
                 $this->conn->exec($command);
             }
+
+            $this->addUserPasswordColumn();
+        }
+
+        /**
+         * Adds the UserPassword column to the User table if it does not 
+         * already exist.
+         */
+        private function addUserPasswordColumn() {
+            $colExists = FALSE;
+
+            $res = $this->conn->query("PRAGMA table_info(User);");
+
+            while ($col = $res->fetchArray(SQLITE3_ASSOC)) {
+                if (strcmp($col['name'], "UserPassword") == 0) {
+                    // If the column 'UserPassword' exists
+                    $colExists = TRUE;
+                }
+            }
+
+            if (!$colExists) {
+                $sql = "ALTER TABLE User ADD COLUMN UserPassword VARCHAR(255);";
+
+                $this->conn->exec($sql);
+            }
         }
 
         /**
@@ -104,12 +129,12 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName)
+                $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName, UserPassword)
                 VALUES 
-                    ('BobBuilder@gmail.com', 'Bob', 'Builder'),
-                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein'),
-                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT'),
-                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry')
+                    ('BobBuilder@gmail.com', 'Bob', 'Builder', 'password'),
+                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein', 'abcd1234'),
+                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', 'itsdababyletsgooo'),
+                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', 'cisforcookie')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }

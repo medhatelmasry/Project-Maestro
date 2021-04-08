@@ -16,6 +16,7 @@ session_start();
 			<a class="navbar-brand" href="../index.php">Project Maestro</a>
 		</div>
 	</nav>
+	<a href="../index.php"><button class="btn-back">Back</button></a>
 	<div class="content">
 		<!-- Login Form Starts -->
 		<form method="POST" action="instructor_login_validation.php">	

@@ -12,6 +12,7 @@
 			<a class="navbar-brand" href="../index.php">Project Maestro</a>
 		</div>
 	</nav>
+	<a href="../index.php"><button class="btn-back">Back</button></a>
 	<div class="content">
 		<!-- Login Form Starts -->
 			<!-- Registration Form start -->
@@ -38,7 +39,7 @@
 							<label>Firstname</label>
 						</div>
 						<div class="col-sm-8, input">
-							<input type="text" name="firstName" class="form-control" required="required" placeholder="given name"/>
+							<input type="text" name="firstName" class="form-control" required="required" placeholder="firstname"/>
 						</div>
 					</div><br><br>
 					<div class="label-input, form-inline">
@@ -46,7 +47,7 @@
 							<label>Lastname</label>
 						</div>
 						<div class="col-sm-8, input">
-							<input type="text" name="lastName" class="form-control" required="required" placeholder="surname"/>
+							<input type="text" name="lastName" class="form-control" required="required" placeholder="lastname"/>
 						</div>
 					</div>
 				</div>
