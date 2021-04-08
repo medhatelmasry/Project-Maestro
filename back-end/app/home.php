@@ -15,7 +15,7 @@
 		</nav>
 		<h1 class="title">Welcome Instructor</h1>
 		<div class="content">
-			<button class="button"; onclick="window.location.href='./createCourses/createCourse.php'">Create Course</button>
+			<button class="button"; onclick="window.location.href='./createCourse.php'">Create Course</button>
 			<button class="button"; onclick="window.location.href='./viewCourse.php'">View Courses</button> <!-- CHECK TO SEE IF THIS PATH NEEDS TO CHANGE :^) -->
 		</div>
 	</body>
