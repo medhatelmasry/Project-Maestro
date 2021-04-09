@@ -10,14 +10,17 @@ require "../vendor/autoload.php";
 use \Firebase\JWT\JWT;
 
 include_once 'cors.php';
-
+$inputdata = json_decode(file_get_contents("php://input"));
 $databaseService = new DatabaseService();
 $conn = $databaseService->getConnection('../db/');
 
-if(ISSET($_POST['login'])){
+// if(ISSET($_POST['login'])){
+// $email = $_POST['email'];
+// $password = $_POST['password'];
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+if (isset($inputdata->email) && isset($inputdata->password)){
+$email = $inputdata->email;
+$password = $inputdata->password;
 $table_name = 'User';
 
 $query = "SELECT UserId, UserEmail, UserFName, UserLName, UserPassword FROM " . $table_name . " WHERE UserEmail = ? LIMIT 0,1";
@@ -74,13 +77,19 @@ if ($num > 0) {
             array(
                 "message" => "Successful login.",
                 "jwt" => $jwt,
+                "id" => $id,
                 "email" => $email,
+                "firstName" => $firstName,
+                "lastName" => $lastName,
                 "expireAt" => $expire_claim
             )
 		);
         // Change header location to student's homepage
         // comment this line out if you would like to see JWT encoded array
-		// header('Location: home.php'); 
+        // header('Location: home.php');
+        // header( "Content-type: application/json" );
+        // echo $jwt;
+        echo json_encode($jwt);
     } else {
 
         http_response_code(401);
