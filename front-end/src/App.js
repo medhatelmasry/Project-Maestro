@@ -15,6 +15,8 @@ import 'jquery/dist/jquery.min.js';
 import 'popper.js/dist/umd/popper.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 
+import React, { useState } from 'react';
+
 import {
   BrowserRouter as Router,
   Route,
@@ -22,26 +24,38 @@ import {
 } from 'react-router-dom';
 
 function App() {
-  return (
-    <Router>
-      <NavBar />
-      <div className="container">
-        <Switch>
-          {/* <Route path="/" component={HomePage} exact /> */}
-          <Route path="/" component={LandingPage} exact />
-          <Route path="/login" component={LoginPage} exact />
-          <Route path="/register" component={RegisterPage} exact />
-          <Route path="/dashboard/" component={DashboardPage} exact />
-          <Route path="/outlines/:id" component={OutlinesPage} exact />
-          <Route path="/outlines/outline/:id" component={OutlinePage} exact />
-          <Route path="/outlines/outline/:id/project/" component={ProjectPage} exact />
-          <Route path="/outlines/outline/:id/project/join" component={JoinTeamPage} exact />
-          <Route path="/outlines/outline/:id/project/:projectId/goals" component={GoalsPage} exact />
-          <Route component={NotFoundPage} />
-        </Switch>
-      </div>
-    </Router>
-  );
+  if (localStorage.getItem("userID") != undefined && localStorage.getItem("authToken") != undefined) {
+    return (
+      <Router>
+        <NavBar />
+        <div className="container">
+          <Switch>
+            <Route path="/" component={DashboardPage} exact />
+            <Route path="/outlines/:id" component={OutlinesPage} exact />
+            <Route path="/outlines/outline/:id" component={OutlinePage} exact />
+            <Route path="/outlines/outline/:id/project/" component={ProjectPage} exact />
+            <Route path="/outlines/outline/:id/project/join" component={JoinTeamPage} exact />
+            <Route path="/outlines/outline/:id/project/:projectId/goals" component={GoalsPage} exact />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
+      </Router>
+    );
+  } else {
+    return (
+      <Router>
+        <NavBar />
+        <div className="container">
+          <Switch>
+            <Route path="/" component={LandingPage} exact />
+            <Route path="/login" component={LoginPage} exact />
+            <Route path="/register" component={RegisterPage} exact />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
 }
 
 export default App;

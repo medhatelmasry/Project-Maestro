@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import userValidate from '../js/UserValidate';
 import jQuery from 'jquery'
 
@@ -10,7 +9,6 @@ const Register = () => {
     const [password, setPassword] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
-    const [redirect, setRedirect] = useState(false);
     const [errorMessages, setErrorMessages] = useState({});
 
     const registerUser = async (e) => {
@@ -29,27 +27,51 @@ const Register = () => {
             firstName: errors.firstName,
             lastName: errors.lastName
         });
-        
+
         if (jQuery.isEmptyObject(errors)) {
-            const result = await fetch(`https://maestroapp.azurewebsites.net/app/registration.php`, {
+            //const result = await fetch(`https://maestroapp.azurewebsites.net/app/student_registration_validation.php`, {
+            const result = await fetch(`http://localhost:8888/app/student_registration_validation.php`, {
                 method: 'POST',
                 body: JSON.stringify({
-                email,
-                password,
                 firstName,
-                lastName    
+                lastName,   
+                email,
+                password
                 }),
                 headers: {
                   'Content-Type': 'application/json'
                 }
               }
               )
-              await result.json();
-              setRedirect(true);
+              const response = await result.json();
+              if (response.email) {
+                alert("Student registration successful.");
+                LoginEvent();
+              } else {
+                alert("Student registration failed.");
+              }
         }
     }
-    if (redirect) {
-        return <Redirect to='/login'/>
+
+    const LoginEvent = async () => {
+        //const result = await fetch(`https://maestroapp.azurewebsites.net/app/student_login_validation.php`, {
+        const result = await fetch(`http://localhost:8888/app/student_login_validation.php`, {
+                method: 'POST',
+                body: JSON.stringify({
+                email,
+                password
+                }),
+                headers: {
+                  'Content-Type': 'application/json'
+                }
+              }
+              )
+              const response = await result.json();
+              if (response.jwt && response.id) {
+                  localStorage.setItem("userID", response.id);
+                  localStorage.setItem("authToken", response.jwt);
+                  window.location.href = "/";
+              }
     }
     return (
         <>
