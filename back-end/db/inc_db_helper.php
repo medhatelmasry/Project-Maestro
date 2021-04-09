@@ -290,6 +290,16 @@
             $this->conn->exec($sql);
         }
 
+             /**
+         * Get data from the database.
+         * @param $table insert to which table
+         * @param $key
+         */
+        public function getExists($table, $pk, $key) {
+            $sql = "SELECT EXISTS(SELECT 1 FROM '$table' WHERE $pk='$key')";
+            $this->conn->exec($sql);
+        }
+
         /**
          * Delete data in the database.
          * @param $table insert to which table
