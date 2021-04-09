@@ -89,7 +89,7 @@ if ($num > 0) {
         // header('Location: home.php');
         // header( "Content-type: application/json" );
         // echo $jwt;
-        echo json_encode($jwt);
+        // echo json_encode($jwt);
     } else {
 
         http_response_code(401);
