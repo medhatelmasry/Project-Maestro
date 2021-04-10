@@ -83,9 +83,11 @@
                 "CREATE TABLE IF NOT EXISTS TeamMember (
                     TeamMemberId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     ProjectId INTEGER,
+                    TeamId INTEGER,
                     UserId INTEGER,
                     TeamMemberRole VARCHAR(80),
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
+                    FOREIGN KEY (TeamID) REFERENCES Team(TeamId)
                     FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
                 );",
             ];
@@ -125,9 +127,13 @@
          * Inserts dummy data into the database.
          */
         public function insertDummyData() {
+            echo "dummy data";
             $rows = $this->conn->query("SELECT COUNT(*) as count FROM User");
             $row = $rows->fetchArray();
             $numRows = $row['count'];
+            echo var_dump($numRows);
+            echo var_dump($row);
+            echo "wtf?" . var_dump($row['count']);
             if ($row['count'] === 0) {
                 $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName, UserPassword)
                 VALUES 
@@ -227,10 +233,10 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO TeamMember (ProjectId, UserId, TeamMemberRole)
+                $SQL_insert_data = "INSERT INTO TeamMember (ProjectId, TeamId, UserId, TeamMemberRole)
                 VALUES 
-                ('1', '1', 'Coder'),
-                ('1', '2', 'Admin')
+                ('1', '1', '1', 'Coder'),
+                ('1', '2', '1', 'Armin')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -348,4 +354,5 @@
             $this->conn->close();
         }
     }
+    
 ?>

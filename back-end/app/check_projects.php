@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php 
-include ('../db/inc_db_helper.php');
+include_once("../db/inc_db_helper.php");
 $db = new DatabaseHelper('../db/projectmaestro.db');
 $connection = $db->getConn();
 
@@ -23,15 +23,19 @@ $res = $connection->query('SELECT * FROM Project');
     <h1 class="courseInfo">Project Outline</h1>
     <div class="col-md-3"></div>
     <table class="tableList">
-        <?php 
+        <?php     
         while ($row = $res->fetchArray()) {
+            $viewTeam = "window.location.href='./view_teams.php?project={$row['ProjectName']}'";
+            $_SESSION["Project"] = $row['ProjectName'];
             echo "<tr><td>{$row['ProjectName']}</td>";
             echo "<td class='alignRight'>";
             echo "<input 
             type='button' value='View Details' class='homebutton addBtn' 
             id='viewDet'onClick='document.location.href='./home.php'' />";
-            echo "<input type='button' value='View Projects' class='homebutton addBtn' id='viewProj'
-            onClick='document.location.href='./home.php'' />";
+            // echo "<input type='button' value='View Teams' class='homebutton addBtn' id='viewProj'
+            // onClick='" . $viewTeam . "' />";
+            echo '<button id="viewProj" class="homebutton addBtn"; value="'. $row['ProjectName'] .'" onclick="' 
+            . $viewTeam . '">View Teams</button>';
             echo "</td>";
             echo "</tr>";
         };
