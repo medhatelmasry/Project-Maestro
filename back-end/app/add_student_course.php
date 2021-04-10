@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <?php 
-//$test = [["Bob","a01111"],["Bill","a02222"],["Galvin","a03333"]]; 
-// include('../db/conn.php');
-//starting the session
-//session_start()//?\;
-$endpoint = 'http://localhost:8000/api.php/Student';
-$response = file_get_contents($endpoint);
-$json = json_decode($response);
+include ('../db/inc_db_helper.php');
+$db = new DatabaseHelper('../db/projectmaestro.db');
+$connection = $db->getConn();
+
+$res = $connection->query('SELECT * FROM Student');
 ?>
 <html lang="en">
 
@@ -26,22 +24,23 @@ $json = json_decode($response);
     <h2 class="courseInfo">Students</h2>
     <div class="col-md-3"></div>
     <table class="tableList">
-        <?php foreach ($json as $item) { ?>
-        <tr">
-            <td>
-                <?php 
-                $getUser = 'http://localhost:8000/api.php/User/'.$item->UserId;
-                $response2 = file_get_contents($getUser);
-                $userJson = json_decode($response2);
-                echo $userJson->UserEmail?>
-            </td>
-            <td class="alignRight">
-                <?php echo $item->StudentId;?>
-                <input type="button" value="Add" class="homebutton addBtn" id="addStd"
-                    onClick="document.location.href='./home.php'" />
-            </td>
-            </tr>
-            <?php } ?>
+        <?php 
+            while ($row = $res->fetchArray()) {
+                echo"<td>";
+                $test = $row['UserId'];
+                $userRes = $connection->query("SELECT * FROM User WHERE UserId=$test");
+                while ($row2 = $userRes->fetchArray()) { 
+                    echo $row2["UserFName"];
+                    echo $row2["UserLName"];
+                }
+                echo"</td>";
+                echo"<td class='alignRight'>";
+                echo"{$row['StudentId']}";
+                echo"<input type='button' value='Add' class='homebutton addBtn' id='addStd'
+                    onClick='document.location.href='./home.php''/>";
+                echo"</td> </tr>";
+            }
+            ?>
     </table>
     </div>
 </body>
