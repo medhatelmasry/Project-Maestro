@@ -30,7 +30,7 @@ $res = $connection->query('SELECT * FROM Course');
             echo "<a class='btn btn-small btn-success' href=''>Add Students</a>";
             echo "&nbsp;";
             //Add hrefs here for view projects page
-            echo "<a class='btn btn-small btn-warning' href=''>View Projects</a>";
+            echo "<a class='btn btn-small btn-warning' href='./view_projects.php?id={$row['CourseId']}'>View Projects</a>";
             echo "&nbsp;";
             echo "<a class='btn btn-small btn-danger' href='delete.php?id={$row[0]}'>Delete</a>";
             echo "</td></tr>\n" ;

@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <?php 
+<<<<<<< HEAD
 include_once("../db/inc_db_helper.php");
+=======
+include_once('../db/inc_db_helper.php');
+>>>>>>> d6e473c2ad8489645dbaaa38652c6cfd19225883
 $db = new DatabaseHelper('../db/projectmaestro.db');
 $connection = $db->getConn();
 

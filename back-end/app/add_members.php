@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php 
+	include ('../db/inc_db_helper.php');
+
+	$db = new DatabaseHelper('../db/projectmaestro.db');
+?>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
@@ -10,7 +15,7 @@
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="javascript:window.location.href=window.location.href">Project Maestro</a>
-				<a class="navbar-brand navbar-right" href="login.php">Logout</a>
+				<a class="navbar-brand navbar-right" href="logout.php">Logout</a>
 			</div>
 		</nav>
 		<div id="view">
