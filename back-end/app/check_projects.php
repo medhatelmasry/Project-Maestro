@@ -1,16 +1,10 @@
 <!DOCTYPE html>
 <?php 
-	include ('../db/inc_db_helper.php');
+include_once('../db/inc_db_helper.php');
+$db = new DatabaseHelper('../db/projectmaestro.db');
+$connection = $db->getConn();
 
-	$db = new DatabaseHelper('../db/projectmaestro.db');
-?>
-<?php 
-// include('../db/conn.php');
-//starting the session
-//session_start()//?\;
-$endpoint = 'http://localhost:8000/api.php/Project';
-$response = file_get_contents($endpoint);
-$json = json_decode($response);
+$res = $connection->query('SELECT * FROM Project');
 ?>
 <html lang="en">
 
@@ -29,19 +23,19 @@ $json = json_decode($response);
     <h1 class="courseInfo">Project Outline</h1>
     <div class="col-md-3"></div>
     <table class="tableList">
-        <?php foreach ($json as $item) { ?>
-        <tr">
-            <td>
-                <?php echo$item->ProjectName?>
-            </td>
-            <td class="alignRight">
-                <input type="button" value="View Details" class="homebutton addBtn" id="viewDet"
-                    onClick="document.location.href='./home.php'" />
-                <input type="button" value="View Projects" class="homebutton addBtn" id="viewProj"
-                    onClick="document.location.href='./home.php'" />
-            </td>
-            </tr>
-            <?php } ?>
+        <?php 
+        while ($row = $res->fetchArray()) {
+            echo "<tr><td>{$row['ProjectName']}</td>";
+            echo "<td class='alignRight'>";
+            echo "<input 
+            type='button' value='View Details' class='homebutton addBtn' 
+            id='viewDet'onClick='document.location.href='./home.php'' />";
+            echo "<input type='button' value='View Projects' class='homebutton addBtn' id='viewProj'
+            onClick='document.location.href='./home.php'' />";
+            echo "</td>";
+            echo "</tr>";
+        };
+        ?>
     </table>
     <input type="button" value="Create Projects" class="homebutton createProj addBtn" id="createProj"
         onClick="document.location.href='./home.php'" />
