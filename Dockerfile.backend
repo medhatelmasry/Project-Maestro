@@ -1,11 +1,19 @@
 # https://www.youtube.com/watch?v=5YQkNKuygpU
+FROM composer as composer
+COPY . /app
+RUN composer install --ignore-platform-reqs --no-scripts
+
 FROM php:7.3-apache
 COPY ./back-end /var/www/html/
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+# COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN apt-get update && apt-get install -y git
 RUN touch /var/www/html/db/projectmaestro.db
 RUN chmod 777 /var/www/html/db/
 RUN chmod 777 /var/www/html/db/projectmaestro.db
-RUN composer install
+
+# RUN composer install
+COPY . /var/www/root
+COPY --from=composer /app/vendor /var/www/root/vendor
+
 EXPOSE 80/tcp
 EXPOSE 443/tcp
