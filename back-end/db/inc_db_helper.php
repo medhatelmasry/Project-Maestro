@@ -88,6 +88,14 @@
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
                     FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
                 );",
+                "CREATE TABLE IF NOT EXISTS ProjectOutline (
+                    ProjectOutlineId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    ProjectId INTEGER,
+                    ProjectOutlineDesc VARCHAR(255),
+                    ProjectStart VARCHAR(80),
+                    ProjectEnd VARCHAR(80),
+                    FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
+                );",
             ];
     
             foreach ($sqlCreateTable as $command) {
@@ -243,6 +251,18 @@
                 VALUES 
                 ('1', 'Code Rest API backend for front end team', '2021-03-20', '2021-03-22'),
                 ('2', 'Code UI for Hello Fresh', '2019-12-23', '2020-01-03')
+                ";
+                $this->conn->exec($SQL_insert_data);
+            }
+
+            $rows = $this->conn->query("SELECT COUNT(*) as count FROM ProjectOutline");
+            $row = $rows->fetchArray();
+            $numRows = $row['count'];
+            if ($row['count'] === 0) {
+                $SQL_insert_data = "INSERT INTO ProjectOutline (ProjectId, ProjectOutlineDesc, ProjectStart, ProjectEnd)
+                VALUES
+                ('1', 'Create a system that registers users to a project', '2021-03-18', '2021-04-21'),
+                ('2', 'Build a website with React.js and PHP', '2021-03-20', '2021-04-17')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
