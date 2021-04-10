@@ -2,7 +2,7 @@
 include_once './db/inc_db_helper.php';
 $db_name = dirname(__FILE__) . DIRECTORY_SEPARATOR . "db" . DIRECTORY_SEPARATOR . "projectmaestro.db";
 $db_helper = new DatabaseHelper($db_name);
-$db_helper->insertDummyData();
+# $db_helper->insertDummyData();
 $db_helper->close();
 ?>
 <!DOCTYPE html>
