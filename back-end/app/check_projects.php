@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <?php 
+	include ('../db/inc_db_helper.php');
+
+	$db = new DatabaseHelper('../db/projectmaestro.db');
+?>
+<?php 
 // include('../db/conn.php');
 //starting the session
 //session_start()//?\;

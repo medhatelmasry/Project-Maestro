@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <?php 
+	include ('../db/inc_db_helper.php');
+
+	$db = new DatabaseHelper('../db/projectmaestro.db');
+?>
+<?php 
 //$test = [["Bob","a01111"],["Bill","a02222"],["Galvin","a03333"]]; 
 // include('../db/conn.php');
 //starting the session
