@@ -307,7 +307,7 @@
          */
         public function getData($table, $pk, $key) {
             $sql = "SELECT * FROM `$table`".($key? " WHERE $pk='$key'":''); 
-            $this->conn->exec($sql);
+            return $this->conn->query($sql);
         }
 
              /**
@@ -317,7 +317,7 @@
          */
         public function getExists($table, $pk, $key) {
             $sql = "SELECT EXISTS(SELECT 1 FROM '$table' WHERE $pk='$key')";
-            $this->conn->exec($sql);
+            return $this->conn->query($sql);
         }
 
         /**
