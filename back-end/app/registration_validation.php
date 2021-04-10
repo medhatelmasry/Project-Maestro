@@ -1,20 +1,19 @@
 <?php
-include_once '../db/inc_db_helper.php';
-$db_helper = new DatabaseHelper('../db/projectmaestro.db');
-$db_helper->close();
-?>
-<?php
 session_start();
 ini_set('display_errors', 1);
 include_once '../config/database.php';
 include_once 'cors.php';
+include_once '../db/inc_db_helper.php';
+$db_helper = new DatabaseHelper('../db/projectmaestro.db');
 
 $conn = null;
 $table_name = 'User';
 
-$databaseService = new DatabaseService();
-$conn = $databaseService->getConnection('../db/');
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// $databaseService = new DatabaseService();
+// $conn = $databaseService->getConnection('../db/');
+// $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$conn = $db_helper->getConn();
 
 // $SQL_create_table = "CREATE TABLE IF NOT EXISTS $table_name (
 //     UserId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -61,5 +60,5 @@ if (isset($_POST['register'])) {
         echo json_encode(array("message" => "Unable to register the user."));
     }
 }
-$conn = null;
+$db_helper->close();
 ?>
