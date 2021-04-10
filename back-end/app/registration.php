@@ -1,7 +1,7 @@
 <?php 
-	include ('../db/inc_db_helper.php');
-
-	$db = new DatabaseHelper('../db/projectmaestro.db');
+session_start();
+include ('../db/inc_db_helper.php');
+$db = new DatabaseHelper('../db/projectmaestro.db');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +60,18 @@
 				<button class="button" name="register">Sign Up</button>
 			</form>	
 			<!-- Registration Form end -->
+			<br>
+			<?php
+				//checking if the session 'error' is set. Error session is the message if the 'Username' and 'Password' is not valid.
+				if(ISSET($_SESSION['dup_error'])){
+			?>
+			<!-- Display Login Error message -->
+				<div id="error" class="alert alert-danger"><?php echo $_SESSION['dup_error']?></div>
+			<?php
+				//Unsetting the 'error' session after displaying the message.
+				unset($_SESSION['dup_error']);
+				}
+			?>
 		</div>
 	</div>
 </body>
