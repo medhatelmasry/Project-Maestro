@@ -50,7 +50,7 @@ $res = $connection->query('SELECT * FROM Project');
         ?>
     </table>
     <input type="button" value="Create Projects" class="homebutton createProj addBtn" id="createProj"
-        onClick="document.location.href='./home.php'" />
+        onClick="document.location.href='./create_project_outline.php'" />
     </div>
 </body>
 

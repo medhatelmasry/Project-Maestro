@@ -6,6 +6,7 @@
 session_start();
 
 include ('../db/inc_db_helper.php');
+include 'sanitize_input.php'; // moved sanitize_input to a separate php file
 
 $db = new DatabaseHelper('../db/projectmaestro.db');
 $conn = null;
@@ -15,12 +16,12 @@ $conn = $db->getConn();
 if (isset($_POST['create'])) {
 
     extract($_POST);
-function sanitize_input($data) {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-}
+// function sanitize_input($data) {
+//     $data = trim($data);
+//     $data = stripslashes($data);
+//     $data = htmlspecialchars($data);
+//     return $data;
+// }
 
     $CourseID = sanitize_input($CourseID);
     $CourseName = sanitize_input($CourseName);

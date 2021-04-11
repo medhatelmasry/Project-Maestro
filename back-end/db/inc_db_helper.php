@@ -29,7 +29,7 @@
                     UserPassword VARCHAR(255)
                 );",
                 "CREATE TABLE IF NOT EXISTS Instructor (
-                    InstructorId VARCHAR(80) NOT NULL PRIMARY KEY,
+                    InstructorId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     UserId INTEGER,
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
                 );",
@@ -63,7 +63,7 @@
                     FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
                 );",
                 "CREATE TABLE IF NOT EXISTS Student (
-                    StudentId VARCHAR(80) NOT NULL PRIMARY KEY,
+                    StudentId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     UserId INTEGER,
                     StudentSet VARCHAR(80),
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
@@ -77,7 +77,7 @@
                 );",
                 "CREATE TABLE IF NOT EXISTS ProjectOutline (
                     ProjectOutlineId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    CourseId INTEGER,
+                    CourseId VARCHAR(80),
                     ProjectOutlineName VARCHAR(255),
                     ProjectOutlineReq VARCHAR(80),
                     ProjectOutlineStart VARCHAR(80),
@@ -133,8 +133,8 @@
                 VALUES 
                     ('BobBuilder@gmail.com', 'Bob', 'Builder', 'password'),
                     ('GalvinKlein@hotmail.com', 'Galvin', 'Klein', 'abcd1234'),
-                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', 'itsdababyletsgooo'),
-                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', 'cisforcookie')
+                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', 'cisforcookie'),
+                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', 'itsdababyletsgooo')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -146,7 +146,8 @@
                 $SQL_insert_data = "INSERT INTO Project (ProjectName, ProjectDesc, ProjectOutlineId)
                 VALUES 
                 ('Project Maestro', 'Project desc 1', '1'),
-                ('Hello Fresh', 'Project desc 2', '1')
+                ('Hello Fresh', 'Project desc 2', '2'),
+                ('FAM', 'Project desc 3', '3')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -155,10 +156,10 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Instructor (InstructorId, UserId)
+                $SQL_insert_data = "INSERT INTO Instructor (UserId)
                 VALUES 
-                ('A08888', '3'),
-                ('A07777', '4')
+                ('3'),
+                ('4')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -167,10 +168,10 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Student (StudentId, UserId, StudentSet)
+                $SQL_insert_data = "INSERT INTO Student (UserId, StudentSet)
                 VALUES 
-                ('A011293','1', 'S'),
-                ('A011111','2', 'M')
+                ('1', 'S'),
+                ('2', 'M')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -181,8 +182,8 @@
             if ($row['count'] === 0) {
                 $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, InstructorId)
                 VALUES 
-                ('COMP3975', 'Web/Mobile', '3', 'A08888'),
-                ('COMP3522', 'Python', '3', 'A07777')
+                ('COMP3975', 'Web/Mobile', '3', '3'),
+                ('COMP3522', 'Python', '3', '4')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -206,7 +207,7 @@
                 $SQL_insert_data = "INSERT INTO ProjectMember (ProjectId, UserId)
                 VALUES 
                 ('1', '1'),
-                ('1', '2')
+                ('2', '2')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -218,7 +219,8 @@
                 $SQL_insert_data = "INSERT INTO Goal (ProjectId, GoalDesc, GoalStart, GoalEnd)
                 VALUES 
                 ('1', 'Code Rest API backend for front end team', '2021-03-20', '2021-03-22'),
-                ('2', 'Code UI for Hello Fresh', '2019-12-23', '2020-01-03')
+                ('2', 'Code UI for Hello Fresh', '2019-12-23', '2020-01-03'),
+                ('3', 'Code UI for FAM', '2019-12-23', '2020-01-03')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -229,8 +231,9 @@
             if ($row['count'] === 0) {
                 $SQL_insert_data = "INSERT INTO ProjectOutline (CourseId, ProjectOutlineName, ProjectOutlineReq, ProjectOutlineStart, ProjectOutlineEnd)
                 VALUES
-                ('1', 'Assignment 1', 'Create a system that registers users to a project', '2021-03-18', '2021-04-21'),
-                ('2', 'Assignment 2', 'Build a website with React.js and PHP', '2021-03-20', '2021-04-17')
+                ('COMP3975', 'Assignment 1', 'Create a system that registers users to a project', '2021-03-18', '2021-04-21'),
+                ('COMP3975', 'Assignment 2', 'Build a website with React.js and PHP', '2021-03-20', '2021-04-17'),
+                ('COMP3522', 'Assignment 1', 'Create FAM using OOP principles', '2021-03-20', '2021-04-17')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
