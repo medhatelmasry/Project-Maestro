@@ -15,11 +15,14 @@
 	<div class="container">
 		<?php
 		include ('../db/inc_db_helper.php');
-
+		session_start();
 		$db = new DatabaseHelper('../db/projectmaestro.db');
 		$ProjectOutlineId = $_GET['outlineId'];
 		$CourseId = $_GET['crsId'];
-
+		//store session vars for redirect on view_team
+		$_SESSION['courseId'] = $CourseId;
+		$_SESSION['outId'] = $ProjectOutlineId;
+		
 		$res = $db->getData("ProjectOutline", "ProjectOutlineId", $ProjectOutlineId);
 		$row = $res->fetchArray();
 		echo "<h3>{$row['ProjectOutlineName']}</h3>" .
@@ -32,7 +35,7 @@
 			<?php
 				$res = $db->getData("Project", "ProjectOutlineId", $ProjectOutlineId);
 				while ($row = $res->fetchArray()) {
-					$view_project = "./view_project.php?projectId={$row['ProjectId']}";
+					$view_project = "./view_team.php?projectId={$row['ProjectId']}";
 					echo "<tr><td>{$row['ProjectName']}</td>".
 					"<td class='alignRight'>".
 					"<a class='btn btn-small btn-primary' href='".$view_project."'>View Project</a>".

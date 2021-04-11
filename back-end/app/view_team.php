@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <?php 
 include ('../db/inc_db_helper.php');
+// get courseID
 session_start();
-$projectName = $_SESSION['projectName'];
-//__________________________________________________
-echo $projectName; //Test code for passing project name backwards. 
-//__________________________________________________
-$teamId = $_GET["teamId"];
+$courseId = $_SESSION['courseId'];
+$outlineId = $_SESSION['outId'];
+// //__________________________________________________
+//echo $courseId; //Test code for passing project name backwards. 
+// //__________________________________________________
 $db = new DatabaseHelper('../db/projectmaestro.db');
 // Connect to db
 $connection = $db->getConn();
+$projectId = $_GET["projectId"];
 //Get project data from project name
-$sql = " ";// Enter something like: 
-//SELECT User.UserId, User.UserFName, User.UserLName 
-// FROM User
-// INNER JOIN TeamMember ON User.UserId=TeamMember.UserId 
-// INNER JOIN Team ON Team.TeamId = TeamMember.TeamId
-// WHERE Team.TeamId = "PASSED IN TEAM ID"
-//
-// THis sql string goes below and gets the Team members based on ID
-$teamRes =  $connection->query($sql);
+$projSql = "SELECT * FROM Project WHERE Project.ProjectId IS " . $projectId;
+$projectRes =  $connection->query($projSql);
+//Get user info from project ID
+$userSql = "SELECT User.UserId, User.UserFName, User.UserLName 
+FROM User
+INNER JOIN ProjectMember ON User.UserId=ProjectMember.UserId 
+INNER JOIN Project ON Project.ProjectId = ProjectMember.ProjectId
+WHERE ProjectMember.ProjectId = " . $projectId;
+$userRes = $connection->query($userSql);
+// Testing
+// echo $userSql;
+// echo "<br>";
 ?>
+
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
@@ -37,17 +43,18 @@ $teamRes =  $connection->query($sql);
 		</nav>
 		<div id="view">
             <?php
-            echo "<h3>Team Id: " . $teamId ."</h3>"
+            $temp = $projectRes->fetchArray()['ProjectName'];
+            $_SESSION['projectName'] = $temp;
+            echo "<h3>Project: " . $temp ."</h3>"
             ?>
             <div id="list">
                 <?php
                     $temp = 0; //Swap to get students in team
                     echo "<table width='100%' class='table table-striped'>\n";
-                    while ($row = $teamRes->fetchArray()) {
+                    while ($row = $userRes->fetchArray()) {
                         // Check if team is empty
                         $temp+=1;
                         //Update these statements to get FN, LN and ID if not printing
-                        //echo var_dump($row); for testing
                         echo "<tr>";
                         echo "<th>Name: " . $row['UserFName'] . " " . $row['UserLName'] ."</th>";
                         echo '<th>Student ID: ' . $row['UserId'] . '</th>';
@@ -57,12 +64,14 @@ $teamRes =  $connection->query($sql);
                         echo "<tr><th>No Members<th><tr>";
                     }
                     echo "</table>\n";
-
-                    $button = "window.location.href='./view_team.php?teamId={$row['TeamId']}'";
                 ?>
             </div>
-			<button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./add_members.php?teamId=<?php echo $teamId ?>'">Add member</button>
-            <button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./view_teams.php?project=<?php echo $projectName ?>'">Back</button>
+			<button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./add_members.php?projectId=<?php echo $projectId ?>'">Add member</button>
+            <button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./view_goals.php?projectId=<?php echo $projectId ?>'">View Goals</button>
+            <br>
+            <br>
+            <button id="viewbtn" class="btn btn-small btn-primary"; 
+            onclick="window.location.href='./view_projects.php?crsId=<?php echo $courseId ?>&outlineId=<?php echo $outlineId ?>'">Back</button>
 		</div>
 	</body>
 </html>
