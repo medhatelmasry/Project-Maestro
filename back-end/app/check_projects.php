@@ -1,15 +1,12 @@
-
 <!DOCTYPE html>
-
 <?php 
-// MOCK PAGE_______________________________________________________________
-// Please update if required
-//_________________________________________________________________________
-include_once("../db/inc_db_helper.php");
+include_once('../db/inc_db_helper.php');
+session_start();
 $db = new DatabaseHelper('../db/projectmaestro.db');
 $connection = $db->getConn();
-
-$res = $connection->query('SELECT * FROM Project');
+$id = $_SESSION['instructor_id'];
+$res = $connection->query('SELECT * FROM ProjectOutline');
+if(isset($_SESSION['instructor_id'])){
 ?>
 <html lang="en">
 
@@ -22,36 +19,37 @@ $res = $connection->query('SELECT * FROM Project');
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <a class="navbar-brand" target="_balnk">Project Maestro</a>
+            <a class="navbar-brand" href="javascript:window.location.href=window.location.href">Project Maestro</a>
+            <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
         </div>
     </nav>
     <h1 class="courseInfo">Project Outline</h1>
     <div class="col-md-3"></div>
     <table class="tableList">
-        <?php     
+        <?php 
         while ($row = $res->fetchArray()) {
-            // Use this variable to send the project to the next page to find teams
-            $viewTeam = "window.location.href='./view_teams.php?project={$row['ProjectName']}'";
-            $_SESSION["Project"] = $row['ProjectName'];
-            //______________________________________________________________________-
-            echo "<tr><td>{$row['ProjectName']}</td>";
-            echo "<td class='alignRight'>";
-            echo "<input 
-            type='button' value='View Details' class='homebutton addBtn' 
-            id='viewDet'onClick='document.location.href='./home.php'' />";
-            // Use this button for redirection, this sends the projectname via the link
-            // NOT VALIDATED, USERS CAN ENTER W/E THEY WANT INTO THE LINK
-            echo '<button id="viewProj" class="homebutton addBtn"; value="'. $row['ProjectName'] .'" onclick="' 
-            . $viewTeam . '">View Teams</button>';
-            //______________________________________________________________________
-            echo "</td>";
-            echo "</tr>";
+                    $prjId = "1";
+                    echo "<tr><td>{$row['ProjectOutlineName']}</td>";
+                    echo "<td class='alignRight'>";
+                    echo "<a href='home.php?prjId=$prjId'>";
+                    echo "<input type='button' value='View Details' class='homebutton addBtn' id='viewDet'/>";
+                    echo "</td>";
+                    echo "</tr>";
         };
         ?>
     </table>
     <input type="button" value="Create Projects" class="homebutton createProj addBtn" id="createProj"
         onClick="document.location.href='./home.php'" />
     </div>
+    <?php    
+    } else {
+      $_SESSION['require_login_error'] = "Restricted Access, please login to access.";
+      if (isset($_SESSION['require_login_error'])){
+        header('Location: ../index.php');
+        exit();
+      }
+    }
+     ?>
 </body>
 
 </html>
