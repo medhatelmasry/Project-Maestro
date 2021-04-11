@@ -50,29 +50,17 @@
                 "CREATE TABLE IF NOT EXISTS Project (
                     ProjectId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     ProjectName VARCHAR(80),
-                    CourseId VARCHAR(80),
-                    FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
-                );",
-                "CREATE TABLE IF NOT EXISTS ProjectList (
-                    ProjectListId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    ProjectId INTEGER,
-                    UserId INTEGER,
-                    FOREIGN KEY (ProjectId) REFERENCES Project(Project),
-                    FOREIGN KEY (UserId) REFERENCES User(UserId)
-                );",
-                "CREATE TABLE IF NOT EXISTS Team (
-                    TeamId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    TeamName VARCHAR(80),
-                    ProjectId INTEGER,
-                    FOREIGN KEY (ProjectId) REFERENCES Project(Project)
+                    ProjectDesc VARCHAR(255),
+                    ProjectOutlineId VARCHAR(80),
+                    FOREIGN KEY (ProjectOutlineId) REFERENCES ProjectOutline(ProjectOutlineId)
                 );",
                 "CREATE TABLE IF NOT EXISTS Goal (
                     GoalId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    TeamId VARCHAR(80),
+                    ProjectId VARCHAR(80),
                     GoalDesc VARCHAR(80),
                     GoalStart VARCHAR(80),
                     GoalEnd VARCHAR(80),
-                    FOREIGN KEY (TeamId) REFERENCES Team(TeamId)
+                    FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
                 );",
                 "CREATE TABLE IF NOT EXISTS Student (
                     StudentId VARCHAR(80) NOT NULL PRIMARY KEY,
@@ -80,21 +68,21 @@
                     StudentSet VARCHAR(80),
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
                 );",
-                "CREATE TABLE IF NOT EXISTS TeamMember (
-                    TeamMemberId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                "CREATE TABLE IF NOT EXISTS ProjectMember (
+                    ProjectMemberId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     ProjectId INTEGER,
                     UserId INTEGER,
-                    TeamMemberRole VARCHAR(80),
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
                     FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
                 );",
                 "CREATE TABLE IF NOT EXISTS ProjectOutline (
                     ProjectOutlineId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    ProjectId INTEGER,
-                    ProjectOutlineDesc VARCHAR(255),
-                    ProjectStart VARCHAR(80),
-                    ProjectEnd VARCHAR(80),
-                    FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
+                    CourseId INTEGER,
+                    ProjectOutlineName VARCHAR(255),
+                    ProjectOutlineReq VARCHAR(80),
+                    ProjectOutlineStart VARCHAR(80),
+                    ProjectOutlineEnd VARCHAR(80),
+                    FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
                 );",
             ];
     
@@ -151,22 +139,10 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Project (ProjectName, CourseId)
+                $SQL_insert_data = "INSERT INTO Project (ProjectName, ProjectDesc, ProjectOutlineId)
                 VALUES 
-                ('Project Maestro', 'COMP3975'),
-                ('Hello Fresh', 'COMP3522')
-                ";
-                $this->conn->exec($SQL_insert_data);
-            }
-
-            $rows = $this->conn->query("SELECT COUNT(*) as count FROM ProjectList");
-            $row = $rows->fetchArray();
-            $numRows = $row['count'];
-            if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO ProjectList (ProjectId, UserId)
-                VALUES 
-                ('1', '1'),
-                ('2', '2')
+                ('Project Maestro', 'Project desc 1', '1'),
+                ('Hello Fresh', 'Project desc 2', '1')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -219,26 +195,14 @@
                 $this->conn->exec($SQL_insert_data);
             }
 
-            $rows = $this->conn->query("SELECT COUNT(*) as count FROM Team");
-            $row = $rows->fetchArray();
-            $numRows = $row['count'];
-            if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Team (TeamName, ProjectId)
-                VALUES 
-                ('Team Maestro', '1'),
-                ('Team Alpha', '2')
-                ";
-                $this->conn->exec($SQL_insert_data);
-            }
-
-            $rows = $this->conn->query("SELECT COUNT(*) as count FROM TeamMember");
+            $rows = $this->conn->query("SELECT COUNT(*) as count FROM ProjectMember");
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
                 $SQL_insert_data = "INSERT INTO TeamMember (ProjectId, UserId, TeamMemberRole)
                 VALUES 
-                ('1', '1', 'Coder'),
-                ('1', '2', 'Admin')
+                ('1', '1'),
+                ('1', '2')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -259,10 +223,10 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO ProjectOutline (ProjectId, ProjectOutlineDesc, ProjectStart, ProjectEnd)
+                $SQL_insert_data = "INSERT INTO ProjectOutline (CourseId, ProjectOutlineName, ProjectOutlineReq, ProjectOutlineStart, ProjectOutlineEnd)
                 VALUES
-                ('1', 'Create a system that registers users to a project', '2021-03-18', '2021-04-21'),
-                ('2', 'Build a website with React.js and PHP', '2021-03-20', '2021-04-17')
+                ('1', 'Assignment 1', 'Create a system that registers users to a project', '2021-03-18', '2021-04-21'),
+                ('2', 'Assignment 2', 'Build a website with React.js and PHP', '2021-03-20', '2021-04-17')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -310,7 +274,7 @@
             return $this->conn->query($sql);
         }
 
-             /**
+        /**
          * Get data from the database.
          * @param $table insert to which table
          * @param $key
