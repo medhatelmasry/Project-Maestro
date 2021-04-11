@@ -11,6 +11,10 @@
 			<a class="navbar-brand" href="../index.php">Project Maestro</a>
 		</div>
 	</nav>
+	<?php 
+	$CourseId = $_GET['crsId'];
+	echo "$CourseId";
+	?>
 	<div class="container">
 		<form method="POST" action="process_project_outline.php">
 			<div class="form-group">

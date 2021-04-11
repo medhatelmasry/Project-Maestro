@@ -17,8 +17,8 @@
 		include ('../db/inc_db_helper.php');
 
 		$db = new DatabaseHelper('../db/projectmaestro.db');
-		// $ProjectOutlineId = $GET['id'];
-		$ProjectOutlineId = "1";
+		$ProjectOutlineId = $_GET['outlineId'];
+		$CourseId = $_GET['crsId'];
 
 		$res = $db->getData("ProjectOutline", "ProjectOutlineId", $ProjectOutlineId);
 		$row = $res->fetchArray();
