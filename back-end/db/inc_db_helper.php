@@ -37,8 +37,8 @@
                     CourseId VARCHAR(80) NOT NULL PRIMARY KEY,
                     CourseName VARCHAR(80),
                     CourseTerm INTEGER,
-                    InstructorId VARCHAR(80),
-                    FOREIGN KEY (InstructorId) REFERENCES Instructor(InstructorId)
+                    UserId INTEGER,
+                    FOREIGN KEY (UserId) REFERENCES User(UserId)
                 );",
                 "CREATE TABLE IF NOT EXISTS CourseList (
                     CourseListId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -128,13 +128,18 @@
             echo var_dump($numRows);
             echo var_dump($row);
             echo "wtf?" . var_dump($row['count']);
+            $password1 = password_hash('password', PASSWORD_BCRYPT);
+            $password2 = password_hash('abcd1234', PASSWORD_BCRYPT);
+            $password3 = password_hash('cisforcookie', PASSWORD_BCRYPT);
+            $password4 = password_hash('itsdababyletsgooo', PASSWORD_BCRYPT);
+
             if ($row['count'] === 0) {
                 $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName, UserPassword)
                 VALUES 
-                    ('BobBuilder@gmail.com', 'Bob', 'Builder', 'password'),
-                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein', 'abcd1234'),
-                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', 'cisforcookie'),
-                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', 'itsdababyletsgooo')
+                    ('BobBuilder@gmail.com', 'Bob', 'Builder', '$password1'),
+                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein', '$password2'),
+                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', '$password3'),
+                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', '$password4')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -180,10 +185,10 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, InstructorId)
+                $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, UserId)
                 VALUES 
-                ('COMP3975', 'Web/Mobile', '3', 'A08888'),
-                ('COMP3522', 'Python', '3', 'A07777')
+                ('COMP3975', 'Web/Mobile', '3', '3'),
+                ('COMP3522', 'Python', '3', '4')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }

@@ -25,21 +25,19 @@ if(isset($_SESSION['instructor_id'])){
         <?php 
         $db = new DatabaseHelper('../db/projectmaestro.db');
         $connection = $db->getConn();
-        $res = $connection->query('SELECT * FROM ProjectOutline');
         // Change this to the passed course id
-        $courseId = "COMP3975";
+        $courseId = $_GET['id'];
+        $res = $db->getData('ProjectOutline', 'CourseId', $courseId);
         while ($row = $res->fetchArray()) {
-                    $rowCourseId = $row['CourseId'];
-                    echo"$rowCourseId";
-                    if($courseId == $rowCourseId) {
-                        $outlineId = $row['ProjectOutlineId'];
-                        echo "<tr><td>{$row['ProjectOutlineName']}</td>";
-                        echo "<td class='alignRight'>";
-                        echo "<a href='view_projects.php?crsId=$rowCourseId&outlineId=$outlineId'>";
-                        echo "<input type='button' value='View Details' class='homebutton addBtn' id='viewDet'/>";
-                        echo "</td>";
-                        echo "</tr>";
-                    }
+            $rowCourseId = $row[0];
+            $outlineId = $row['ProjectOutlineId'];
+            echo "<tr><td>{$row['ProjectOutlineName']}</td>";
+            echo "<td class='alignRight'>";
+            echo "<a href='view_projects.php?crsId=$rowCourseId&outlineId=$outlineId'>";
+            echo "<input type='button' value='View Details' class='homebutton addBtn' id='viewDet'/>";
+            echo "</td>";
+            echo "</tr>";
+
         };
         ?>
     </table>

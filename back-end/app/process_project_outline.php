@@ -7,7 +7,6 @@ extract($_POST);
 
 // Placeholder .php file to add project outline to database
 // $CourseId = $_GET["CourseId"]; // change later
-$CourseId = "COMP3975";
 
 if(isset($create_project_outline)){
     $project_name = sanitize_input($project_name);
