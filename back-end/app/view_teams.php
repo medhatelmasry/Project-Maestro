@@ -5,7 +5,6 @@
 ?>
 <!DOCTYPE html>
 <?php 
-include ('../db/inc_db_helper.php');
 
 //Used for redirect
 session_start();
@@ -13,10 +12,9 @@ session_start();
 $project = $_GET["project"];
 //Redirect
 $_SESSION['projectName'] = $project;
-$db = new DatabaseHelper('../db/projectmaestro.db');
 // Cconnect to db
 $connection = $db->getConn();
-//Get project data from project name
+//Get project data from project name [PLEASE UPDATE IF THIS CHANGES]
 $projectRes =  $connection->querySingle('SELECT * FROM Project WHERE ProjectName IS "' . $project .'"', true);
 //Get project id
 $projectId = $projectRes['ProjectId'];
@@ -43,16 +41,18 @@ $res = $connection->query('SELECT * FROM Team WHERE ProjectId IS ' . $projectId)
             ?>
             <div id="list">
                 <?php
-                    $temp = 0; //Swap to get all teams in project
+                    $temp = 0; //checks if there are teams
                     
                     echo "<table width='100%' class='table table-striped'>\n";
                     while ($row = $res->fetchArray()) {
                         $temp+=1;
+                        // Sends team Id to the next page
                         $button = "window.location.href='./view_team.php?teamId={$row['TeamId']}'";
-                        // echo var_dump($row);
+                        // Update these variables if they change
                         echo "<tr>";
                         echo "<th>Team " . $row['TeamId'] ."</th>";
                         echo "<th>" . $row['TeamName'] ."</th>";
+                        // Redirect that adds teamId into the link
                         echo '<th><button id="viewbtn" class="btn btn-small btn-primary"; onclick="' . $button . '">View Details</button></th>';
                         echo "</tr>";
                     }
@@ -69,12 +69,16 @@ $res = $connection->query('SELECT * FROM Team WHERE ProjectId IS ' . $projectId)
                 lmao();
             }
             function lmao() {
-                echo "Yeah uhh add a team to db";
+                //Add db code here to add a fresh team to DB
             }
             ?>
+            <!-- add input boxes here to add team etc. -->
             <form action="" method="POST">
                 <input type="submit" name="submit" value="Add Team">
             </form>
+            <!-- Uncomment this button, and change the echo statement to return to projects list. 
+            Send the information that check_projects needs to display properly -->
+            <!-- <button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./view_teams.php?project=<?php echo $projectName ?>'">Back</button> -->
 		</div>
 	</body>
 </html>

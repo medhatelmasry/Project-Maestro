@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
+
 <?php 
-<<<<<<< HEAD
+// MOCK PAGE_______________________________________________________________
+// Please update if required
+//_________________________________________________________________________
 include_once("../db/inc_db_helper.php");
-=======
-include_once('../db/inc_db_helper.php');
->>>>>>> d6e473c2ad8489645dbaaa38652c6cfd19225883
 $db = new DatabaseHelper('../db/projectmaestro.db');
 $connection = $db->getConn();
 
@@ -29,17 +30,20 @@ $res = $connection->query('SELECT * FROM Project');
     <table class="tableList">
         <?php     
         while ($row = $res->fetchArray()) {
+            // Use this variable to send the project to the next page to find teams
             $viewTeam = "window.location.href='./view_teams.php?project={$row['ProjectName']}'";
             $_SESSION["Project"] = $row['ProjectName'];
+            //______________________________________________________________________-
             echo "<tr><td>{$row['ProjectName']}</td>";
             echo "<td class='alignRight'>";
             echo "<input 
             type='button' value='View Details' class='homebutton addBtn' 
             id='viewDet'onClick='document.location.href='./home.php'' />";
-            // echo "<input type='button' value='View Teams' class='homebutton addBtn' id='viewProj'
-            // onClick='" . $viewTeam . "' />";
+            // Use this button for redirection, this sends the projectname via the link
+            // NOT VALIDATED, USERS CAN ENTER W/E THEY WANT INTO THE LINK
             echo '<button id="viewProj" class="homebutton addBtn"; value="'. $row['ProjectName'] .'" onclick="' 
             . $viewTeam . '">View Teams</button>';
+            //______________________________________________________________________
             echo "</td>";
             echo "</tr>";
         };
