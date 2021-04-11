@@ -37,8 +37,8 @@
                     CourseId VARCHAR(80) NOT NULL PRIMARY KEY,
                     CourseName VARCHAR(80),
                     CourseTerm INTEGER,
-                    InstructorId VARCHAR(80),
-                    FOREIGN KEY (InstructorId) REFERENCES Instructor(InstructorId)
+                    UserId INTEGER,
+                    FOREIGN KEY (UserId) REFERENCES User(UserId)
                 );",
                 "CREATE TABLE IF NOT EXISTS CourseList (
                     CourseListId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -180,10 +180,10 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, InstructorId)
+                $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, UserId)
                 VALUES 
-                ('COMP3975', 'Web/Mobile', '3', 'A08888'),
-                ('COMP3522', 'Python', '3', 'A07777')
+                ('COMP3975', 'Web/Mobile', '3', '3'),
+                ('COMP3522', 'Python', '3', '4')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
