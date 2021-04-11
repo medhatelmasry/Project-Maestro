@@ -1,4 +1,6 @@
-
+<?php 
+session_start();
+?>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
     
 <?php
@@ -16,9 +18,23 @@ $db = new DatabaseHelper('../db/projectmaestro.db');
 </nav>
 
 <h1>Create Course</h1>
+<?php
+//checking if the session 'dup_course' is set. Dup_course session is the message if the course already exists in the database.
+if(ISSET($_SESSION['dup_course'])){
+?>
+        <div id="error" class="alert alert-danger"><?php echo $_SESSION['dup_course']?></div>
+        <?php
+        //Unsetting the 'dup_course' session after displaying the message.
+        unset($_SESSION['dup_course']);
+}
+?> 
 <div class="row">
     <div class="col-md-4">
         <form action="processCreate.php" method="post">
+
+        <div class="form-group">
+                <label for="InstructorID" class="control-label">Instructor ID: <?php echo $_SESSION['instructor_id'] ?></label>                
+            </div>
             <div class="form-group">
 
                 <label for="CourseID" class="control-label">Course ID</label>
@@ -36,24 +52,20 @@ $db = new DatabaseHelper('../db/projectmaestro.db');
             </div>
 
             <div class="form-group">
-                <label for="InstructorID" class="control-label">Instructor ID</label>
-                <input for="InstructorID" class="form-control" name="InstructorID" id="InstructorID" required="required" />
-                
-            </div>
-
-            <div class="form-group">
             <input type="submit" value="Create" name="create" class="btn btn-small btn-success" />  
             </div>
-                
-     
 
-        </form>
-        
-        
+        </form> 
+
+     
+ 
     </div>
+   
+
 
 </div>
-<a href="home.php" class="btn btn-small btn-success">Back</a>
-<a href="viewCourse.php" class="btn btn-small btn-success">View Courses</a>
+        <a href="home.php" class="btn btn-small btn-success">Back</a>
+        <a href="viewCourse.php" class="btn btn-small btn-success">View Courses</a>
+
 
 

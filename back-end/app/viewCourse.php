@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 
 <nav class="navbar navbar-default">
@@ -7,11 +9,38 @@
 </nav>
 
 <h2>Courses</h2>
+
+
+<?php
+//checking if the session 'created' is set. Created session is the message to see if the course was created.
+if(isset($_SESSION['created'])){
+?>  
+    <div class="alert alert-success"><?php echo $_SESSION['created']?></div>
+    <?php
+    //Unsetting the 'created' session after displaying the message. 
+    unset($_SESSION['created']);
+}
+
+?>
+
+<?php
+//checking if the session 'deleted' is set. Deleted session is the message if the course was deleted.
+if(ISSET($_SESSION['deleted'])){
+?>
+        <div id="error" class="alert alert-success"><?php echo $_SESSION['deleted']?></div>
+        <?php echo $_SESSION['deleted']?>
+        <?php
+        //Unsetting the 'deleted' session after displaying the message.
+        unset($_SESSION['deleted']);
+}
+?>  
+			
 <?php
 include ('../db/inc_db_helper.php');
 
 $db = new DatabaseHelper('../db/projectmaestro.db');
 $connection = $db->getConn();
+			
 
 $res = $connection->query('SELECT * FROM Course');
         echo "<table width='100%' class='table table-striped'>\n";
@@ -30,7 +59,7 @@ $res = $connection->query('SELECT * FROM Course');
             echo "<a class='btn btn-small btn-success' href=''>Add Students</a>";
             echo "&nbsp;";
             //Add hrefs here for view projects page
-            echo "<a class='btn btn-small btn-warning' href='./view_projects.php?id={$row['CourseId']}'>View Projects</a>";
+            echo "<a class='btn btn-small btn-warning' href='./check_projects.php?id={$row[0]}'>View Projects</a>";
             echo "&nbsp;";
             echo "<a class='btn btn-small btn-danger' href='delete.php?id={$row[0]}'>Delete</a>";
             echo "</td></tr>\n" ;
@@ -39,6 +68,13 @@ $res = $connection->query('SELECT * FROM Course');
 
         echo "</table>\n";
 
+
+    
+
 ?>
+
+    
+ 
+
 <a href="home.php" class="btn btn-small btn-success">Back</a>
 <a href="createCourse.php" class="btn btn-small btn-success">Add Course</a>

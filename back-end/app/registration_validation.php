@@ -19,7 +19,6 @@ if (isset($_POST['register'])) {
     $password = $_POST['password'];
 
     $check_duplicate_email = "SELECT COUNT(*) FROM User WHERE UserEmail = ?";
-    
     $stmt1 = $conn->prepare($check_duplicate_email);
     $stmt1->bindParam(1, $email);
     $result = $stmt1->execute();

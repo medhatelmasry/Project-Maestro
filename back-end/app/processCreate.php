@@ -2,16 +2,19 @@
 <link rel="stylesheet" type="text/css" href="css/backend_style.css"/>
 
 <?php
-// add an error check for course id and if its the same make it redirect to create page
 
-if (isset($_POST['create'])) 
+session_start();
 
 include ('../db/inc_db_helper.php');
 
 $db = new DatabaseHelper('../db/projectmaestro.db');
-$db->getConn();
+$conn = null;
 
-extract($_POST);
+$conn = $db->getConn();
+
+if (isset($_POST['create'])) {
+
+    extract($_POST);
 function sanitize_input($data) {
     $data = trim($data);
     $data = stripslashes($data);
@@ -19,19 +22,33 @@ function sanitize_input($data) {
     return $data;
 }
 
-$CourseID = sanitize_input($CourseID);
-$CourseName = sanitize_input($CourseName);
-$CourseTerm = sanitize_input($CourseTerm);
-$InstructorID = sanitize_input($InstructorID);
+    $CourseID = sanitize_input($CourseID);
+    $CourseName = sanitize_input($CourseName);
+    $CourseTerm = sanitize_input($CourseTerm);
+    $InstructorID = $_SESSION['instructor_id'];
 
-$table = "Course";
 
-$insertSet = "CourseId, CourseName, CourseTerm, InstructorId";
+    $check_duplicate_course = "SELECT COUNT(*) FROM Course WHERE CourseId = ?";
+    $stmt1 = $conn->prepare($check_duplicate_course);
+    $stmt1->bindParam(1, $CourseID);
+    $result = $stmt1->execute();
+    while ($row = $result->fetchArray())
+    if ($row[0] < 1) {
+        $table = "Course";
+        
+        $insertSet = "CourseId, CourseName, CourseTerm, InstructorId";
+        
+        $insertVal = "'$CourseID', '$CourseName', '$CourseTerm', '$InstructorID'";
+        
+        $insert = $db->insertData($table, $insertSet, $insertVal);    
+        $_SESSION['created'] = 'Successfully created course';
+         header('Location: viewCourse.php');
 
-$insertVal = "'$CourseID', '$CourseName', '$CourseTerm', '$InstructorID'";
+    } else {
+        $_SESSION['dup_course'] = 'Course with this ID already exists';
+            header('Location: createCourse.php');
+            $_SESSION["courseid"] = $CourseID;
+    }
 
-$insert = $db->insertData($table, $insertSet, $insertVal);    
- header('Location: viewCourse.php');
 
-?>
-
+}
