@@ -121,13 +121,9 @@
          * Inserts dummy data into the database.
          */
         public function insertDummyData() {
-            echo "dummy data";
             $rows = $this->conn->query("SELECT COUNT(*) as count FROM User");
             $row = $rows->fetchArray();
             $numRows = $row['count'];
-            echo var_dump($numRows);
-            echo var_dump($row);
-            echo "wtf?" . var_dump($row['count']);
             if ($row['count'] === 0) {
                 $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName, UserPassword)
                 VALUES 
