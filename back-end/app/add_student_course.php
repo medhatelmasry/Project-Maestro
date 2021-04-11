@@ -27,7 +27,7 @@ $res = $connection->query('SELECT * FROM Student');
             <a class="navbar-brand" target="_balnk">Project Maestro</a>
         </div>
     </nav>
-    <h1 class="courseInfo">Course Name: <?php echo $row1[1] + " " . $CourseId ?></h1> <!--gets the values of course name adn course id -->
+    <h1 class="courseInfo">Course Name: <?php echo $row1[1] . " " . $CourseId ?></h1> <!--gets the values of course name adn course id -->
     <h2 class="courseInfo">Students</h2>
     <div class="col-md-3"></div>
     <table class="tableList">
