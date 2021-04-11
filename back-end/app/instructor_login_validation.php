@@ -38,6 +38,7 @@ if(ISSET($_POST['login'])){
 
     if ($num > 0) {
         if (password_verify($password, $password2)) {
+            $_SESSION['instructor_id'] = $id;
             header('Location: home.php');
         } else {
             $_SESSION['error'] = "Invalid credentials entered. Try Again";
