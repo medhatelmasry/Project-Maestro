@@ -27,9 +27,9 @@ if(isset($_SESSION['instructor_id'])){
         $connection = $db->getConn();
         $res = $connection->query('SELECT * FROM ProjectOutline');
         // Change this to the passed course id
-        $courseId = "COMP3975";
+        $courseId = $_GET['id']; //gets the course id from viewProjects page
         while ($row = $res->fetchArray()) {
-                    $rowCourseId = $row['CourseId'];
+                    $rowCourseId = $row[0];
                     echo"$rowCourseId";
                     if($courseId == $rowCourseId) {
                         $outlineId = $row['ProjectOutlineId'];
