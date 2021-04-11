@@ -50,13 +50,11 @@ $res = $connection->query($check_id);
         echo "<tr><th>Course ID</th>".
              "<th>Course Name</th>".
              "<th>Term</th>".
-             "<th>Instructor ID</th>\n";
              "<th>&nbsp;</th></tr>\n";    
         while ($row = $res->fetchArray()) {
             echo "<tr><td>{$row['CourseId']}</td>";
             echo "<td>{$row['CourseName']}</td>";
             echo "<td>{$row['CourseTerm']}</td>";
-            echo "<td>{$row['InstructorId']}</td>";
             echo "<td>";
             //Add hrefs here for add Students page
             echo "<a class='btn btn-small btn-success' href='./add_student_course.php?id={$row[0]}'>Add Students</a>";
