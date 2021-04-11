@@ -73,7 +73,6 @@
                     ProjectId INTEGER,
                     UserId INTEGER,
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
-                    FOREIGN KEY (TeamID) REFERENCES Team(TeamId)
                     FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
                 );",
                 "CREATE TABLE IF NOT EXISTS ProjectOutline (
@@ -216,7 +215,7 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Goal (TeamId, GoalDesc, GoalStart, GoalEnd)
+                $SQL_insert_data = "INSERT INTO Goal (ProjectId, GoalDesc, GoalStart, GoalEnd)
                 VALUES 
                 ('1', 'Code Rest API backend for front end team', '2021-03-20', '2021-03-22'),
                 ('2', 'Code UI for Hello Fresh', '2019-12-23', '2020-01-03')
