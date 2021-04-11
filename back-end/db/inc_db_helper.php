@@ -205,7 +205,7 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO TeamMember (ProjectId, UserId)
+                $SQL_insert_data = "INSERT INTO ProjectMember (ProjectId, UserId)
                 VALUES 
                 ('1', '1'),
                 ('1', '2')
