@@ -71,7 +71,6 @@
                 "CREATE TABLE IF NOT EXISTS ProjectMember (
                     ProjectMemberId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     ProjectId INTEGER,
-                    TeamId INTEGER,
                     UserId INTEGER,
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
                     FOREIGN KEY (TeamID) REFERENCES Team(TeamId)
