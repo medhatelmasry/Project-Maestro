@@ -25,3 +25,6 @@ Remember to make frequent pushes & pulls if you happen to be in a team
 Github Action Workflows deploy to the following azure sites
 - Back-end PHP app https://maestroapp.azurewebsites.net/
 - Front-end React app https://maestroproject.z5.web.core.windows.net/
+
+### Link to Wiki 
+https://github.com/medhatelmasry/Project-Maestro/wiki
