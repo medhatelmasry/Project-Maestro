@@ -125,6 +125,11 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
+                $password1 = password_hash('password1', PASSWORD_BCRYPT);
+                $password2 = password_hash('password2', PASSWORD_BCRYPT);
+                $password3 = password_hash('password3', PASSWORD_BCRYPT);
+                $password4 = password_hash('password4', PASSWORD_BCRYPT);
+    
                 $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName, UserPassword)
                 VALUES 
                     ('BobBuilder@gmail.com', 'Bob', 'Builder', '$password1'),

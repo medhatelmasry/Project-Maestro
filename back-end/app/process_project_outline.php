@@ -17,6 +17,6 @@ if(isset($create_project_outline)){
     $insertSet = "CourseId, ProjectOutlineName, ProjectOutlineReq, ProjectOutlineStart, ProjectOutlineEnd";
     $insertVal = "'$CourseId', '$project_name', '$requirement', '$due_date' ,'$due_date'";
     $insert = $db->insertData($table, $insertSet, $insertVal);    
-    header('Location: check_projects.php');
+    header("Location: check_projects.php?id=$CourseId");
 }
 ?>
