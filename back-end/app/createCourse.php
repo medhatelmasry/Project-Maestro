@@ -1,3 +1,10 @@
+<?php 
+session_start();
+include ('../db/inc_db_helper.php');
+$db = new DatabaseHelper('../db/projectmaestro.db');
+$connection = $db->getConn();
+if(isset($_SESSION['instructor_id'])){
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -6,27 +13,16 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 		<!-- <link rel="stylesheet" type="text/css" href="css/backend_style.css"/> -->
 	</head>
-<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="home.php">Project Maestro</a>
-            <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
-		</div>
-</nav>
-<div class = "container">
-    <?php 
-    session_start();
-    ?>
-
-        
-    <?php
-    include ('../db/inc_db_helper.php');
-
-    $db = new DatabaseHelper('../db/projectmaestro.db');
-    ?>
-
-
+        <nav class="navbar navbar-default">
+		    <div class="container-fluid">
+			    <a class="navbar-brand" href="home.php">Project Maestro</a>
+                <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
+		    </div>
+        </nav>
+    <div class = "container">
     <a href="viewCourse.php" class="btn btn-small btn-success">View Courses</a>
     <h1>Create Course</h1>
+
     <?php
     //checking if the session 'dup_course' is set. Dup_course session is the message if the course already exists in the database.
     if(ISSET($_SESSION['dup_course'])){
@@ -45,10 +41,8 @@
             <div class="form-group">
                     <label for="InstructorID" class="control-label">Instructor ID: <?php echo $_SESSION['instructor_id'] ?></label>                
                 </div>
-            
 
                 <div class="form-group">
-
                     <label for="CourseID" class="control-label">Course ID</label>
                     <input for="CourseID" class="form-control" name="CourseID" id="CourseID" required="required" />
                 </div>
@@ -67,18 +61,17 @@
                 <a href="home.php" class="btn btn-small btn-success">Back</a>
                 <input type="submit" value="Create" name="create" class="btn btn-small btn-success" />  
                 </div>
-
             </form> 
-
-        
-    
         </div>
-    
-
-
-    </div>
-            
+    </div>  
+   <?php } else {
+            $_SESSION['require_login_error'] = "Restricted Access, please login to access.";
+                if (isset($_SESSION['require_login_error'])){
+                    header('Location: ../index.php');
+                    exit();
+    }
+  }?> 
         
-
-</div>
+    </div>
+</html>
 
