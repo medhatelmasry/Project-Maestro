@@ -4,11 +4,8 @@ include_once '../config/jwt_secure.php';
 include_once '../config/database.php';
 include_once 'inc_db_helper.php';
 use \Firebase\JWT\JWT;
-// echo "very";
 if ($jwt) {
-  // echo "out";
   try {
-      // echo "yes";
       $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
 
       define("DEBUG", 0);
@@ -20,7 +17,10 @@ if ($jwt) {
       $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
       $input = json_decode(file_get_contents('php://input'),true);
 
-
+      # The path should be:
+      # $request[0]/$request[1]/$request[2]
+      # Table/Column/Value
+      # $table/$pk/$key
       
       #===============================================
       # Create database or open if it already exists
@@ -51,8 +51,8 @@ if ($jwt) {
       #===============================================
       # retrieve the key from the path
       #===============================================
-      if (isset($request[1])) {
-          $key = $request[1];
+      if (isset($request[2])) {
+          $key = $request[2];
           if (DEBUG === 1) {
               echo "<h3>key</h3>";
               var_dump($key);
@@ -112,6 +112,10 @@ if ($jwt) {
       # create SQL based on HTTP method
       #===============================================
       
+      if ($method == "GET") {
+        $pk = $request[1];
+      }
+
       $sql = $databaseHelper -> getCommandByMethod($method, $table, $key, $pk, $updateSet, $insertSet, $insertVal);
       if (DEBUG === 1) {
         echo "<h3>SQL</h3>";

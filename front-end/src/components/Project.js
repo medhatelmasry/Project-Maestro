@@ -11,8 +11,8 @@ const Project = (param) => {
     const outline_id = param.id;
     const user_id = localStorage.getItem("userID");
 
-    const showProjects = async () => {
-        const get_project_member = await fetch(`http://localhost:8888/db/api.php/ProjectMember`, {
+    const checkExistingProject = async () => {
+        const get_project_member = await fetch(`http://localhost:8888/db/api.php/ProjectMember/UserId/` + user_id, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -20,42 +20,45 @@ const Project = (param) => {
                 'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
             }
         });
-        let project_response = await get_project_member.json();
-        console.log(project_response);
-        for (let i = 0; i < project_response.length; i++) {
-            console.log(i);
-            console.log(project_response[i]);
-        }
-        console.log("iamge");
-        let current_project_member = project_response.filter(project_member => {
-            return project_member.UserId == user_id;
+        const project_member_response = await get_project_member.json();
+        console.log(project_member_response);
+        
+        const get_project = await fetch(`http://localhost:8888/db/api.php/Project/ProjectOutlineId/` + outline_id, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
+            }
         });
-        console.log(current_project_member);
-        // Once the Project is made, add the current User as a ProjectMember to this Project
-        // const member_result = await fetch(`http://localhost:8888/db/api.php/ProjectMember`, {
-        // method: 'POST',
-        // body: JSON.stringify({
-        //     projectMemberID,
-        //     userID
-        // }),
-        // headers: {
-        //     'Content-Type': 'application/json',
-        //     'Accept': 'application/json',
-        //     'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
-        // }
-        // });
-        // const member_response = await member_result.text();
-        // if (member_response) {
-        //     console.log(member_response);
-        //     let back_url = '/outlines/outline/' + projectOutlineId;
-        //     return (<Redirect to={back_url} />);
-        // }
+        const project_response = await get_project.json();
+        console.log(project_response);
+
+        // Filter through all of the Projects, and check if it matches the ProjectId in the ProjectMembers
+        for (let i = 0; i < project_member_response.length; i++) {
+            let proj_memb_pID = project_member_response[i].ProjectId;
+            for (let j = 0; j < project_response.length; j++) {
+                let proj_id = project_response[j].ProjectId;
+                if (proj_memb_pID == proj_id) {
+                    console.log(project_member_response[i]);
+                    console.log(project_response[j]);
+                    console.log("THEY are equal");
+                    return project_response[j];
+                } 
+            }
+        }
     }
 
     
     var students = studentsData;
     var projects = (projectsData.filter(c => c.outlineId == outline_id))
-    showProjects();
+    var user_project = checkExistingProject();
+    if (user_project != undefined) {
+        console.log(user_project);
+    } else {
+        console.log("its undefined");
+    }
+
     function back() {
         window.history.back();
     }
