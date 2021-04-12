@@ -28,7 +28,7 @@
 				<label for="requirement">Requirements</label>
     			<textarea class="form-control" placeholder="Leave requirements for this project outline" name="requirement" style="height: 100px"></textarea>
 			</div>
-			<input type="hidden" name="CourseId" value=<?php echo "'$CourseId'"?>/>
+			<input type="hidden" name="CourseId" value=<?php echo $CourseId ?>/>
 			<button type="submit" name="create_project_outline" class="btn btn-success">Create</button>
 		</form>	
 	</div>

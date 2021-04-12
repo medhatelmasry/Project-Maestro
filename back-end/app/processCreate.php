@@ -29,7 +29,7 @@ if (isset($_POST['create'])) {
     $UserId = $_SESSION['instructor_id'];
 
 
-    $check_duplicate_course = "SELECT COUNT(*) FROM Course WHERE CourseId = ?";
+    $check_duplicate_course = "SELECT COUNT(*) FROM Course WHERE CourseId = ? AND UserId = $UserId ";
     $stmt1 = $conn->prepare($check_duplicate_course);
     $stmt1->bindParam(1, $CourseID);
     $result = $stmt1->execute();
