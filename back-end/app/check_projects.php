@@ -2,6 +2,9 @@
 <?php 
 include_once('../db/inc_db_helper.php');
 session_start();
+$db = new DatabaseHelper('../db/projectmaestro.db');
+$connection = $db->getConn();
+$id = $_SESSION['instructor_id'];
 if(isset($_SESSION['instructor_id'])){
 ?>
 <html lang="en">
@@ -23,9 +26,6 @@ if(isset($_SESSION['instructor_id'])){
     <div class="col-md-3"></div>
     <table class="tableList">
         <?php 
-        $db = new DatabaseHelper('../db/projectmaestro.db');
-        $connection = $db->getConn();
-        // Change this to the passed course id
         $courseId = $_GET['id'];
         $res = $db->getData('ProjectOutline', 'CourseId', $courseId);
         while ($row = $res->fetchArray()) {
