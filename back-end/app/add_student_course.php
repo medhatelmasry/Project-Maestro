@@ -25,6 +25,15 @@ if(isset($_SESSION['instructor_id'])){
     </nav>
     <h1 class="courseInfo"><?php echo $courseId?></h1>
     <h2 class="courseInfo">Students</h2>
+    <?php
+    //checking if the session 'deleted' is set. Deleted session is the message if the course was deleted.
+    if(ISSET($_SESSION['addStd'])){
+    ?>
+    <div class="alert alert-success addedMsg"><?php echo $_SESSION['addStd']?></div>
+    <?php
+        unset($_SESSION['addStd']);
+    }
+    ?>
     <div class="col-md-3"></div>
     <table class="tableList">
         <?php 
