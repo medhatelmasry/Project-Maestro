@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <?php 
 include ('../db/inc_db_helper.php');
-// get courseID
+
 session_start();
-$courseId = $_SESSION['courseId'];
-$outlineId = $_SESSION['outId'];
-// //__________________________________________________
-//echo $courseId; //Test code for passing project name backwards. 
-// //__________________________________________________
+$projectName = $_SESSION['projectName'];
 $db = new DatabaseHelper('../db/projectmaestro.db');
 // Connect to db
 $connection = $db->getConn();
@@ -15,16 +11,13 @@ $projectId = $_GET["projectId"];
 //Get project data from project name
 $projSql = "SELECT * FROM Project WHERE Project.ProjectId IS " . $projectId;
 $projectRes =  $connection->query($projSql);
-//Get user info from project ID
-$userSql = "SELECT User.UserId, User.UserFName, User.UserLName 
-FROM User
-INNER JOIN ProjectMember ON User.UserId=ProjectMember.UserId 
-INNER JOIN Project ON Project.ProjectId = ProjectMember.ProjectId
-WHERE ProjectMember.ProjectId = " . $projectId;
-$userRes = $connection->query($userSql);
-// Testing
-// echo $userSql;
-// echo "<br>";
+//Get goal info
+$goalSql = "SELECT *
+FROM Goal
+INNER JOIN Project ON Goal.ProjectId=Project.ProjectId 
+WHERE Project.ProjectId IS " . $projectId;
+$goalRes = $connection->query($goalSql);
+
 ?>
 
 <html lang="en">
@@ -43,35 +36,30 @@ $userRes = $connection->query($userSql);
 		</nav>
 		<div id="view">
             <?php
-            $temp = $projectRes->fetchArray()['ProjectName'];
-            $_SESSION['projectName'] = $temp;
-            echo "<h3>Project: " . $temp ."</h3>"
+            echo "<h3>" . $projectName ." Goals</h3>"
             ?>
             <div id="list">
                 <?php
                     $temp = 0; //Swap to get students in team
                     echo "<table width='100%' class='table table-striped'>\n";
-                    while ($row = $userRes->fetchArray()) {
+                    while ($row = $goalRes->fetchArray()) {
                         // Check if team is empty
                         $temp+=1;
                         //Update these statements to get FN, LN and ID if not printing
                         echo "<tr>";
-                        echo "<th>Name: " . $row['UserFName'] . " " . $row['UserLName'] ."</th>";
-                        echo '<th>Student ID: ' . $row['UserId'] . '</th>';
+                        echo "<th>" . $row['GoalDesc'] . "</th>";
+                        echo "<th>By: " . $row['GoalEnd'] . "</th>";
                         echo "</tr>";
                     }
                     if ($temp == 0) {
-                        echo "<tr><th>No Members<th><tr>";
+                        echo "<tr><th>No Goal<th><tr>";
                     }
                     echo "</table>\n";
                 ?>
             </div>
-			<button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./add_members.php?projectId=<?php echo $projectId ?>'">Add member</button>
-            <button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./view_goals.php?projectId=<?php echo $projectId ?>'">View Goals</button>
-            <br>
-            <br>
+
             <button id="viewbtn" class="btn btn-small btn-primary"; 
-            onclick="window.location.href='./view_projects.php?crsId=<?php echo $courseId ?>&outlineId=<?php echo $outlineId ?>'">Back</button>
+            onclick="window.location.href='./view_team.php?projectId=<?php echo $projectId ?>'"><==</button>
 		</div>
 	</body>
 </html>

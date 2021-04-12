@@ -2,22 +2,25 @@
     include ('../db/inc_db_helper.php');
 
     $db = new DatabaseHelper('../db/projectmaestro.db');
+
 ?>
 <!DOCTYPE html>
 <?php 
 
-//Used for redirect
-session_start();
-//From Link
-$project = $_GET["project"];
-//Redirect
-$_SESSION['projectName'] = $project;
+// //Used for redirect
+// session_start();
+// //From Link
+// $project = $_GET["project"];
+// //Redirect
+// $_SESSION['projectName'] = $project;
 // Cconnect to db
 $connection = $db->getConn();
+$projectId = $_GET["projectId"];
+echo $projectId;
 //Get project data from project name [PLEASE UPDATE IF THIS CHANGES]
-$projectRes =  $connection->querySingle('SELECT * FROM Project WHERE ProjectName IS "' . $project .'"', true);
+// $projectRes =  $connection->querySingle('SELECT * FROM Project WHERE ProjectName IS "' . $project .'"', true);
 //Get project id
-$projectId = $projectRes['ProjectId'];
+
 //Get teams where project 
 $res = $connection->query('SELECT * FROM Team WHERE ProjectId IS ' . $projectId);
 ?>
