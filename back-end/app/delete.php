@@ -13,7 +13,7 @@
             <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
 		</div>
 </nav>
-
+<div class = "container">
 <h1>Confirm Delete Course</h1>
 
 <?php
@@ -31,8 +31,9 @@ if (isset($_GET['id'])) {
 
        
 }
-
 ?>
+
+
 <table>
     <tr>
         <td>Course ID:</td>
@@ -60,4 +61,4 @@ if (isset($_GET['id'])) {
 </form>
 
 <br />
-
+</div>
