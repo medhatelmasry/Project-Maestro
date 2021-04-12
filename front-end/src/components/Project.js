@@ -8,10 +8,11 @@ import "../pages/styles/BackButton.css";
 const Project = (param) => {
 
 
-    const id = param.id;
+    const outline_id = param.id;
+    const user_id = localStorage.getItem("userID");
 
     const showProjects = async () => {
-        const project_res = await fetch(`http://localhost:8888/db/api.php/Project`, {
+        const get_project_member = await fetch(`http://localhost:8888/db/api.php/ProjectMember`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -19,12 +20,41 @@ const Project = (param) => {
                 'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
             }
         });
-        let project_response = await project_res.text();
+        let project_response = await get_project_member.json();
         console.log(project_response);
-        console.log(JSON.parse(project_response));
+        for (let i = 0; i < project_response.length; i++) {
+            console.log(i);
+            console.log(project_response[i]);
+        }
+        console.log("iamge");
+        let current_project_member = project_response.filter(project_member => {
+            return project_member.UserId == user_id;
+        });
+        console.log(current_project_member);
+        // Once the Project is made, add the current User as a ProjectMember to this Project
+        // const member_result = await fetch(`http://localhost:8888/db/api.php/ProjectMember`, {
+        // method: 'POST',
+        // body: JSON.stringify({
+        //     projectMemberID,
+        //     userID
+        // }),
+        // headers: {
+        //     'Content-Type': 'application/json',
+        //     'Accept': 'application/json',
+        //     'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
+        // }
+        // });
+        // const member_response = await member_result.text();
+        // if (member_response) {
+        //     console.log(member_response);
+        //     let back_url = '/outlines/outline/' + projectOutlineId;
+        //     return (<Redirect to={back_url} />);
+        // }
     }
+
+    
     var students = studentsData;
-    var projects = (projectsData.filter(c => c.outlineId == id))
+    var projects = (projectsData.filter(c => c.outlineId == outline_id))
     showProjects();
     function back() {
         window.history.back();
@@ -38,11 +68,11 @@ const Project = (param) => {
                 <button className="back" onClick={back}>&lt; Outline</button>
                 <p>You don't have a project</p>
                 <div>
-                    <Link to={`/outlines/outline/${id}/project/create`}>
+                    <Link to={`/outlines/outline/${outline_id}/project/create`}>
                         <button class="btn btn-success">Create a Project</button>
                     </Link>
                      or 
-                    <Link to={`/outlines/outline/${id}/project/join`}>
+                    <Link to={`/outlines/outline/${outline_id}/project/join`}>
                         <button class="btn btn-success">Join a Team</button>
                     </Link>
                 </div>
@@ -78,7 +108,7 @@ const Project = (param) => {
                             }
                         </tbody>
                     </table>
-                    <Link to={`/outlines/outline/${id}/project/${project.id}/goals`}>
+                    <Link to={`/outlines/outline/${outline_id}/project/${project.id}/goals`}>
                     <button class="btn btn-success">
                         Project Goals
                     </button>

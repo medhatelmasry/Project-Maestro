@@ -34,14 +34,14 @@ const CreateProject = (param) => {
         const response = await result.json();
         if (response) {
             console.log(response);
-            let projectMemberID = response;
+            let projectId = response;
             let userID = localStorage.getItem("userID");
             console.log(userID);
             // Once the Project is made, add the current User as a ProjectMember to this Project
             const member_result = await fetch(`http://localhost:8888/db/api.php/ProjectMember`, {
                 method: 'POST',
                 body: JSON.stringify({
-                    projectMemberID,
+                    projectId,
                     userID
                 }),
                 headers: {
