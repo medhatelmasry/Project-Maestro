@@ -46,6 +46,7 @@ $id = $_SESSION['instructor_id'];
 $check_id = "SELECT * FROM Course WHERE UserId = $id";
 
 $res = $connection->query($check_id);
+    if ($res) {
         echo "<table width='100%' class='table table-striped'>\n";
         echo "<tr><th>Course ID</th>".
              "<th>Course Name</th>".
@@ -68,14 +69,8 @@ $res = $connection->query($check_id);
         };
 
         echo "</table>\n";
-
-
-    
-
+    } 
 ?>
-
-    
- 
 
 <a href="home.php" class="btn btn-small btn-success">Back</a>
 <a href="createCourse.php" class="btn btn-small btn-success">Add Course</a>
