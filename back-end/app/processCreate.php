@@ -26,7 +26,7 @@ if (isset($_POST['create'])) {
     $CourseID = sanitize_input($CourseID);
     $CourseName = sanitize_input($CourseName);
     $CourseTerm = sanitize_input($CourseTerm);
-    $UserId = $_SESSION['instructor_id'];
+    $InstructorId = $_SESSION['instructor_id'];
 
 
     $check_duplicate_course = "SELECT COUNT(*) FROM Course WHERE CourseId = ? AND UserId = $UserId ";
@@ -37,9 +37,9 @@ if (isset($_POST['create'])) {
     if ($row[0] < 1) {
         $table = "Course";
         
-        $insertSet = "CourseId, CourseName, CourseTerm, UserId";
+        $insertSet = "CourseId, CourseName, CourseTerm, InstructorId";
         
-        $insertVal = "'$CourseID', '$CourseName', '$CourseTerm', '$UserId'";
+        $insertVal = "'$CourseID', '$CourseName', '$CourseTerm', '$InstructorId'";
         
         $insert = $db->insertData($table, $insertSet, $insertVal);    
         $_SESSION['created'] = 'Successfully created course';
