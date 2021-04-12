@@ -43,7 +43,7 @@ $connection = $db->getConn();
 
 $id = $_SESSION['instructor_id'];
 			
-$check_id = "SELECT * FROM Course WHERE UserId = $id";
+$check_id = "SELECT * FROM Course WHERE InstructorId = $id";
 
 $res = $connection->query($check_id);
     
