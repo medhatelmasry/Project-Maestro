@@ -24,7 +24,7 @@ import {
 } from 'react-router-dom';
 
 function App() {
-  /*if (localStorage.getItem("userID") != undefined && localStorage.getItem("authToken") != undefined) {
+  if (localStorage.getItem("userID") != undefined && localStorage.getItem("authToken") != undefined) {
     return (
       <Router>
         <NavBar />
@@ -41,7 +41,7 @@ function App() {
         </div>
       </Router>
     );
-  } else { */
+  } else {
     return (
       <Router>
         <NavBar />
