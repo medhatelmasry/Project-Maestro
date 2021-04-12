@@ -4,11 +4,12 @@ include ('../db/inc_db_helper.php');
 include 'sanitize_input.php';
 $db = new DatabaseHelper('../db/projectmaestro.db');
 extract($_POST);
-
 // Placeholder .php file to add project outline to database
 // $CourseId = $_GET["CourseId"]; // change later
 
 if(isset($create_project_outline)){
+    $courseId = $_GET['id']; //gets the course id from ViewCourse page
+
     $project_name = sanitize_input($project_name);
     $due_date = sanitize_input($due_date);
     $requirement = sanitize_input($requirement);

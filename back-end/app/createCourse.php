@@ -14,6 +14,8 @@ $db = new DatabaseHelper('../db/projectmaestro.db');
 <nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="home.php">Project Maestro</a>
+            <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
+
 		</div>
 </nav>
 
