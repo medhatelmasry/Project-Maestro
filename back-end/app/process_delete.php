@@ -8,6 +8,7 @@
 <h1>Course Deleted</h1>
 
 <?php
+session_start();
 if (isset($_POST['CourseId'])) {
     include ('../db/inc_db_helper.php');
 
@@ -24,6 +25,7 @@ if (isset($_POST['CourseId'])) {
     $stm = $db->deleteData($table, $pk, $key);
 
     echo "<p>COURSE with id $key</b> was deleted</p>";
+    $_SESSION['deleted'] = 'Course was successfully deleted';
 } 
 
 header('Location: viewCourse.php');
