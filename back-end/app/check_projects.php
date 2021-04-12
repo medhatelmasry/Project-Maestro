@@ -27,15 +27,15 @@ if(isset($_SESSION['instructor_id'])){
         $connection = $db->getConn();
         $res = $connection->query('SELECT * FROM ProjectOutline');
         // Change this to the passed course id
-        $courseId = $_GET['id']; //gets the course id from viewProjects page
+        $courseId = $_GET['id']; //gets the course id from ViewCourse page
         while ($row = $res->fetchArray()) {
-                    $rowCourseId = $row[0];
-                    echo"$rowCourseId";
+                    $rowCourseId = $row['CourseId'];
+                    // echo"$rowCourseId";
                     if($courseId == $rowCourseId) {
                         $outlineId = $row['ProjectOutlineId'];
                         echo "<tr><td>{$row['ProjectOutlineName']}</td>";
                         echo "<td class='alignRight'>";
-                        echo "<a href='view_projects.php?crsId=$rowCourseId&outlineId=$outlineId'>";
+                        echo "<a href='view_projects.php?crsId=$courseId&outlineId=$outlineId'>";
                         echo "<input type='button' value='View Details' class='homebutton addBtn' id='viewDet'/>";
                         echo "</td>";
                         echo "</tr>";
