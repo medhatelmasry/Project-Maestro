@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import teamsData from '../data/teams';
+import { Redirect } from 'react-router';
 import studentsData from '../data/students';
-import projectsData from '../data/projects';
 import "../pages/styles/BackButton.css";
 
 const CreateProject = (param) => {
     const [projectName, setProjectName] = useState('');
     const [projectDesc, setProjectDesc] = useState('');
-    const outline_id = param.id;
+    const projectOutlineId = param.id;
     var students = studentsData;
     function back() {
         window.history.back();
@@ -23,23 +21,20 @@ const CreateProject = (param) => {
             body: JSON.stringify({
                 projectName,
                 projectDesc,
-                outline_id
+                projectOutlineId
             }),
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
             }
-        }).then(data => {
-            console.log(data);
-        });
-        console.log("this is before response");
-        const response = await result.json();
-        console.log("THIS IS THE RESPONSE");
-        console.log(response);
-        if (response) {
-            back();
+        })
+        if (result) {
+            console.log("nice");
+            let back_url = '/outlines/outline/' + projectOutlineId;
+            return (<Redirect to={back_url} />);
         }
+       
     }
 
     return (
@@ -47,7 +42,7 @@ const CreateProject = (param) => {
             <h2>Create A Project</h2>
             <button className="back" onClick={back}>&lt; Projects</button>
             <form className='CreateProject'>
-                <label>Outline: {outline_id}</label>
+                <label>Outline: {projectOutlineId}</label>
                 <div className='form-group'>
                     <label>Project Name</label>
                     <input type='text' className='form-control' id='projectNameInput' value={projectName}
