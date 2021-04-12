@@ -112,7 +112,7 @@ if ($jwt) {
       # create SQL based on HTTP method
       #===============================================
       
-      $sql = $databaseHelper -> getCommandByMethod($method);
+      $sql = $databaseHelper -> getCommandByMethod($method, $table, $key, $pk, $updateSet, $insertSet, $insertVal);
       if (DEBUG === 1) {
         echo "<h3>SQL</h3>";
         echo $sql;

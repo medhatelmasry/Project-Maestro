@@ -50,33 +50,36 @@
                         echo "</tr>";
                     }
 
-                    //Function that is attached to submit form, change name as required
-                    // function lmao() {
-                    //     foreach($_POST as $name => $content) {
-                    //         $sqlInsert = "INSERT INTO ProjectMember (ProjectId, UserId)
-                    //         VALUES (" . $_GET["projectId"] . ", " . $name .")";
-                    //         echo "<br>";
-                    //         echo $sqlInsert;
-                    //     }
-                    //     if ($connection->query($sqlInsert) === TRUE) {
-                    //         echo "Successfully added.";
-                    //     } else {
-                    //         echo "Error: " . $sqlInsert . "<br>" . $connection->error;
-                    //     }
-                    // }
+                    // Function that is attached to submit form, change name as required
+                    function lmao() {
+                        $db_helper = new DatabaseHelper('../db/projectmaestro.db');
+                        $conn = $db_helper->getConn();
+
+                        foreach($_POST as $name => $content) {
+                            $sqlInsert = "INSERT INTO ProjectMember (ProjectId, UserId)
+                            VALUES (" . $_GET["projectId"] . ", " . $name .")";
+                            echo "<br>";
+                            echo $sqlInsert;
+                        }
+                        if ($conn->query($sqlInsert)) {
+                            echo "Successfully added.";
+                        } else {
+                            echo "Error: " . $sqlInsert . "<br>" . $conn->error;
+                        }
+                    }
                     if ($temp == 0) {
                         echo "<tr><th>No Users<th><tr>";
                     }
                     echo "</table>\n";
                     //test
-                    $sqlInsert = "INSERT INTO ProjectMember (ProjectId, UserId) VALUES (3, 6)";
-                    echo "<br>";
-                    echo $sqlInsert;
-                    if ($connection->query($sqlInsert) === TRUE) {
-                        echo "Successfully added.";
-                    } else {
-                        echo "Error: " . $sqlInsert . "<br>" . $connection->error;
-                    }
+                    // $sqlInsert = "INSERT INTO ProjectMember (ProjectId, UserId) VALUES (3, 6)";
+                    // echo "<br>";
+                    // echo $sqlInsert;
+                    // if ($connection->query($sqlInsert)) {
+                    //     echo "Successfully added.";
+                    // } else {
+                    //     echo "Error: " . $sqlInsert . "<br>" . $connection->error;
+                    // }
                     $db->close();
                     unset($db);
                 ?>
