@@ -3,6 +3,9 @@
 include ('../db/inc_db_helper.php');
 // get courseID
 session_start();
+if(!isset($_SESSION['courseId'])) {
+    header("Location: ../index.php");
+}
 $courseId = $_SESSION['courseId'];
 $outlineId = $_SESSION['outId'];
 // //__________________________________________________
