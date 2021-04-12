@@ -46,30 +46,29 @@ $id = $_SESSION['instructor_id'];
 $check_id = "SELECT * FROM Course WHERE UserId = $id";
 
 $res = $connection->query($check_id);
-    if ($res) {
-        echo "<table width='100%' class='table table-striped'>\n";
-        echo "<tr><th>Course ID</th>".
-             "<th>Course Name</th>".
-             "<th>Term</th>".
-             "<th>&nbsp;</th></tr>\n";    
-        while ($row = $res->fetchArray()) {
-            echo "<tr><td>{$row['CourseId']}</td>";
-            echo "<td>{$row['CourseName']}</td>";
-            echo "<td>{$row['CourseTerm']}</td>";
-            echo "<td>";
-            //Add hrefs here for add Students page
-            echo "<a class='btn btn-small btn-success' href='./add_student_course.php?id={$row[0]}'>Add Students</a>";
-            echo "&nbsp;";
-            //Add hrefs here for view projects page
-            echo "<a class='btn btn-small btn-warning' href='./check_projects.php?id={$row[0]}'>View Projects</a>";
-            echo "&nbsp;";
-            echo "<a class='btn btn-small btn-danger' href='delete.php?id={$row[0]}'>Delete</a>";
-            echo "</td></tr>\n" ;
-
-        };
-
-        echo "</table>\n";
-    } 
+    
+echo "<table width='100%' class='table table-striped'>\n";
+echo "<tr><th>Course ID</th>".
+     "<th>Course Name</th>".
+     "<th>Term</th>".
+     "<th>&nbsp;</th></tr>\n";
+if ($res) {    
+    while ($row = $res->fetchArray()) {
+        echo "<tr><td>{$row['CourseId']}</td>";
+        echo "<td>{$row['CourseName']}</td>";
+        echo "<td>{$row['CourseTerm']}</td>";
+        echo "<td>";
+        //Add hrefs here for add Students page
+        echo "<a class='btn btn-small btn-success' href='./add_student_course.php?id={$row[0]}'>Add Students</a>";
+        echo "&nbsp;";
+        //Add hrefs here for view projects page
+        echo "<a class='btn btn-small btn-warning' href='./check_projects.php?id={$row[0]}'>View Projects</a>";
+        echo "&nbsp;";
+        echo "<a class='btn btn-small btn-danger' href='delete.php?id={$row[0]}'>Delete</a>";
+        echo "</td></tr>\n" ;
+    };
+}
+echo "</table>\n"; 
 ?>
 
 <a href="home.php" class="btn btn-small btn-success">Back</a>
