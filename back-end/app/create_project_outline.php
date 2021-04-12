@@ -11,6 +11,9 @@
 			<a class="navbar-brand" href="../index.php">Project Maestro</a>
 		</div>
 	</nav>
+	<?php 
+	$CourseId = $_GET['crsId'];
+	?>
 	<div class="container">
 		<form method="POST" action="process_project_outline.php">
 			<div class="form-group">
@@ -25,6 +28,7 @@
 				<label for="requirement">Requirements</label>
     			<textarea class="form-control" placeholder="Leave requirements for this project outline" name="requirement" style="height: 100px"></textarea>
 			</div>
+			<input type="hidden" name="CourseId" value=<?php echo "'$CourseId'"?>/>
 			<button type="submit" name="create_project_outline" class="btn btn-success">Create</button>
 		</form>	
 	</div>

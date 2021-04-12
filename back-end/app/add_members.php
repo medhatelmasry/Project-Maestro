@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<!-- ------------------UNTESTED PAGE------------------ -->
 <?php 
 	include ('../db/inc_db_helper.php');
 	$db = new DatabaseHelper('../db/projectmaestro.db');
-
+    $connection = $db->getConn();
+    //Yee
     session_start();
-    $teamId = $_GET["teamId"];
+    $projectName = $_SESSION['projectName'];
+    //YEe
+    $projectId = $_GET["projectId"];
+    echo $projectId;
     //Depends on use case, edit if searching only students etc.
     $sql = "SELECT User.UserId, User.UserFName, User.UserLName FROM User";
     $userRes =  $connection->query($sql);
@@ -25,42 +28,61 @@
 			</div>
 		</nav>
 		<div id="view">
-            <h3>Add students to TEAM TEMP</h3>
-            <h4>Students</h4>
+            <h3>Add Users to <?php echo $projectName ?></h3>
+            <h4>Users</h4>
             <div id="list">
                 <?php
-                    $temp = 5; // swap to get all studnets in table
-                    $button = ""; //insert function to add students to team
                     echo "<table width='100%' class='table table-striped'>\n";
-                    
-                    //Function creation for adding students to team
-                    if (isset($_POST['submit'])) {
-                        lmao();
-                    }
-                    //Function that is attached to submit form, change name as required
-                    function lmao() {
-                        //Add db code here to add a user to team using $teamId
-                        // may need to move into while loop to get information from $userRes
-                    }
-
+                    $temp = 0;
                     while ($row = $userRes->fetchArray()) {
                         $temp+=1;
                         echo "<tr>";
                         echo "<th>Name: " . $row['UserFName'] . " " . $row['UserLName'] ."</th>";
                         echo '<th>Student ID: ' . $row['UserId'] . '</th>';
-                        echo '<form action="" method="POST">
-                        <input type="submit" name="submit" value="Add to team">
-                        </form>';
+                        echo '<th><form action="" method="POST">
+                        <input type="submit" name="'. $row['UserId'] . '" value="Add">
+                        </form></th>';
+                        //check
+                        if (isset($_POST[$row['UserId']])) {
+                            lmao();
+                        }
+                        //henceforth
                         echo "</tr>";
                     }
+
+                    //Function that is attached to submit form, change name as required
+                    // function lmao() {
+                    //     foreach($_POST as $name => $content) {
+                    //         $sqlInsert = "INSERT INTO ProjectMember (ProjectId, UserId)
+                    //         VALUES (" . $_GET["projectId"] . ", " . $name .")";
+                    //         echo "<br>";
+                    //         echo $sqlInsert;
+                    //     }
+                    //     if ($connection->query($sqlInsert) === TRUE) {
+                    //         echo "Successfully added.";
+                    //     } else {
+                    //         echo "Error: " . $sqlInsert . "<br>" . $connection->error;
+                    //     }
+                    // }
                     if ($temp == 0) {
                         echo "<tr><th>No Users<th><tr>";
                     }
                     echo "</table>\n";
+                    //test
+                    $sqlInsert = "INSERT INTO ProjectMember (ProjectId, UserId) VALUES (3, 6)";
+                    echo "<br>";
+                    echo $sqlInsert;
+                    if ($connection->query($sqlInsert) === TRUE) {
+                        echo "Successfully added.";
+                    } else {
+                        echo "Error: " . $sqlInsert . "<br>" . $connection->error;
+                    }
+                    $db->close();
+                    unset($db);
                 ?>
             </div>
 			
-            <button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./view_team.php?teamId=<?php echo $teamId ?>'">Back</button>
+            <button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./view_team.php?projectId=<?php echo $projectId ?>'">Back</button>
 		</div>
 	</body>
 </html>
