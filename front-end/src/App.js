@@ -6,6 +6,7 @@ import DashboardPage from './pages/DashboardPage';
 import OutlinesPage from './pages/OutlinesPage';
 import OutlinePage from './pages/OutlinePage';
 import ProjectPage from './pages/ProjectPage';
+import CreateProjectPage from './pages/CreateProjectPage';
 import GoalsPage from './pages/GoalsPage';
 import JoinTeamPage from './pages/JoinTeamPage';
 import NavBar from './NavBar';
@@ -35,6 +36,7 @@ function App() {
             <Route path="/outlines/outline/:id" component={OutlinePage} exact />
             <Route path="/outlines/outline/:id/project/" component={ProjectPage} exact />
             <Route path="/outlines/outline/:id/project/join" component={JoinTeamPage} exact />
+            <Route path="/outlines/outline/:id/project/create" component={CreateProjectPage} exact />
             <Route path="/outlines/outline/:id/project/:projectId/goals" component={GoalsPage} exact />
             <Route component={NotFoundPage} />
           </Switch>

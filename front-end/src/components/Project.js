@@ -24,8 +24,13 @@ const Project = (param) => {
                 <button className="back" onClick={back}>&lt; Outline</button>
                 <p>You don't have a project</p>
                 <div>
-                    <button class="btn btn-success">Create a Project</button> or <Link to={`/outlines/outline/${id}/project/join`}>
-                        <button class="btn btn-success">Join a Team</button></Link>
+                    <Link to={`/outlines/outline/${id}/project/create`}>
+                        <button class="btn btn-success">Create a Project</button>
+                    </Link>
+                     or 
+                    <Link to={`/outlines/outline/${id}/project/join`}>
+                        <button class="btn btn-success">Join a Team</button>
+                    </Link>
                 </div>
             </>
         )
