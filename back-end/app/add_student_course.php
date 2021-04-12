@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <?php 
-//$test = [["Bob","a01111"],["Bill","a02222"],["Galvin","a03333"]]; 
-// include('../db/conn.php');
-//starting the session
-//session_start()//?\;
-$endpoint = 'http://localhost:8000/api.php/Student';
-$response = file_get_contents($endpoint);
-$json = json_decode($response);
+include_once('../db/inc_db_helper.php');
+$db = new DatabaseHelper('../db/projectmaestro.db');
+$connection = $db->getConn();
+$CourseId = $_GET['id']; //gets the course id from viewProjects page
+
+//goes throught he course table and gets the items corresponding with the course id we got
+$stm = $connection->prepare('SELECT * FROM Course WHERE CourseId = :id');
+$stm->bindValue(':id', $CourseId, SQLITE3_TEXT);
+$res1 = $stm->execute();
+$row1 = $res1->fetchArray(SQLITE3_NUM);  
+
+$res = $connection->query('SELECT * FROM Student');
 ?>
 <html lang="en">
 
@@ -22,26 +27,27 @@ $json = json_decode($response);
             <a class="navbar-brand" target="_balnk">Project Maestro</a>
         </div>
     </nav>
-    <h1 class="courseInfo">Course Name</h1>
+    <h1 class="courseInfo">Course Name: <?php echo $row1[1] . " " . $CourseId ?></h1> <!--gets the values of course name adn course id -->
     <h2 class="courseInfo">Students</h2>
     <div class="col-md-3"></div>
     <table class="tableList">
-        <?php foreach ($json as $item) { ?>
-        <tr">
-            <td>
-                <?php 
-                $getUser = 'http://localhost:8000/api.php/User/'.$item->UserId;
-                $response2 = file_get_contents($getUser);
-                $userJson = json_decode($response2);
-                echo $userJson->UserEmail?>
-            </td>
-            <td class="alignRight">
-                <?php echo $item->StudentId;?>
-                <input type="button" value="Add" class="homebutton addBtn" id="addStd"
-                    onClick="document.location.href='./home.php'" />
-            </td>
-            </tr>
-            <?php } ?>
+        <?php 
+            while ($row = $res->fetchArray()) {
+                echo"<td>";
+                $test = $row['UserId'];
+                $userRes = $connection->query("SELECT * FROM User WHERE UserId=$test");
+                while ($row2 = $userRes->fetchArray()) { 
+                    echo $row2["UserFName"];
+                    echo $row2["UserLName"];
+                }
+                echo"</td>";
+                echo"<td class='alignRight'>";
+                echo"{$row['StudentId']}";
+                echo"<input type='button' value='Add' class='homebutton addBtn' id='addStd'
+                    onClick='document.location.href='./home.php''/>";
+                echo"</td> </tr>";
+            }
+            ?>
     </table>
     </div>
 </body>

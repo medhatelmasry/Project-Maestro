@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <?php 
-// include('../db/conn.php');
-//starting the session
-//session_start()//?\;
-$endpoint = 'http://localhost:8000/api.php/Project';
-$response = file_get_contents($endpoint);
-$json = json_decode($response);
+include_once('../db/inc_db_helper.php');
+session_start();
+if(isset($_SESSION['instructor_id'])){
 ?>
 <html lang="en">
 
@@ -18,29 +15,46 @@ $json = json_decode($response);
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <a class="navbar-brand" target="_balnk">Project Maestro</a>
+            <a class="navbar-brand" href="javascript:window.location.href=window.location.href">Project Maestro</a>
+            <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
         </div>
     </nav>
     <h1 class="courseInfo">Project Outline</h1>
     <div class="col-md-3"></div>
     <table class="tableList">
-        <?php foreach ($json as $item) { ?>
-        <tr">
-            <td>
-                <?php echo$item->ProjectName?>
-            </td>
-            <td class="alignRight">
-                <input type="button" value="View Details" class="homebutton addBtn" id="viewDet"
-                    onClick="document.location.href='./home.php'" />
-                <input type="button" value="View Projects" class="homebutton addBtn" id="viewProj"
-                    onClick="document.location.href='./home.php'" />
-            </td>
-            </tr>
-            <?php } ?>
+        <?php 
+        $db = new DatabaseHelper('../db/projectmaestro.db');
+        $connection = $db->getConn();
+        // Change this to the passed course id
+        $courseId = $_GET['id'];
+        $res = $db->getData('ProjectOutline', 'CourseId', $courseId);
+        while ($row = $res->fetchArray()) {
+            $rowCourseId = $row[0];
+            $outlineId = $row['ProjectOutlineId'];
+            echo "<tr><td>{$row['ProjectOutlineName']}</td>";
+            echo "<td class='alignRight'>";
+            echo "<a href='view_projects.php?crsId=$rowCourseId&outlineId=$outlineId'>";
+            echo "<input type='button' value='View Details' class='homebutton addBtn' id='viewDet'/>";
+            echo "</td>";
+            echo "</tr>";
+
+        };
+        ?>
     </table>
-    <input type="button" value="Create Projects" class="homebutton createProj addBtn" id="createProj"
-        onClick="document.location.href='./home.php'" />
+    <?php 
+        echo"<a href='create_project_outline.php?crsId=$courseId'>";
+        echo "<input type='button' value='Create Projects' class = 'homebutton createProj addBtn' id ='createProj'";
+    ?>
     </div>
+    <?php    
+    } else {
+      $_SESSION['require_login_error'] = "Restricted Access, please login to access.";
+      if (isset($_SESSION['require_login_error'])){
+        header('Location: ../index.php');
+        exit();
+      }
+    }
+     ?>
 </body>
 
 </html>

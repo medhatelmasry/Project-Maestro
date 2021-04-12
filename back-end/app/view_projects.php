@@ -13,12 +13,35 @@
 		</div>
 	</nav>
 	<div class="container">
+		<?php
+		include ('../db/inc_db_helper.php');
+		session_start();
+		$db = new DatabaseHelper('../db/projectmaestro.db');
+		$ProjectOutlineId = $_GET['outlineId'];
+		$CourseId = $_GET['crsId'];
+		//store session vars for redirect on view_team
+		$_SESSION['courseId'] = $CourseId;
+		$_SESSION['outId'] = $ProjectOutlineId;
+		
+		$res = $db->getData("ProjectOutline", "ProjectOutlineId", $ProjectOutlineId);
+		$row = $res->fetchArray();
+		echo "<h3>{$row['ProjectOutlineName']}</h3>" .
+			"<p>{$row['ProjectOutlineReq']}</p>" .
+			"<p>Due date: {$row['ProjectOutlineEnd']}</p>";
+		
+		?>
         <h3>Projects</h3>
         <table width='100%' class='table table-striped'>
-            <tr>
-                <td>Team 1</td>
-                <td><button type="button" class="btn btn-info" onclick="window.location.href='./view_project.php'">View Project</button></td>
-            </tr>
+			<?php
+				$res = $db->getData("Project", "ProjectOutlineId", $ProjectOutlineId);
+				while ($row = $res->fetchArray()) {
+					$view_project = "./view_team.php?projectId={$row['ProjectId']}&courseId={$CourseId}";
+					echo "<tr><td>{$row['ProjectName']}</td>".
+					"<td class='alignRight'>".
+					"<a class='btn btn-small btn-primary' href='".$view_project."'>View Project</a>".
+					"</td></tr>";
+				}
+			?>
         </table>
 	</div>
 </body>

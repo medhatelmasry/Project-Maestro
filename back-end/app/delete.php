@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 
 <h1>Confirm Delete Course</h1>
@@ -14,6 +15,8 @@ if (isset($_GET['id'])) {
         $res = $stm->execute();
     
         $row = $res->fetchArray(SQLITE3_NUM);  
+
+        $_SESSION['deleted'] = 'Course was successfully deleted';
 }
 
 ?>
