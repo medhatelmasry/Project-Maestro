@@ -29,11 +29,10 @@ if(isset($_SESSION['instructor_id'])){
         $courseId = $_GET['id'];
         $res = $db->getData('ProjectOutline', 'CourseId', $courseId);
         while ($row = $res->fetchArray()) {
-            $rowCourseId = $row[0];
             $outlineId = $row['ProjectOutlineId'];
             echo "<tr><td>{$row['ProjectOutlineName']}</td>";
             echo "<td class='alignRight'>";
-            echo "<a href='view_projects.php?crsId=$rowCourseId&outlineId=$outlineId'>";
+            echo "<a href='view_projects.php?crsId=$courseId&outlineId=$outlineId'>";
             echo "<input type='button' value='View Details' class='homebutton addBtn' id='viewDet'/>";
             echo "</td>";
             echo "</tr>";

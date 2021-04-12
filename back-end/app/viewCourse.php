@@ -3,11 +3,10 @@
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 
 <nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="home.php">Project Maestro</a>
-            <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
-
-		</div>
+	<div class="container-fluid">
+		<a class="navbar-brand" href="home.php">Project Maestro</a>
+        <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
+	</div>
 </nav>
 
 <h2>Courses</h2>
