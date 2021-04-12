@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <?php 
 include ('../db/inc_db_helper.php');
-// get courseID
 session_start();
+// Get course ID, return to index if not assignmed
 if(!isset($_SESSION['courseId'])) {
     header("Location: ../index.php");
 }
 $courseId = $_SESSION['courseId'];
+// Get outline Id, return to index if not assigned
+if(!isset($_SESSION['outId'])) {
+    header("Location: ../index.php");
+}
 $outlineId = $_SESSION['outId'];
 // //__________________________________________________
 //echo $courseId; //Test code for passing project name backwards. 
@@ -14,6 +18,10 @@ $outlineId = $_SESSION['outId'];
 $db = new DatabaseHelper('../db/projectmaestro.db');
 // Connect to db
 $connection = $db->getConn();
+// Get project Id
+if(!isset( $_GET["projectId"])) {
+    header("Location: ../index.php");
+}
 $projectId = $_GET["projectId"];
 //Get project data from project name
 $projSql = "SELECT * FROM Project WHERE Project.ProjectId IS " . $projectId;
@@ -24,10 +32,12 @@ FROM User
 INNER JOIN ProjectMember ON User.UserId=ProjectMember.UserId 
 INNER JOIN Project ON Project.ProjectId = ProjectMember.ProjectId
 WHERE ProjectMember.ProjectId = " . $projectId;
+// Run sql query, error if fail
+if(!$connection->query($userSql)) {
+    echo "DB not loaded, or " . $userSql . " failed.";
+}
+// assign sql query for user data
 $userRes = $connection->query($userSql);
-// Testing
-// echo $userSql;
-// echo "<br>";
 ?>
 
 <html lang="en">
