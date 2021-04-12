@@ -17,7 +17,10 @@ if ($jwt) {
       $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
       $input = json_decode(file_get_contents('php://input'),true);
 
-
+      # The path should be:
+      # $request[0]/$request[1]/$request[2]
+      # Table/Column/Value
+      # $table/$pk/$key
       
       #===============================================
       # Create database or open if it already exists
@@ -118,7 +121,7 @@ if ($jwt) {
         echo "<h3>SQL</h3>";
         echo $sql;
       }
-      echo $sql;
+      
       #===============================================
       # excecute SQL statement
       #===============================================

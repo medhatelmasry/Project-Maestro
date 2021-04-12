@@ -246,13 +246,13 @@
          * @return String SQL command
          */
         public function getCommandByMethod($method, $table, $key, $pk, $updateSet, $insertSet, $insertVal) {
-            echo "method: " . $method . "\n";
-            echo "table: " . $table . "\n";
-            echo "key: " . $key . "\n";
-            echo "pk: " . $pk . "\n";
-            echo "updateSet: " . $updateSet . "\n";
-            echo "insertSet: " . $insertSet . "\n";
-            echo "insertVal: " . $insertVal . "\n";
+            // echo "method: " . $method . "\n";
+            // echo "table: " . $table . "\n";
+            // echo "key: " . $key . "\n";
+            // echo "pk: " . $pk . "\n";
+            // echo "updateSet: " . $updateSet . "\n";
+            // echo "insertSet: " . $insertSet . "\n";
+            // echo "insertVal: " . $insertVal . "\n";
             switch ($method) {
                 case 'GET':
                     $sql = "SELECT * FROM $table WHERE $pk = $key"; 
