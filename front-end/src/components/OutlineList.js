@@ -18,7 +18,6 @@ const OutlineList = (param) => {
 
     return (
         <> 
-            <React.Fragment>
             <h2>{course[0].name}</h2>
             <h3>Project Outlines</h3>
             <button className="back" onClick={back}>&lt; Courses</button>
@@ -32,7 +31,6 @@ const OutlineList = (param) => {
                 ))}
                 </tbody>
             </table>
-            </React.Fragment>
         </>
     )
 }

@@ -16,22 +16,20 @@ const Goals = (param) => {
 
     return (
         <> 
-            <React.Fragment>
             <h3>Goals</h3>
             <button className="back" onClick={back}>&lt; Project</button>
-            <table>
+            <table class="table">
                 <tbody>
                 {goals.map((goal, key) => (
                     <tr>
-                        <td>{goal.name}: </td>
-                        <td>{goal.description}</td>
-                        <td><button>Complete</button></td>
-                        <td><button>Edit</button></td>
+                        <td width="15%">{goal.name}: </td>
+                        <td width="65%">{goal.description}</td>
+                        <td width="10%"><button>Complete</button></td>
+                        <td width="10%"><button>Edit</button></td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            </React.Fragment>
         </>
     )
 }

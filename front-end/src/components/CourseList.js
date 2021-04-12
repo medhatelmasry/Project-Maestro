@@ -7,7 +7,6 @@ const CourseList = (param) => {
     var courses = coursesData;
     return (
         <>  
-            <React.Fragment>
             <h3>Courses</h3>
             <table class="table">
                 <tbody>
@@ -19,7 +18,6 @@ const CourseList = (param) => {
                 ))}
                 </tbody>
             </table>
-            </React.Fragment>
         </>
     )
 }
