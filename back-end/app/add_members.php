@@ -5,6 +5,9 @@
     $connection = $db->getConn();
     //Yee
     session_start();
+    if(!isset($_SESSION['projectName'])) {
+        header("Location: ../index.php");
+    }
     $projectName = $_SESSION['projectName'];
     //YEe
     $projectId = $_GET["projectId"];

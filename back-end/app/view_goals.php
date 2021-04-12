@@ -3,6 +3,9 @@
 include ('../db/inc_db_helper.php');
 
 session_start();
+if(!isset($_SESSION['projectName'])) {
+    header("Location: ../index.php");
+}
 $projectName = $_SESSION['projectName'];
 $db = new DatabaseHelper('../db/projectmaestro.db');
 // Connect to db
