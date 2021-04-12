@@ -1,5 +1,18 @@
 <?php session_start() ?>
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<!-- <link rel="stylesheet" type="text/css" href="css/backend_style.css"/> -->
+	</head>
+<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="home.php">Project Maestro</a>
+            <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
+		</div>
+</nav>
 
 <h1>Confirm Delete Course</h1>
 
@@ -16,7 +29,7 @@ if (isset($_GET['id'])) {
     
         $row = $res->fetchArray(SQLITE3_NUM);  
 
-        $_SESSION['deleted'] = 'Course was successfully deleted';
+       
 }
 
 ?>
