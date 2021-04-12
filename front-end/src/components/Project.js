@@ -7,11 +7,25 @@ import "../pages/styles/BackButton.css";
 
 const Project = (param) => {
 
+
     const id = param.id;
-    
+
+    const showProjects = async () => {
+        const project_res = await fetch(`http://localhost:8888/db/api.php/Project`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
+            }
+        });
+        let project_response = await project_res.text();
+        console.log(project_response);
+        console.log(JSON.parse(project_response));
+    }
     var students = studentsData;
     var projects = (projectsData.filter(c => c.outlineId == id))
-
+    showProjects();
     function back() {
         window.history.back();
     }
