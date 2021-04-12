@@ -3,24 +3,40 @@
 include ('../db/inc_db_helper.php');
 
 session_start();
+// Get project name, redirect to index otherwise
 if(!isset($_SESSION['projectName'])) {
     header("Location: ../index.php");
 }
+//Assign project name
 $projectName = $_SESSION['projectName'];
 $db = new DatabaseHelper('../db/projectmaestro.db');
 // Connect to db
 $connection = $db->getConn();
+//Get project id, redirect to index otherwise
+if(!$connection->query($_GET["projectId"])) {
+    header("Location: ../index.php");
+}
+// Assign project id
 $projectId = $_GET["projectId"];
-//Get project data from project name
+//Get project data from project name, 
 $projSql = "SELECT * FROM Project WHERE Project.ProjectId IS " . $projectId;
+// Chceck if sql statement returns false, error msg if not
+if(!$connection->query($projSql)) {
+    echo "DB not loaded, or " . $userSql . " failed.";
+}
+// Get project information
 $projectRes =  $connection->query($projSql);
 //Get goal info
 $goalSql = "SELECT *
 FROM Goal
 INNER JOIN Project ON Goal.ProjectId=Project.ProjectId 
 WHERE Project.ProjectId IS " . $projectId;
+// Check if sql is successful
+if(!$connection->query($goalSql)) {
+    echo "DB not loaded, or " . $userSql . " failed.";
+}
+// Get goal information
 $goalRes = $connection->query($goalSql);
-
 ?>
 
 <html lang="en">
