@@ -1,7 +1,6 @@
-<?php 
+<?php
 session_start();
 if(isset($_SESSION['instructor_id'])){
-
 ?>
     <!DOCTYPE html>
     <html lang="en">

@@ -1,15 +1,12 @@
 <?php
 include_once '../db/inc_db_helper.php';
-$db_helper = new DatabaseHelper('../db/projectmaestro.db');
-$db_helper->close();
-?>
-<?php
 include_once '../config/database.php';
 require "../vendor/autoload.php";
-
 use \Firebase\JWT\JWT;
-
 include_once 'cors.php';
+
+$db_helper = new DatabaseHelper('../db/projectmaestro.db');
+$db_helper->close();
 $inputdata = json_decode(file_get_contents("php://input"));
 $databaseService = new DatabaseService();
 $conn = $databaseService->getConnection('../db/');

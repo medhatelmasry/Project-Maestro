@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<?php 
+<?php
 include ('../db/inc_db_helper.php');
 session_start();
 // Get course ID, return to index if not assignmed
@@ -39,7 +38,7 @@ if(!$connection->query($userSql)) {
 // assign sql query for user data
 $userRes = $connection->query($userSql);
 ?>
-
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
@@ -79,7 +78,7 @@ $userRes = $connection->query($userSql);
                     echo "</table>\n";
                 ?>
             </div>
-			<button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./add_members.php?projectId=<?php echo $projectId ?>'">Add member</button>
+			<button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./add_members.php?projectId=<?php echo $projectId ?>&crsId=<?php echo $courseId ?>'">Add member</button>
             <button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./view_goals.php?projectId=<?php echo $projectId ?>'">View Goals</button>
             <br>
             <br>

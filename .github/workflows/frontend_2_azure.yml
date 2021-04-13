@@ -10,7 +10,7 @@ defaults:
     working-directory: ./front-end
 env:
   AZURE_WEBAPP_NAME: Front-End-App    # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: 'build'      # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   NODE_VERSION: '12'                # set this to the node version to use
   CI: false
 
@@ -34,6 +34,9 @@ jobs:
     - name: 'Deploy static web app to Azure blob storage'
       uses: lauchacarro/Azure-Storage-Action@v1.0
       with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
         enabled-static-website: 'true'
         folder: 'front-end/build'
         connection-string: ${{ secrets.AZURE_STORAGE_CONNECTION_STRING }} 
