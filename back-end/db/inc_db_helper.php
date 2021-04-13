@@ -262,7 +262,7 @@
                     }
                     break;
                 case 'PUT':
-                    $sql = "UPDATE $table SET $updateSet WHERE $pk='$key'"; 
+                    $sql = "UPDATE $table SET '$updateSet' WHERE $pk='$key'"; 
                     break;
                 case 'POST':
                     $sql = "INSERT INTO $table ($insertSet) VALUES ($insertVal)"; 
