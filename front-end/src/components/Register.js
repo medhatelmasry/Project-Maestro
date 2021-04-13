@@ -72,6 +72,7 @@ const Register = () => {
                   localStorage.setItem("authToken", response.jwt);
                   localStorage.setItem("email", email);
                   localStorage.setItem("password", password);
+                  localStorage.setItem("expireAt", response.expireAt);
                   window.location.href = "/";
               }
     }

@@ -26,8 +26,21 @@ import {
 } from 'react-router-dom';
 
 function App() {
-  CheckToken();
-  if ((new Date().getTime() / 1000) <= localStorage.getItem("expireAt") || localStorage.getItem("authToken") != undefined) {
+  if (localStorage.getItem("authToken") == undefined || (new Date().getTime() / 1000) > localStorage.getItem("expireAt")) {
+    return (
+      <Router>
+        <NavBar />
+        <div className="container">
+          <Switch>
+            <Route path="/" component={LandingPage} exact />
+            <Route path="/login" component={LoginPage} exact />
+            <Route path="/register" component={RegisterPage} exact />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
+      </Router>
+    );
+  } else {
     return (
       <Router>
         <NavBar />
@@ -40,20 +53,6 @@ function App() {
             <Route path="/outlines/outline/:id/project/join" component={JoinTeamPage} exact />
             <Route path="/outlines/outline/:id/project/create" component={CreateProjectPage} exact />
             <Route path="/outlines/outline/:id/project/:projectId/goals" component={GoalsPage} exact />
-            <Route component={NotFoundPage} />
-          </Switch>
-        </div>
-      </Router>
-    );
-  } else {
-    return (
-      <Router>
-        <NavBar />
-        <div className="container">
-          <Switch>
-            <Route path="/" component={LandingPage} exact />
-            <Route path="/login" component={LoginPage} exact />
-            <Route path="/register" component={RegisterPage} exact />
             <Route component={NotFoundPage} />
           </Switch>
         </div>
