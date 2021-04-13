@@ -1,12 +1,11 @@
 import React from 'react';
-import TeamList from '../components/TeamList'
+import JoinProject from '../components/JoinProject'
 
 const ProjectPage = ({match}) => (
     <React.Fragment>
     <div className='JoinTeamPage'>
-        <TeamList id={match.params.id}/>
+        <JoinProject id={match.params.id}/>
     </div>
     </React.Fragment>
 )
-
 export default ProjectPage;

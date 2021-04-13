@@ -9,7 +9,6 @@ const Goals = (param) => {
     const [goalInput, setGoalInput] = useState('');
 
     const projectId = param.id;
-    console.log(projectId);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,16 +23,11 @@ const Goals = (param) => {
             const goal_result = await goal_response.json();
             var goalListData = (goal_result.filter(c => c.ProjectId == projectId));
             setGoals(goalListData);
-            console.log(goalListData);
-            // var crsId = courseListData.CourseId
-            // setCrsName(crsId);
-            // console.log(crsId)
         }
         fetchData();
     }, []);
 
     const createGoal = async (e) => {
-        console.log(goalInput);
         const response = await fetch(`http://localhost:8888/db/api.php/Goal`, {
             method: 'POST',
             body: JSON.stringify({
@@ -51,8 +45,6 @@ const Goals = (param) => {
     }
 
     const deleteGoal = async (GoalId) => {
-        console.log(goalInput);
-        console.log(GoalId);
         const response = await fetch(`http://localhost:8888/db/api.php/Goal`, {
             method: 'DELETE',
             body: JSON.stringify({

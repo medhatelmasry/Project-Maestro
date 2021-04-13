@@ -24,7 +24,6 @@ const OutlineList = (param) => {
             var courseListData = (crs_body.filter(c => c.CourseListId == id))[0];
             var crsId = courseListData.CourseId
             setCrsName(crsId);
-            console.log(crsId)
             const response = await fetch("http://localhost:8888/db/api.php/ProjectOutline", {
                 method: 'GET',
                 headers: {

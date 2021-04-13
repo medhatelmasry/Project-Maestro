@@ -10,7 +10,6 @@ const Logout = () => {
         localStorage.removeItem("password");
         localStorage.removeItem("expireAt");
 
-        console.log(localStorage.getItem("authToken"));
         window.location.href = "/";
     }
 
