@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
 session_start();
 include_once('../db/inc_db_helper.php');
@@ -9,14 +7,13 @@ if(isset($_SESSION['instructor_id'])){
     $courseId = $_GET['id']; //gets the course id from viewProjects page
     $res = $connection->query('SELECT * FROM Student');
 ?>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="css/add_course_std.css" />
 </head>
-
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">

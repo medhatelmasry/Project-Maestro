@@ -6,24 +6,6 @@ $db = new DatabaseHelper('../db/projectmaestro.db');
 $conn = null;
 $conn = $db->getConn();
 if(isset($_SESSION['instructor_id'])){
-?>
-
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
-            <!-- Bootstrap -->
-            <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-            <!-- <link rel="stylesheet" type="text/css" href="css/backend_style.css"/> -->
-        </head>
-    <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="home.php">Project Maestro</a>
-                <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
-            </div>
-    </nav>
-
-    <?php
     if (isset($_POST['create'])) {
 
         extract($_POST);
@@ -56,11 +38,11 @@ if(isset($_SESSION['instructor_id'])){
                 $_SESSION["courseid"] = $CourseID;
         }
     }
- } else {
+} else {
     $_SESSION['require_login_error'] = "Restricted Access, please login to access.";
         if (isset($_SESSION['require_login_error'])){
             header('Location: ../index.php');
             exit();
         }
     }
-?> 
+?>
