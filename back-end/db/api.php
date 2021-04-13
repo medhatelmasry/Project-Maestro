@@ -4,16 +4,8 @@ include_once '../config/jwt_secure.php';
 include_once '../config/database.php';
 include_once 'inc_db_helper.php';
 use \Firebase\JWT\JWT;
-<<<<<<< HEAD
-// echo "very";
-if ($jwt) {
-  // echo "out";
-  try {
-      // echo "yes";
-=======
 if ($jwt) {
   try {
->>>>>>> backend
       $decoded = JWT::decode($jwt, $secret_key, array('HS256'));
 
       define("DEBUG", 0);
