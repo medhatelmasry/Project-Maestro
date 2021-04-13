@@ -24,8 +24,8 @@
 			<a class="navbar-brand navbar-right" href="logout.php">Logout</a>
 		</div>
 	</nav>
-	<a href="check_projects.php?id=<?php echo $CourseId;?>" class="btn btn-small btn-success">Back</a>
 	<div class="container">
+	<a href="check_projects.php?id=<?php echo $CourseId;?>" class="btn btn-small btn-success">Back</a>
 	<?php
 		$res = $db->getData("ProjectOutline", "ProjectOutlineId", $ProjectOutlineId);
 		$row = $res->fetchArray();
