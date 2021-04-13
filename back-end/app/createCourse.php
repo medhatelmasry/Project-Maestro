@@ -13,6 +13,7 @@ if(isset($_SESSION['instructor_id'])){
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
 		<!-- <link rel="stylesheet" type="text/css" href="css/backend_style.css"/> -->
 	</head>
+    <body>
         <nav class="navbar navbar-default">
 		    <div class="container-fluid">
 			    <a class="navbar-brand" href="home.php">Project Maestro</a>
@@ -72,6 +73,7 @@ if(isset($_SESSION['instructor_id'])){
     }
   }?> 
         
-    </div>
+        </div>
+    </body>
 </html>
 

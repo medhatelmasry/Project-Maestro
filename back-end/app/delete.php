@@ -11,12 +11,13 @@ if(isset($_SESSION['instructor_id'])){
             <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
             <!-- <link rel="stylesheet" type="text/css" href="css/backend_style.css"/> -->
         </head>
-    <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="home.php">Project Maestro</a>
-                <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
-            </div>
-    </nav>
+        <body>
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="home.php">Project Maestro</a>
+                    <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
+                </div>
+            </nav>
     <div class = "container">
     <h1>Confirm Delete Course</h1>
 
@@ -66,3 +67,6 @@ if(isset($_SESSION['instructor_id'])){
       }
     }
 ?>
+        </div>
+    </body>
+</html>
