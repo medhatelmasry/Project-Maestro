@@ -14,8 +14,6 @@ const CreateProject = (param) => {
 
     const CreateProjectEvent = async (e) => {
         e.preventDefault();
-        console.log('this is before result');
-        console.log(localStorage.getItem("authToken"));
         // Make the Project
         const result = await fetch(`http://localhost:8888/db/api.php/Project`, {
             method: 'POST',

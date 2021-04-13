@@ -21,7 +21,6 @@ const Outline = (param) => {
             });
             const body = await response.json();
             var outlineData = (body.filter(c => c.ProjectOutlineId == id))[0]
-            console.log(outlineData)
             setOutline(outlineData);
         }
         fetchData();

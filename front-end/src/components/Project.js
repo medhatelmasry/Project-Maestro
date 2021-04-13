@@ -6,7 +6,6 @@ const Project = (param) => {
     const [user_project, setUserProject] = new useState('');
     const [user_list, setUserList] = new useState([]);
     const outline_id = param.id;
-    // console.log("outline id " + outline_id);
     const user_id = localStorage.getItem("userID");
 
     const checkExistingProject = async () => {
@@ -30,8 +29,6 @@ const Project = (param) => {
             }
         });
         const project_response = await get_project.json();
-        // console.log(project_member_response);
-        // console.log(project_member_response.length);
         
         if (project_member_response.length != undefined) {
         // Filter through all of the Projects, and check if it matches the ProjectId in the ProjectMembers
@@ -90,13 +87,9 @@ const Project = (param) => {
     // Get the project associated with the current outline and User
     useEffect(() => {
         checkExistingProject().then(function(proj) {
-            // console.log(user_project);
-            // console.log(proj);
             if (proj) {
-                // console.log(user_project);
                 // Get all of the project members
                 getUserIdOfMembers(proj.ProjectId).then(function(member_result) {
-                    // console.log(member_result);
                     if (member_result != undefined) {
                         // For all of the Project Members, get the User and put them into a list
                         if (member_result.length == undefined) {
@@ -107,10 +100,6 @@ const Project = (param) => {
                             }
                         }
                         setUserList(user_temp);
-                        user_temp.map(function(x) {
-                            // console.log(x);
-                        })
-                   
                     }
                 });
             }
