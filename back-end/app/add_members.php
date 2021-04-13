@@ -3,14 +3,23 @@
 	include ('../db/inc_db_helper.php');
 	$db = new DatabaseHelper('../db/projectmaestro.db');
     $connection = $db->getConn();
-    //Yee
+    // Get project name, redirect otherwise
     session_start();
-    $projectName = $_SESSION['projectName'];
-    //YEe
-    $projectId = $_GET["projectId"];
-    echo $projectId;
-    //Depends on use case, edit if searching only students etc.
+    if(!isset($_SESSION['projectName'])) {
+        header("Location: ../index.php");
+    }
+    $projectName = $_SESSION['projectName']; // Assign
+    // Get project id, redirect otherwise
+    if(!isset($_GET["projectId"])) {
+        header("Location: ../index.php");
+    }
+    $projectId = $_GET["projectId"]; //Assign
+    // Depends on use case, edit if searching only students etc.
     $sql = "SELECT User.UserId, User.UserFName, User.UserLName FROM User";
+    // Check sql query, error if false
+    if(!$connection->query($sql)) {
+        echo "DB not loaded, or " . $sql . " failed.";
+    }
     $userRes =  $connection->query($sql);
 ?>
 <html lang="en">

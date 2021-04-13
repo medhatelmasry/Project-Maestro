@@ -1,5 +1,8 @@
 .tableList {
-    margin:5%;
+    margin-left:5%;
+    margin-right:5%;
+    margin-bottom:2%;
+    margin-top:1%;
     width:85%;
     font-size:calc(1em + .3vw);
     background-color:lightgray;
@@ -20,7 +23,7 @@
 
 .addBtn {
     margin-left:5%;
-    margin-right:3%;
+    text-align:right;
 }
 
 tr {
@@ -40,4 +43,14 @@ h2 {
 
 .createProj {
     font-size:calc(1em + .2vw);
+}
+
+.backBtn {
+    margin-left:5%;
+}
+
+.addedMsg {
+    margin-left:15%;
+    margin-right:15%;
+    margin-top:1%;
 }
