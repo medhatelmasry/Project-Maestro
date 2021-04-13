@@ -9,6 +9,7 @@ import ProjectPage from './pages/ProjectPage';
 import CreateProjectPage from './pages/CreateProjectPage';
 import GoalsPage from './pages/GoalsPage';
 import JoinTeamPage from './pages/JoinTeamPage';
+import CheckToken from './components/CheckToken';
 import NavBar from './NavBar';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -25,6 +26,7 @@ import {
 } from 'react-router-dom';
 
 function App() {
+  CheckToken()
   if (localStorage.getItem("userID") != undefined && localStorage.getItem("authToken") != undefined) {
     return (
       <Router>

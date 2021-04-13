@@ -30,7 +30,7 @@ class CourseList extends Component {
         return (
             <div>
                 <h3>Courses</h3>
-                <table class="table">
+                <table className="table">
                     <thead>
                     </thead>
                     <tbody>

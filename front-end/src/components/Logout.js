@@ -6,6 +6,8 @@ const Logout = () => {
         e.preventDefault();
         localStorage.removeItem("userID");
         localStorage.removeItem("authToken");
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
         window.location.href = "/";
     }
 
