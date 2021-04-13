@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import teamsData from '../data/teams';
-import studentsData from '../data/students';
-import projectsData from '../data/projects';
 import "../pages/styles/BackButton.css";
 
 const Project = (param) => {
     const [user_project, setUserProject] = new useState('');
     const [user_list, setUserList] = new useState([]);
     const outline_id = param.id;
+    // console.log("outline id " + outline_id);
     const user_id = localStorage.getItem("userID");
 
     const checkExistingProject = async () => {
@@ -22,6 +20,7 @@ const Project = (param) => {
         });
         const project_member_response = await get_project_member.json();
         
+        
         const get_project = await fetch(`http://localhost:8888/db/api.php/Project/ProjectOutlineId/` + outline_id, {
         method: 'GET',
         headers: {
@@ -31,18 +30,32 @@ const Project = (param) => {
             }
         });
         const project_response = await get_project.json();
-
+        // console.log(project_member_response);
+        // console.log(project_member_response.length);
+        
+        if (project_member_response.length != undefined) {
         // Filter through all of the Projects, and check if it matches the ProjectId in the ProjectMembers
-        for (let i = 0; i < project_member_response.length; i++) {
-            let proj_memb_pID = project_member_response[i].ProjectId;
+            for (let i = 0; i < project_member_response.length; i++) {
+                // Project ID of the Project Member
+                let proj_memb_pID = project_member_response[i].ProjectId;
+                for (let j = 0; j < project_response.length; j++) {
+                    // Project ID of the Project?
+                    let proj_id = project_response[j].ProjectId;
+                    if (proj_memb_pID == proj_id) {
+                        setUserProject(project_response[j]);
+                        return project_response[j];
+                    } 
+                }
+            }
+
+        } else {
             for (let j = 0; j < project_response.length; j++) {
                 let proj_id = project_response[j].ProjectId;
-                if (proj_memb_pID == proj_id) {
-                    console.log(project_response)
+                if (project_member_response.ProjectId == proj_id) {
                     setUserProject(project_response[j]);
                     return project_response[j];
-                } 
-            }
+                }
+            } 
         }
     }
 
@@ -77,12 +90,13 @@ const Project = (param) => {
     // Get the project associated with the current outline and User
     useEffect(() => {
         checkExistingProject().then(function(proj) {
-            console.log(user_project);
+            // console.log(user_project);
+            // console.log(proj);
             if (proj) {
-                console.log(user_project);
+                // console.log(user_project);
                 // Get all of the project members
                 getUserIdOfMembers(proj.ProjectId).then(function(member_result) {
-                    console.log(member_result);
+                    // console.log(member_result);
                     if (member_result != undefined) {
                         // For all of the Project Members, get the User and put them into a list
                         if (member_result.length == undefined) {
@@ -94,7 +108,7 @@ const Project = (param) => {
                         }
                         setUserList(user_temp);
                         user_temp.map(function(x) {
-                            console.log(x);
+                            // console.log(x);
                         })
                    
                     }
@@ -118,10 +132,6 @@ const Project = (param) => {
                     <Link to={`/outlines/outline/${outline_id}/project/create`}>
                         <button class="btn btn-success">Create a Project</button>
                     </Link>
-                     or 
-                    <Link to={`/outlines/outline/${outline_id}/project/join`}>
-                        <button class="btn btn-success">Join a Team</button>
-                    </Link>
                 </div>
             </>
         )
@@ -132,6 +142,8 @@ const Project = (param) => {
                 <button className="back" onClick={back}>&lt; Outline</button>
                 <div>
                     <h4>Team ID: {user_project.ProjectId}</h4>
+                    <h5>Name: {user_project.ProjectName}</h5>
+                    <h5>Description: {user_project.ProjectDesc}</h5>
                     <h3>Members:</h3>
                     <table class="table">
                         <tbody>
