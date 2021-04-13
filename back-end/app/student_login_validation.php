@@ -55,7 +55,7 @@ if ($num > 0) {
         $audience_claim = "THE_AUDIENCE";
         $issuedat_claim = time(); // issued at
         $notbefore_claim = $issuedat_claim; //not before in seconds
-        $expire_claim = $issuedat_claim + (60 * 10); // 600 seconds (10 minutes) expire time
+        $expire_claim = $issuedat_claim + (13600); // 13600 seconds
         $token = array(
             "iss" => $issuer_claim,
             "aud" => $audience_claim,
