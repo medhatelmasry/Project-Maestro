@@ -20,24 +20,6 @@ class CourseList extends Component {
         }).catch(err => console.log(err));
     }
 
-<<<<<<< HEAD
-    var courses = coursesData;
-    return (
-        <>  
-            <h3>Courses</h3>
-            <table class="table">
-                <tbody>
-                {courses.map((course, key) => (
-                    <tr>
-                        <td id="names">{course.name}</td>
-                        <td><Link key={key} to={`/outlines/${course.id}`}>View</Link></td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-        </>
-    )
-=======
     courseList() {
         return this.state.courses.map(function (object, i) {
             return <RecordsList obj={object} key={i} />;
@@ -48,7 +30,7 @@ class CourseList extends Component {
         return (
             <div>
                 <h3>Courses</h3>
-                <table class="table">
+                <table className="table">
                     <thead>
                     </thead>
                     <tbody>
@@ -58,6 +40,5 @@ class CourseList extends Component {
             </div>
         );
     }
->>>>>>> 1e09d92ec7b83a98002e56de955621965afebe7b
 }
 export default CourseList;

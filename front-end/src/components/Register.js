@@ -70,6 +70,8 @@ const Register = () => {
               if (response.jwt && response.id) {
                   localStorage.setItem("userID", response.id);
                   localStorage.setItem("authToken", response.jwt);
+                  localStorage.setItem("email", email);
+                  localStorage.setItem("password", password);
                   window.location.href = "/";
               }
     }

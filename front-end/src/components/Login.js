@@ -22,6 +22,8 @@ const Login = () => {
                 alert("Student login successful.");
                 localStorage.setItem("userID", response.id);
                 localStorage.setItem("authToken", response.jwt);
+                localStorage.setItem("email", email);
+                localStorage.setItem("password", password);
                 window.location.href = "/";
             } else {
                 alert("Student login failed.");
