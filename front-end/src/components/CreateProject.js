@@ -53,8 +53,12 @@ const CreateProject = (param) => {
             const member_response = await member_result.text();
             if (member_response) {
                 console.log(member_response);
-                let back_url = '/outlines/outline/' + projectOutlineId;
-                return (<Redirect to={back_url} />);
+                let back_url = '/outlines/outline/' + projectOutlineId + "/project";
+                setTimeout(() => {
+                    window.location.href = back_url;
+                }, 1000)
+                
+                // return (<Redirect to={back_url} />);
             }
         }
        
