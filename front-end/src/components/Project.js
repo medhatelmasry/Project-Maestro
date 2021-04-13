@@ -132,10 +132,6 @@ const Project = (param) => {
                     <Link to={`/outlines/outline/${outline_id}/project/create`}>
                         <button class="btn btn-success">Create a Project</button>
                     </Link>
-                     or 
-                    <Link to={`/outlines/outline/${outline_id}/project/join`}>
-                        <button class="btn btn-success">Join a Team</button>
-                    </Link>
                 </div>
             </>
         )
