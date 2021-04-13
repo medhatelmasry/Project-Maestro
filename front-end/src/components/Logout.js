@@ -6,6 +6,11 @@ const Logout = () => {
         e.preventDefault();
         localStorage.removeItem("userID");
         localStorage.removeItem("authToken");
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+        localStorage.removeItem("expireAt");
+
+        console.log(localStorage.getItem("authToken"));
         window.location.href = "/";
     }
 

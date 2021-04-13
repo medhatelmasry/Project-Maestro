@@ -6,8 +6,8 @@ const Login = () => {
     
     const LoginEvent = async (e) => {
         e.preventDefault();
-        const result = await fetch(`https://maestroapp.azurewebsites.net/app/student_login_validation.php`, {
-        //const result = await fetch(`http://localhost:8888/app/student_login_validation.php`, {
+        // const result = await fetch(`https://maestroapp.azurewebsites.net/app/student_login_validation.php`, {
+        const result = await fetch(`http://localhost:8888/app/student_login_validation.php`, {
                 method: 'POST',
                 body: JSON.stringify({
                     email,
@@ -22,6 +22,8 @@ const Login = () => {
                 alert("Student login successful.");
                 localStorage.setItem("userID", response.id);
                 localStorage.setItem("authToken", response.jwt);
+                localStorage.setItem("email", email);
+                localStorage.setItem("password", password);
                 window.location.href = "/";
             } else {
                 alert("Student login failed.");

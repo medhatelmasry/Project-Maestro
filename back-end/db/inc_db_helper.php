@@ -255,16 +255,20 @@
             // echo "insertVal: " . $insertVal . "\n";
             switch ($method) {
                 case 'GET':
-                    $sql = "SELECT * FROM $table WHERE $pk = $key"; 
+                    $sql = "SELECT * FROM $table WHERE $pk = '$key'";
+
+                    if ($key == '') {
+                        $sql = "SELECT * FROM $table";
+                    }
                     break;
                 case 'PUT':
-                    $sql = "UPDATE `$table` SET $updateSet WHERE $pk='$key'"; 
+                    $sql = "UPDATE $table SET '$updateSet' WHERE $pk='$key'"; 
                     break;
                 case 'POST':
-                    $sql = "INSERT INTO `$table` ($insertSet) VALUES ($insertVal)"; 
+                    $sql = "INSERT INTO $table ($insertSet) VALUES ($insertVal)"; 
                     break;
                 case 'DELETE':
-                    $sql = "DELETE FROM `$table` WHERE $pk='$key'"; 
+                    $sql = "DELETE FROM $table WHERE $pk='$key'"; 
                     break;
             }
 

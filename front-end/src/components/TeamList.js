@@ -20,7 +20,6 @@ const TeamList = (param) => {
 
     return (
         <> 
-            <React.Fragment>
             <h3>Teams</h3>
             <button className="back" onClick={back}>&lt; Back</button>
             <table>
@@ -38,7 +37,6 @@ const TeamList = (param) => {
                 ))}
                 </tbody>
             </table>
-            </React.Fragment>
         </>
     )
 }
