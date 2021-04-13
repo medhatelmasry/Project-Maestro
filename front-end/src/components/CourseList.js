@@ -15,9 +15,6 @@ const CourseList = () => {
                 }
             });
             const body = await response.json();
-            console.log(body);
-            console.log(response);
-            console.log(response.data);
             setCourses(body);
         }
         fetchData();
