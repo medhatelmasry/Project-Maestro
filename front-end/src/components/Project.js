@@ -136,15 +136,15 @@ const Project = (param) => {
                     <table class="table">
                         <tbody>
                             <tr>
-                                <td>First Name</td>
-                                <td>Last Name</td>
+                                <td>Full Name</td>
+                                <td>Email</td>
                                 <td>ID</td>
                             </tr>
                             {
                                 user_list.map((user) => (
                                     <tr>
-                                        <td>rrr</td>
                                         <td>{user.UserFName} {user.UserLName}</td>
+                                        <td>{user.UserEmail}</td>
                                         <td>{user.UserId}</td>
                                     </tr>
                                 ))
