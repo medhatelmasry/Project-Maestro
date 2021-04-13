@@ -69,6 +69,9 @@ if ($jwt) {
       #===============================================
       # get columns & values then construct insert & update
       #===============================================
+      $insertSet = '';
+      $insertVal='';
+      $updateSet = '';
       if (isset($input)) {
           // escape the columns and values from the input object
           $columns = preg_replace('/[^a-z0-9_]+/i','',array_keys($input));
@@ -80,9 +83,6 @@ if ($jwt) {
           },array_values($input));
           
           // build the SET part of the SQL command
-          $insertSet = '';
-          $insertVal='';
-          $updateSet = '';
           for ($i=0;$i<count($columns);$i++) {
             $insertSet.=($i>0?',':'').'`'.$columns[$i].'`';
             $insertVal.=($values[$i]===null?'NULL':'"'.$values[$i].'",');
@@ -113,7 +113,9 @@ if ($jwt) {
       #===============================================
       
       if ($method == "GET") {
-        $pk = $request[1];
+        if (count($request) > 1) {
+          $pk = $request[1];
+        }
       }
 
       $sql = $databaseHelper -> getCommandByMethod($method, $table, $key, $pk, $updateSet, $insertSet, $insertVal);
@@ -121,7 +123,7 @@ if ($jwt) {
         echo "<h3>SQL</h3>";
         echo $sql;
       }
-      
+
       #===============================================
       # excecute SQL statement
       #===============================================
