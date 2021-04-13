@@ -79,7 +79,7 @@ $userRes = $connection->query($userSql);
                     echo "</table>\n";
                 ?>
             </div>
-			<button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./add_members.php?projectId=<?php echo $projectId ?>'">Add member</button>
+			<button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./add_members.php?projectId=<?php echo $projectId ?>&crsId=<?php echo $courseId ?>'">Add member</button>
             <button id="viewbtn" class="btn btn-small btn-primary"; onclick="window.location.href='./view_goals.php?projectId=<?php echo $projectId ?>'">View Goals</button>
             <br>
             <br>

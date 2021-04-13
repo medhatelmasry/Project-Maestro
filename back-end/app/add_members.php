@@ -14,8 +14,17 @@
         header("Location: ../index.php");
     }
     $projectId = $_GET["projectId"]; //Assign
+
+    // Get course id, redirect otherwise
+    if(!isset($_GET["crsId"])) {
+        header("Location: ../index.php");
+    }
+    $projectId = $_GET["projectId"]; //Assign
+    $CourseId = $_GET["crsId"];
     // Depends on use case, edit if searching only students etc.
-    $sql = "SELECT User.UserId, User.UserFName, User.UserLName FROM User";
+    $sql = "SELECT User.UserId, User.UserFName, User.UserLName FROM User
+    INNER JOIN CourseList ON User.UserId=CourseList.UserId 
+    WHERE CourseList.CourseId='$CourseId'";
     // Check sql query, error if false
     if(!$connection->query($sql)) {
         echo "DB not loaded, or " . $sql . " failed.";
