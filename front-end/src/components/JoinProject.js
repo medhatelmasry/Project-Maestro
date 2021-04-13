@@ -38,6 +38,9 @@ const JoinProject = (param) => {
                 'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
             }
         })
+        console.log(response);
+        console.log(ProjectId);
+        console.log(UserId);
         back();
     }
     
@@ -45,29 +48,73 @@ const JoinProject = (param) => {
         ShowAllProjects();
     }, []);
 
+    console.log(projectList);
+    console.log(projectList.length);
 
-    return (
-        <> 
-            <h2>Join A Team</h2>
-            <button className="back" onClick={back}>&lt; Projects</button>
-            <table class="table">
-                        <tbody>
-                            <tr>
-                                <td>Project</td>
-                            </tr>
-                            {
-                                projectList.map((project) => (
-                                    <tr>
-                                        <td>{project.ProjectName}</td>
-                                        <td>{project.ProjectDesc}</td>
-                                        <td><button onClick={(e) => JoinTeam(project.ProjectId)}  className="btn btn-primary">Join</button></td>
 
-                                    </tr>
-                                ))
-                            }
-                        </tbody>
-                    </table>
-        </>
-    )
+    if (Array.isArray(projectList)) {
+        if (projectList.length != 0) {
+        return (
+            <> 
+                <h2>Join A Team</h2>
+                <button className="back" onClick={back}>&lt; Projects</button>
+                <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Project</td>
+                                </tr>
+                                {
+                                    projectList.map((project) => (
+                                        <tr>
+                                            <td>{project.ProjectName}</td>
+                                            <td>{project.ProjectDesc}</td>
+                                            <td><button onClick={(e) => JoinTeam(project.ProjectId)}  className="btn btn-primary">Join</button></td>
+    
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </table>
+            </>
+            )} else {
+                return (
+                    <> 
+                        <h2>Join A Team</h2>
+                        <button className="back" onClick={back}>&lt; Projects</button>
+                        <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Project</td>
+                                        </tr>
+                                        <tr>
+                                            <td>No teams available</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                    </>
+                )}
+        } else {
+            return(
+            <> 
+                <h2>Join A Team</h2>
+                <button className="back" onClick={back}>&lt; Projects</button>
+                <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Project</td>
+                                </tr>
+                                {
+                                        <tr>
+                                            <td>{projectList.ProjectName}</td>
+                                            <td>{projectList.ProjectDesc}</td>
+                                            <td><button onClick={(e) => JoinTeam(projectList.ProjectId)}  className="btn btn-primary">Join</button></td>
+                                        </tr>
+                                }
+                            </tbody>
+                        </table>
+            </>
+            )
+        }
 }
+
 export default JoinProject; 
