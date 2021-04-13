@@ -1,7 +1,10 @@
 .tableList {
-    margin:5%;
+    margin-left:5%;
+    margin-right:5%;
+    margin-bottom:2%;
+    margin-top:1%;
     width:85%;
-    font-size:1.5vw;
+    font-size:calc(1em + .3vw);
     background-color:lightgray;
     border-collapse: collapse;
     border-spacing:0 15px;
@@ -20,7 +23,7 @@
 
 .addBtn {
     margin-left:5%;
-    margin-right:3%;
+    text-align:right;
 }
 
 tr {
@@ -32,12 +35,22 @@ td {
 }
 
 h1 {
-    font-size:3vw;
+    font-size:calc(1em + .8vw);
 }
 h2 {
-    font-size:2.5vw;
+    font-size:calc(1em + .4vw);
 }
 
 .createProj {
-    font-size:1.5vw;
+    font-size:calc(1em + .2vw);
+}
+
+.backBtn {
+    margin-left:5%;
+}
+
+.addedMsg {
+    margin-left:15%;
+    margin-right:15%;
+    margin-top:1%;
 }

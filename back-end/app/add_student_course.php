@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<?php 
-//$test = [["Bob","a01111"],["Bill","a02222"],["Galvin","a03333"]]; 
-// include('../db/conn.php');
-//starting the session
-//session_start()//?\;
-$endpoint = 'http://localhost:8000/api.php/Student';
-$response = file_get_contents($endpoint);
-$json = json_decode($response);
+
+<?php
+session_start();
+include_once('../db/inc_db_helper.php');
+if(isset($_SESSION['instructor_id'])){
+    $db = new DatabaseHelper('../db/projectmaestro.db');
+    $connection = $db->getConn();
+    $courseId = $_GET['id']; //gets the course id from viewProjects page
+    $res = $connection->query('SELECT * FROM Student');
 ?>
 <html lang="en">
 
@@ -19,31 +20,61 @@ $json = json_decode($response);
 <body>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
-            <a class="navbar-brand" target="_balnk">Project Maestro</a>
+            <a class="navbar-brand" href="home.php">Project Maestro</a>
+            <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
         </div>
     </nav>
-    <h1 class="courseInfo">Course Name</h1>
+    <div class = "container">
+    <h1 class="courseInfo"><?php echo $courseId?></h1>
     <h2 class="courseInfo">Students</h2>
+    <?php
+    //checking if the session 'deleted' is set. Deleted session is the message if the course was deleted.
+    if(ISSET($_SESSION['addStd'])){
+    ?>
+    <div class="alert alert-success addedMsg"><?php echo $_SESSION['addStd']?></div>
+    <?php
+        unset($_SESSION['addStd']);
+    }
+    ?>
     <div class="col-md-3"></div>
     <table class="tableList">
-        <?php foreach ($json as $item) { ?>
-        <tr">
-            <td>
-                <?php 
-                $getUser = 'http://localhost:8000/api.php/User/'.$item->UserId;
-                $response2 = file_get_contents($getUser);
-                $userJson = json_decode($response2);
-                echo $userJson->UserEmail?>
-            </td>
-            <td class="alignRight">
-                <?php echo $item->StudentId;?>
-                <input type="button" value="Add" class="homebutton addBtn" id="addStd"
-                    onClick="document.location.href='./home.php'" />
-            </td>
-            </tr>
-            <?php } ?>
+        <?php 
+            while ($row = $res->fetchArray()) {
+                echo"<td>";
+                $userId = $row['UserId'];
+                $userRes = $connection->query("SELECT * FROM User WHERE UserId=$userId");
+                while ($row2 = $userRes->fetchArray()) { 
+                    echo $row2["UserFName"];
+                    echo"  ";
+                    echo $row2["UserLName"];
+                } 
+                echo"</td>";
+                echo"<td class='alignRight'>";
+                $stdId = $row['StudentId'];
+                echo"$stdId";
+                echo"<td>";
+                echo"<form action='process_add_std_course.php' method='post'>";
+                echo"<input type='hidden' value='$courseId' name='CourseId' id='CourseId'/>";
+                echo"<input type='hidden' value='$userId' name='UserId' id='Userid'/>";
+                echo"<input type='submit' value='Add' class='btn btn-success addBtn' />";
+                echo"</form>";
+                echo"</td>";
+                echo"</td> </tr>";
+            }
+            ?>
     </table>
+    <a href="viewCourse.php" class="btn btn-small btn-success backBtn">Back</a>
     </div>
+    <?php    
+    } else {
+      $_SESSION['require_login_error'] = "Restricted Access, please login to access.";
+      if (isset($_SESSION['require_login_error'])){
+        header('Location: ../index.php');
+        exit();
+      }
+    }
+     ?>
+     </div>
 </body>
 
 </html>

@@ -37,8 +37,8 @@
                     CourseId VARCHAR(80) NOT NULL PRIMARY KEY,
                     CourseName VARCHAR(80),
                     CourseTerm INTEGER,
-                    InstructorId VARCHAR(80),
-                    FOREIGN KEY (InstructorId) REFERENCES Instructor(InstructorId)
+                    UserId INTEGER,
+                    FOREIGN KEY (UserId) REFERENCES User(UserId)
                 );",
                 "CREATE TABLE IF NOT EXISTS CourseList (
                     CourseListId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -50,29 +50,17 @@
                 "CREATE TABLE IF NOT EXISTS Project (
                     ProjectId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     ProjectName VARCHAR(80),
-                    CourseId VARCHAR(80),
-                    FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
-                );",
-                "CREATE TABLE IF NOT EXISTS ProjectList (
-                    ProjectListId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    ProjectId INTEGER,
-                    UserId INTEGER,
-                    FOREIGN KEY (ProjectId) REFERENCES Project(Project),
-                    FOREIGN KEY (UserId) REFERENCES User(UserId)
-                );",
-                "CREATE TABLE IF NOT EXISTS Team (
-                    TeamId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    TeamName VARCHAR(80),
-                    ProjectId INTEGER,
-                    FOREIGN KEY (ProjectId) REFERENCES Project(Project)
+                    ProjectDesc VARCHAR(255),
+                    ProjectOutlineId VARCHAR(80),
+                    FOREIGN KEY (ProjectOutlineId) REFERENCES ProjectOutline(ProjectOutlineId)
                 );",
                 "CREATE TABLE IF NOT EXISTS Goal (
                     GoalId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                    TeamId VARCHAR(80),
+                    ProjectId VARCHAR(80),
                     GoalDesc VARCHAR(80),
                     GoalStart VARCHAR(80),
                     GoalEnd VARCHAR(80),
-                    FOREIGN KEY (TeamId) REFERENCES Team(TeamId)
+                    FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
                 );",
                 "CREATE TABLE IF NOT EXISTS Student (
                     StudentId VARCHAR(80) NOT NULL PRIMARY KEY,
@@ -80,13 +68,21 @@
                     StudentSet VARCHAR(80),
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
                 );",
-                "CREATE TABLE IF NOT EXISTS TeamMember (
-                    TeamMemberId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                "CREATE TABLE IF NOT EXISTS ProjectMember (
+                    ProjectMemberId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                     ProjectId INTEGER,
                     UserId INTEGER,
-                    TeamMemberRole VARCHAR(80),
                     FOREIGN KEY (UserId) REFERENCES User(UserId)
                     FOREIGN KEY (ProjectId) REFERENCES Project(ProjectId)
+                );",
+                "CREATE TABLE IF NOT EXISTS ProjectOutline (
+                    ProjectOutlineId INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                    CourseId VARCHAR(80),
+                    ProjectOutlineName VARCHAR(255),
+                    ProjectOutlineReq VARCHAR(80),
+                    ProjectOutlineStart VARCHAR(80),
+                    ProjectOutlineEnd VARCHAR(80),
+                    FOREIGN KEY (CourseId) REFERENCES Course(CourseId)
                 );",
             ];
     
@@ -129,12 +125,17 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
+                $password1 = password_hash('password1', PASSWORD_BCRYPT);
+                $password2 = password_hash('password2', PASSWORD_BCRYPT);
+                $password3 = password_hash('password3', PASSWORD_BCRYPT);
+                $password4 = password_hash('password4', PASSWORD_BCRYPT);
+    
                 $SQL_insert_data = "INSERT INTO User (UserEmail, UserFName, UserLName, UserPassword)
                 VALUES 
-                    ('BobBuilder@gmail.com', 'Bob', 'Builder', 'password'),
-                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein', 'abcd1234'),
-                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', 'itsdababyletsgooo'),
-                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', 'cisforcookie')
+                    ('BobBuilder@gmail.com', 'Bob', 'Builder', '$password1'),
+                    ('GalvinKlein@hotmail.com', 'Galvin', 'Klein', '$password2'),
+                    ('MedhatE@my.bcit.ca', 'Medhat', 'Elmasry', '$password3'),
+                    ('jeff@my.bcit.ca', 'Jeff', 'BCIT', '$password4')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -143,22 +144,11 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Project (ProjectName, CourseId)
+                $SQL_insert_data = "INSERT INTO Project (ProjectName, ProjectDesc, ProjectOutlineId)
                 VALUES 
-                ('Project Maestro', 'COMP3975'),
-                ('Hello Fresh', 'COMP3522')
-                ";
-                $this->conn->exec($SQL_insert_data);
-            }
-
-            $rows = $this->conn->query("SELECT COUNT(*) as count FROM ProjectList");
-            $row = $rows->fetchArray();
-            $numRows = $row['count'];
-            if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO ProjectList (ProjectId, UserId)
-                VALUES 
-                ('1', '1'),
-                ('2', '2')
+                ('Project Maestro', 'Project desc 1', '1'),
+                ('Hello Fresh', 'Project desc 2', '2'),
+                ('FAM', 'Project desc 3', '3')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -191,10 +181,10 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, InstructorId)
+                $SQL_insert_data = "INSERT INTO Course (CourseId, CourseName, CourseTerm, UserId)
                 VALUES 
-                ('COMP3975', 'Web/Mobile', '3', 'A08888'),
-                ('COMP3522', 'Python', '3', 'A07777')
+                ('COMP3975', 'Web/Mobile', '3', '3'),
+                ('COMP3522', 'Python', '3', '4')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -211,26 +201,14 @@
                 $this->conn->exec($SQL_insert_data);
             }
 
-            $rows = $this->conn->query("SELECT COUNT(*) as count FROM Team");
+            $rows = $this->conn->query("SELECT COUNT(*) as count FROM ProjectMember");
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Team (TeamName, ProjectId)
+                $SQL_insert_data = "INSERT INTO ProjectMember (ProjectId, UserId)
                 VALUES 
-                ('Team Maestro', '1'),
-                ('Team Alpha', '2')
-                ";
-                $this->conn->exec($SQL_insert_data);
-            }
-
-            $rows = $this->conn->query("SELECT COUNT(*) as count FROM TeamMember");
-            $row = $rows->fetchArray();
-            $numRows = $row['count'];
-            if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO TeamMember (ProjectId, UserId, TeamMemberRole)
-                VALUES 
-                ('1', '1', 'Coder'),
-                ('1', '2', 'Admin')
+                ('1', '1'),
+                ('2', '2')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -239,10 +217,24 @@
             $row = $rows->fetchArray();
             $numRows = $row['count'];
             if ($row['count'] === 0) {
-                $SQL_insert_data = "INSERT INTO Goal (TeamId, GoalDesc, GoalStart, GoalEnd)
+                $SQL_insert_data = "INSERT INTO Goal (ProjectId, GoalDesc, GoalStart, GoalEnd)
                 VALUES 
                 ('1', 'Code Rest API backend for front end team', '2021-03-20', '2021-03-22'),
-                ('2', 'Code UI for Hello Fresh', '2019-12-23', '2020-01-03')
+                ('2', 'Code UI for Hello Fresh', '2019-12-23', '2020-01-03'),
+                ('3', 'Code UI for FAM', '2019-12-23', '2020-01-03')
+                ";
+                $this->conn->exec($SQL_insert_data);
+            }
+
+            $rows = $this->conn->query("SELECT COUNT(*) as count FROM ProjectOutline");
+            $row = $rows->fetchArray();
+            $numRows = $row['count'];
+            if ($row['count'] === 0) {
+                $SQL_insert_data = "INSERT INTO ProjectOutline (CourseId, ProjectOutlineName, ProjectOutlineReq, ProjectOutlineStart, ProjectOutlineEnd)
+                VALUES
+                ('COMP3975', 'Assignment 1', 'Create a system that registers users to a project', '2021-03-18', '2021-04-21'),
+                ('COMP3975', 'Assignment 2', 'Build a website with React.js and PHP', '2021-03-20', '2021-04-17'),
+                ('COMP3522', 'Assignment 1', 'Create FAM using OOP principles', '2021-03-20', '2021-04-17')
                 ";
                 $this->conn->exec($SQL_insert_data);
             }
@@ -254,9 +246,16 @@
          * @return String SQL command
          */
         public function getCommandByMethod($method, $table, $key, $pk, $updateSet, $insertSet, $insertVal) {
+            // echo "method: " . $method . "\n";
+            // echo "table: " . $table . "\n";
+            // echo "key: " . $key . "\n";
+            // echo "pk: " . $pk . "\n";
+            // echo "updateSet: " . $updateSet . "\n";
+            // echo "insertSet: " . $insertSet . "\n";
+            // echo "insertVal: " . $insertVal . "\n";
             switch ($method) {
                 case 'GET':
-                    $sql = "SELECT * FROM `$table`".($key? " WHERE $pk='$key'":''); 
+                    $sql = "SELECT * FROM $table WHERE $pk = $key"; 
                     break;
                 case 'PUT':
                     $sql = "UPDATE `$table` SET $updateSet WHERE $pk='$key'"; 
@@ -287,17 +286,17 @@
          */
         public function getData($table, $pk, $key) {
             $sql = "SELECT * FROM `$table`".($key? " WHERE $pk='$key'":''); 
-            $this->conn->exec($sql);
+            return $this->conn->query($sql);
         }
 
-             /**
+        /**
          * Get data from the database.
          * @param $table insert to which table
          * @param $key
          */
         public function getExists($table, $pk, $key) {
             $sql = "SELECT EXISTS(SELECT 1 FROM '$table' WHERE $pk='$key')";
-            $this->conn->exec($sql);
+            return $this->conn->query($sql);
         }
 
         /**
@@ -348,4 +347,5 @@
             $this->conn->close();
         }
     }
+    
 ?>

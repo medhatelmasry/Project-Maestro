@@ -1,20 +1,27 @@
+<?php 
+include 'database_init.php'; 
+$CourseId = $_GET['crsId'];
+if(isset($_SESSION['instructor_id'])){?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
 		<!-- Bootstrap -->
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+
 	</head>
 <body>
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="../index.php">Project Maestro</a>
+			<a class="navbar-brand" href="home.php">Project Maestro</a>
+			<a class="navbar-brand navbar-right" href="logout.php">Logout</a>
 		</div>
 	</nav>
-	<div class="container-fluid">
+	<div class="container">
+	<a href="check_projects.php?id=<?php echo $CourseId;?>" class="btn btn-small btn-success">Back</a>
 		<form method="POST" action="process_project_outline.php">
 			<div class="form-group">
-				<label for="project_name">Project Name</label>
+				<label for="project_name">Project Outline Name</label>
     			<input type="text" class="form-control" name="project_name" required="required" >
 			</div>
 			<div class="form-group">
@@ -22,28 +29,22 @@
     			<input type="date" name="due_date" class="form-control" required="required"/>
 			</div>
 			<div class="form-group">
-				<label for="description">Description</label>
-    			<textarea class="form-control" placeholder="Leave a description for this project outline" name="description" style="height: 100px"></textarea>
+				<label for="requirement">Requirements</label>
+    			<textarea class="form-control" placeholder="Leave requirements for this project outline" name="requirement" style="height: 100px" required="required"></textarea>
 			</div>
-			<!-- <div class="label-input, form-inline">
-				<div class="col-sm-2">
-					<label>Due Date:</label>
-				</div>
-				<div class="col-sm-8, input">
-					<input type="date" name="due_date" class="form-control" required="required"/>
-				</div>
-			</div>
-			<div class="label-input">
-				<div class="col-sm-2">
-					<label>Description:</label>
-				</div>
-				<div class="">
-  					<textarea class="form-control" placeholder="Leave a description for this project outline" name="description" style="height: 100px"></textarea>
-				</div>
-			</div> -->
-			<!-- <button class="button" name="create_project_outline">Create Project Outline</button> -->
+			<input type="hidden" name="CourseId" value=<?php echo $CourseId;?>/>
 			<button type="submit" name="create_project_outline" class="btn btn-success">Create</button>
-		</form>	
+		</form>
 	</div>
+	<?php	
+	echo $_SESSION['instructor_id'];
+		} else {
+			$_SESSION['require_login_error'] = "Restricted Access, please login to access.";
+			if (isset($_SESSION['require_login_error'])){
+			  header('Location: ../index.php');
+			  exit();
+			}
+		  }
+	?>
 </body>
 </html>
