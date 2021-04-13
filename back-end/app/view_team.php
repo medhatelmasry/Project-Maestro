@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 include ('../db/inc_db_helper.php');
 session_start();
@@ -39,7 +38,7 @@ if(!$connection->query($userSql)) {
 // assign sql query for user data
 $userRes = $connection->query($userSql);
 ?>
-
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
