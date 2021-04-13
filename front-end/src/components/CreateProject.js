@@ -31,10 +31,8 @@ const CreateProject = (param) => {
 
         const response = await result.json();
         if (response) {
-            console.log(response);
             let projectId = response;
             let userID = localStorage.getItem("userID");
-            console.log(userID);
             // Once the Project is made, add the current User as a ProjectMember to this Project
             const member_result = await fetch(`http://localhost:8888/db/api.php/ProjectMember`, {
                 method: 'POST',
@@ -50,7 +48,6 @@ const CreateProject = (param) => {
             })
             const member_response = await member_result.text();
             if (member_response) {
-                console.log(member_response);
                 let back_url = '/outlines/outline/' + projectOutlineId + "/project";
                 setTimeout(() => {
                     window.location.href = back_url;
