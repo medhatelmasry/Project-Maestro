@@ -255,7 +255,11 @@
             // echo "insertVal: " . $insertVal . "\n";
             switch ($method) {
                 case 'GET':
-                    $sql = "SELECT * FROM $table WHERE $pk = $key"; 
+                    $sql = "SELECT * FROM $table WHERE $pk = $key";
+
+                    if ($key == '') {
+                        $sql = "SELECT * FROM $table";
+                    }
                     break;
                 case 'PUT':
                     $sql = "UPDATE `$table` SET $updateSet WHERE $pk='$key'"; 
