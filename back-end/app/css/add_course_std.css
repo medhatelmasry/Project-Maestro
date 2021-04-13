@@ -1,5 +1,8 @@
 .tableList {
-    margin:5%;
+    margin-left:5%;
+    margin-right:5%;
+    margin-bottom:2%;
+    margin-top:1%;
     width:85%;
     font-size:calc(1em + .3vw);
     background-color:lightgray;
