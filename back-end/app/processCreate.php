@@ -10,7 +10,7 @@ if(isset($_SESSION['instructor_id'])){
 
         extract($_POST);
 
-        $CourseID = sanitize_input($CourseID);
+        $CourseID = str_replace(' ', '', sanitize_input($CourseID));
         $CourseName = sanitize_input($CourseName);
         $CourseTerm = sanitize_input($CourseTerm);
         $UserId = $_SESSION['instructor_id'];

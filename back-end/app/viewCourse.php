@@ -3,6 +3,7 @@
     include ('../db/inc_db_helper.php');
     $db = new DatabaseHelper('../db/projectmaestro.db');
     $connection = $db->getConn();
+    if(isset($_SESSION['instructor_id'])){
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +25,6 @@
 <h2>Courses</h2>
 
 <?php
-if(isset($_SESSION['instructor_id'])){
 
     //checking if the session 'created' is set. Created session is the message to see if the course was created.
     if(isset($_SESSION['created'])){
@@ -77,15 +77,15 @@ if(isset($_SESSION['instructor_id'])){
 
 <a href="home.php" class="btn btn-small btn-success">Back</a>
 <a href="createCourse.php" class="btn btn-small btn-success">Add Course</a>
-
-<?php } else {
+        </div>
+    </body>
+</html>
+<?php 
+    } else {
       $_SESSION['require_login_error'] = "Restricted Access, please login to access.";
       if (isset($_SESSION['require_login_error'])){
         header('Location: ../index.php');
         exit();
       }
     }
-    ?>
-        </div>
-    </body>
-</html>
+?>
