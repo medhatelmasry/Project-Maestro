@@ -29,8 +29,8 @@ const Register = () => {
         });
 
         if (jQuery.isEmptyObject(errors)) {
-            const result = await fetch(`https://maestroapp.azurewebsites.net/app/student_registration_validation.php`, {
-            //const result = await fetch(`http://localhost:8888/app/student_registration_validation.php`, {
+            // const result = await fetch(`https://maestroapp.azurewebsites.net/app/student_registration_validation.php`, {
+            const result = await fetch(`http://localhost:8888/app/student_registration_validation.php`, {
                 method: 'POST',
                 body: JSON.stringify({
                 firstName,
@@ -54,8 +54,8 @@ const Register = () => {
     }
 
     const LoginEvent = async () => {
-        const result = await fetch(`https://maestroapp.azurewebsites.net/app/student_login_validation.php`, {
-        //const result = await fetch(`http://localhost:8888/app/student_login_validation.php`, {
+        // const result = await fetch(`https://maestroapp.azurewebsites.net/app/student_login_validation.php`, {
+        const result = await fetch(`http://localhost:8888/app/student_login_validation.php`, {
                 method: 'POST',
                 body: JSON.stringify({
                 email,
