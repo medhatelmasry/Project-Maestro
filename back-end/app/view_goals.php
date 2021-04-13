@@ -1,7 +1,5 @@
-<!DOCTYPE html>
-<?php 
+<?php
 include ('../db/inc_db_helper.php');
-
 session_start();
 // Get project name, redirect to index otherwise
 if(!isset($_SESSION['projectName'])) {
@@ -38,7 +36,7 @@ if(!$connection->query($goalSql)) {
 // Get goal information
 $goalRes = $connection->query($goalSql);
 ?>
-
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>

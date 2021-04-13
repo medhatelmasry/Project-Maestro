@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<?php 
+<?php
 	include ('../db/inc_db_helper.php');
+    session_start();
 	$db = new DatabaseHelper('../db/projectmaestro.db');
     $connection = $db->getConn();
     // Get project name, redirect otherwise
-    session_start();
     if(!isset($_SESSION['projectName'])) {
         header("Location: ../index.php");
     }
@@ -14,14 +13,24 @@
         header("Location: ../index.php");
     }
     $projectId = $_GET["projectId"]; //Assign
+
+    // Get course id, redirect otherwise
+    if(!isset($_GET["crsId"])) {
+        header("Location: ../index.php");
+    }
+    $projectId = $_GET["projectId"]; //Assign
+    $CourseId = $_GET["crsId"];
     // Depends on use case, edit if searching only students etc.
-    $sql = "SELECT User.UserId, User.UserFName, User.UserLName FROM User";
+    $sql = "SELECT User.UserId, User.UserFName, User.UserLName FROM User
+    INNER JOIN CourseList ON User.UserId=CourseList.UserId 
+    WHERE CourseList.CourseId='$CourseId'";
     // Check sql query, error if false
     if(!$connection->query($sql)) {
         echo "DB not loaded, or " . $sql . " failed.";
     }
     $userRes =  $connection->query($sql);
 ?>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>

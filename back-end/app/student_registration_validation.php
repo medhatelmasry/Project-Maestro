@@ -1,13 +1,10 @@
 <?php
 include_once '../db/inc_db_helper.php';
-$db_helper = new DatabaseHelper('../db/projectmaestro.db');
-$db_helper->close();
-?>
-<?php
-session_start();
-ini_set('display_errors', 1);
 include_once '../config/database.php';
 include_once 'cors.php';
+$db_helper = new DatabaseHelper('../db/projectmaestro.db');
+$db_helper->close();
+ini_set('display_errors', 1);
 
 $conn = null;
 $table_name = 'User';

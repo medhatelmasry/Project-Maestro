@@ -1,5 +1,5 @@
-<?php 
-include 'database_init.php'; 
+<?php
+include 'database_init.php';
 $CourseId = $_GET['crsId'];
 if(isset($_SESSION['instructor_id'])){?>
 <!DOCTYPE html>
@@ -36,7 +36,7 @@ if(isset($_SESSION['instructor_id'])){?>
 			<button type="submit" name="create_project_outline" class="btn btn-success">Create</button>
 		</form>
 	</div>
-	<?php	
+	<?php
 	echo $_SESSION['instructor_id'];
 		} else {
 			$_SESSION['require_login_error'] = "Restricted Access, please login to access.";

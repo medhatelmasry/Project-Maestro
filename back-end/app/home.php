@@ -1,7 +1,8 @@
-<?php 
+<?php
 session_start();
 include ('../db/inc_db_helper.php');
 $db = new DatabaseHelper('../db/projectmaestro.db');
+if(isset($_SESSION['instructor_id'])){
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,9 +13,6 @@ $db = new DatabaseHelper('../db/projectmaestro.db');
 		<link rel="stylesheet" type="text/css" href="css/backend_style.css"/>
 	</head>
 	<body>
-		<?php
-			if(isset($_SESSION['instructor_id'])){
-		?>
 		<nav class="navbar navbar-default">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="javascript:window.location.href=window.location.href">Project Maestro</a>
@@ -27,15 +25,15 @@ $db = new DatabaseHelper('../db/projectmaestro.db');
 				<button class="button"; onclick="window.location.href='./createCourse.php'">Create Course</button>
 				<button class="button"; onclick="window.location.href='./viewCourse.php'">View Courses</button> <!-- CHECK TO SEE IF THIS PATH NEEDS TO CHANGE :^) -->
 			</div>
-			<?php	
-				} else {
-					$_SESSION['require_login_error'] = "Restricted Access, please login to access.";
-					if (isset($_SESSION['require_login_error'])){
-						header('Location: ../index.php');
-						exit();
-					}
-				}
-			?>
 		</div>
 	</body>
 </html>
+<?php	
+	} else {
+		$_SESSION['require_login_error'] = "Restricted Access, please login to access.";
+		if (isset($_SESSION['require_login_error'])){
+			header('Location: ../index.php');
+			exit();
+		}
+	}
+?>
