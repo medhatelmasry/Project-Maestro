@@ -92,10 +92,11 @@ const Goals = (param) => {
                     </tr>
                 ))}
                 </tbody>
-            <button className="btn btn-primary" onClick={(e) => createGoal(e)}>Add Goal</button>
             <br /><br />
-            <input type='text' className='form-control' id='goalInput' value={goalInput}
+            <input type='text' placeholder="Set a new goal description here" className='form-control' id='goalInput' value={goalInput}
                             onChange={(event) => setGoalInput(event.target.value)} />
+                            <br />
+                <button className="btn btn-primary" onClick={(e) => createGoal(e)}>Add New Goal</button>
             </table>
         </>
     )
