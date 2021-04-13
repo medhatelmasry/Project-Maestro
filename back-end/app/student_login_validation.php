@@ -54,7 +54,7 @@ if ($num > 0) {
         $issuer_claim = "THE_ISSUER"; // this can be the servername
         $audience_claim = "THE_AUDIENCE";
         $issuedat_claim = time(); // issued at
-        $notbefore_claim = $issuedat_claim + 10; //not before in seconds
+        $notbefore_claim = $issuedat_claim; //not before in seconds
         $expire_claim = $issuedat_claim + (60 * 10); // 600 seconds (10 minutes) expire time
         $token = array(
             "iss" => $issuer_claim,

@@ -1,44 +1,51 @@
-import React, { Component } from 'react';
-import RecordsList from './RecordsList';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-class CourseList extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { courses: [] };
-    }
-    componentDidMount() {
-        fetch("http://localhost:8888/db/api.php/CourseList", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
-            }
-        }).then(response => response.json())
-        .then(data => {
-            this.setState({ courses: data })
-        }).catch(err => console.log(err));
-    }
+const CourseList = () => {
+    const [courses, setCourses] = useState([]);
 
-    courseList() {
-        return this.state.courses.map(function (object, i) {
-            return <RecordsList obj={object} key={i} />;
-        });
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch("http://localhost:8888/db/api.php/CourseList", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer '.concat(localStorage.getItem("authToken"))
+                }
+            });
+            const body = await response.json();
+            console.log(body);
+            console.log(response);
+            console.log(response.data);
+            setCourses(body);
+        }
+        fetchData();
+    }, []);
 
-    render() {
-        return (
+    return (
+        <>
             <div>
                 <h3>Courses</h3>
                 <table className="table">
                     <thead>
                     </thead>
                     <tbody>
-                        { this.courseList() }
+                        {courses.map((item) => (
+                            <tr>
+                                <td>
+                                    {item.CourseId}
+                                </td>
+                                <td>
+                                    <Link to={"/outlines/" + item.CourseListId} className="btn btn-primary">View</Link>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
-        );
-    }
+        </>
+    );
 }
+
 export default CourseList;

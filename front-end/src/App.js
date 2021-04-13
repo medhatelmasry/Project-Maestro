@@ -26,8 +26,8 @@ import {
 } from 'react-router-dom';
 
 function App() {
-  CheckToken()
-  if (localStorage.getItem("userID") != undefined && localStorage.getItem("authToken") != undefined) {
+  CheckToken();
+  if ((new Date().getTime() / 1000) <= localStorage.getItem("expireAt") || localStorage.getItem("authToken") != undefined) {
     return (
       <Router>
         <NavBar />

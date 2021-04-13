@@ -18,6 +18,7 @@ const CheckToken = async () => {
         const response = await result.json();
         if (response.jwt) {
             localStorage.setItem("authToken", response.jwt);
+            localStorage.setItem("expireAt", response.expireAt);
         }
     }
 }
