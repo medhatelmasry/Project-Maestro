@@ -13,7 +13,7 @@ $db = new DatabaseHelper('../db/projectmaestro.db');
 // Connect to db
 $connection = $db->getConn();
 //Get project id, redirect to index otherwise
-if(!$connection->query($_GET["projectId"])) {
+if(!$_GET["projectId"]) {
     header("Location: ../index.php");
 }
 // Assign project id

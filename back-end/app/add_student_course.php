@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <?php
 session_start();
 include_once('../db/inc_db_helper.php');
@@ -23,6 +24,7 @@ if(isset($_SESSION['instructor_id'])){
             <a class="navbar-brand navbar-right" href="logout.php">Logout</a>
         </div>
     </nav>
+    <div class = "container">
     <h1 class="courseInfo"><?php echo $courseId?></h1>
     <h2 class="courseInfo">Students</h2>
     <?php
@@ -72,6 +74,7 @@ if(isset($_SESSION['instructor_id'])){
       }
     }
      ?>
+     </div>
 </body>
 
 </html>

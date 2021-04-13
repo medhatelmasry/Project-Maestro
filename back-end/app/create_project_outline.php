@@ -17,8 +17,8 @@ if(isset($_SESSION['instructor_id'])){?>
 			<a class="navbar-brand navbar-right" href="logout.php">Logout</a>
 		</div>
 	</nav>
-	<a href="check_projects.php?id=<?php echo $CourseId;?>" class="btn btn-small btn-success">Back</a>
 	<div class="container">
+	<a href="check_projects.php?id=<?php echo $CourseId;?>" class="btn btn-small btn-success">Back</a>
 		<form method="POST" action="process_project_outline.php">
 			<div class="form-group">
 				<label for="project_name">Project Outline Name</label>
@@ -37,13 +37,14 @@ if(isset($_SESSION['instructor_id'])){?>
 		</form>
 	</div>
 	<?php	
+	echo $_SESSION['instructor_id'];
 		} else {
 			$_SESSION['require_login_error'] = "Restricted Access, please login to access.";
 			if (isset($_SESSION['require_login_error'])){
-				header('Location: ../index.php');
-					exit();
+			  header('Location: ../index.php');
+			  exit();
 			}
-		}
+		  }
 	?>
 </body>
 </html>
