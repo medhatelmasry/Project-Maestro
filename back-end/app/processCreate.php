@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 include ('../db/inc_db_helper.php');
 include 'sanitize_input.php'; // moved sanitize_input to a separate php file

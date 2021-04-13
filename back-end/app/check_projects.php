@@ -1,4 +1,4 @@
-<?php 
+<?php
 include_once('../db/inc_db_helper.php');
 session_start();
 if(isset($_SESSION['instructor_id'])){

@@ -53,7 +53,7 @@
 			$_SESSION['require_login_error'] = "Restricted Access, please login to access.";
 			if (isset($_SESSION['require_login_error'])){
 				header('Location: ../index.php');
-					exit();
+				exit();
 			}
 		}
 	?>

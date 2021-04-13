@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<?php 
+<?php
 	include ('../db/inc_db_helper.php');
+    session_start();
 	$db = new DatabaseHelper('../db/projectmaestro.db');
     $connection = $db->getConn();
     // Get project name, redirect otherwise
-    session_start();
     if(!isset($_SESSION['projectName'])) {
         header("Location: ../index.php");
     }
@@ -31,6 +30,7 @@
     }
     $userRes =  $connection->query($sql);
 ?>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>

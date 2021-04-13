@@ -1,7 +1,7 @@
 <?php
 include_once('../db/inc_db_helper.php');
-$db = new DatabaseHelper('../db/projectmaestro.db');
 session_start();
+$db = new DatabaseHelper('../db/projectmaestro.db');
 $connection = $db->getConn();
 extract($_POST);
 $insertSet = "CourseId, UserId";

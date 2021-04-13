@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php 
+<?php
 include ('../db/inc_db_helper.php');
 session_start();
 // Get course ID, return to index if not assignmed

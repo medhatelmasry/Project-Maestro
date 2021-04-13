@@ -1,4 +1,4 @@
-<?php 
+<?php
     session_start(); 
     include ('../db/inc_db_helper.php');
     $db = new DatabaseHelper('../db/projectmaestro.db');
@@ -47,7 +47,6 @@ if(isset($_SESSION['instructor_id'])){
     }
 ?>  
 <?php
-
     $id = $_SESSION['instructor_id'];			
     $check_id = "SELECT * FROM Course WHERE UserId = $id";
     $res = $connection->query($check_id);
